@@ -8,9 +8,9 @@ Spectrum Web Components give you professional UI elements that work straight awa
 
 The components follow Adobe's design language, so your blocks look and feel like native Adobe experiences. Better yet, they're web standards-based, meaning no framework lock-in or complex build processes.
 
-## Creating an Enhanced Card Block with Numbered Slides and Modal Overlays
+## Creating an Enhanced Card Block with Numbered Slides and Immersive Modal Overlays
 
-Let's build a sophisticated example - a card component that combines numbered slide functionality with modal overlays for full content display. This component fetches dynamic content from EDS query-index.json endpoints and provides an enhanced user experience similar to modern content management systems. It follows the modern EDS pattern for content-driven applications described in our [Query-Index PRD](json-prd.md).
+Let's build a sophisticated example - a card component that combines numbered slide functionality with immersive full-screen modal overlays for content display. This component fetches dynamic content from EDS query-index.json endpoints and provides a modern, visually striking user experience with glassmorphism effects and hero-style typography. It follows the modern EDS pattern for content-driven applications described in our [Query-Index PRD](json-prd.md).
 
 Here's what the development structure looks like:
 
@@ -79,9 +79,9 @@ slideNumber.style.zIndex = '10';
 slideNumber.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
 ```
 
-### 2. Modal Overlay with Full Content
+### 2. Immersive Modal Overlay with Full Content
 
-Instead of navigating to a new page, clicking "Read More" opens a modal overlay that displays the full content from the `.plain.html` endpoint. This provides a seamless reading experience without losing context.
+Instead of navigating to a new page, clicking "Read More" opens a full-screen immersive modal that displays the content from the `.plain.html` endpoint with stunning visual design. This provides a magazine-style reading experience with background imagery and glassmorphism effects.
 
 ```javascript
 // Fetch plain HTML content for modal display
@@ -109,15 +109,18 @@ async function fetchPlainHtml(path) {
 }
 ```
 
-The modal includes:
+The immersive modal includes:
 
-- **Professional styling** with rounded corners and shadow effects
-- **Header with slide number** and title for context
-- **Close button (X)** for easy dismissal
+- **Full-screen background imagery** using the card's image for visual impact
+- **Glassmorphism design** with translucent elements and backdrop blur effects
+- **Hero typography** with large-scale text and gradient overlays
+- **Slide number badge** with glassmorphism styling in the top-left corner
+- **Glassmorphism close button** for elegant dismissal
 - **Click-outside-to-close** functionality
 - **ESC key support** for keyboard accessibility
-- **Scrollable content area** for long articles
-- **Loading states** while fetching content
+- **Responsive design** that adapts typography and spacing for mobile devices
+- **Cross-browser compatibility** with webkit prefixes for Safari support
+- **Loading states** with elegant feedback during content fetching
 
 ### Data Source Configuration
 

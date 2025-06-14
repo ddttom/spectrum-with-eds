@@ -41,16 +41,19 @@ Each card displays a numbered badge in the top-left corner using Spectrum blue (
 - **Responsive Design**: Adapts to different card sizes
 - **Accessibility**: Screen reader compatible numbering
 
-### Modal Overlay System
+### Immersive Modal Overlay System
 
-Clicking "Read More" opens a professional modal overlay:
+Clicking "Read More" opens a full-screen immersive modal with background imagery:
 
-- **Full Content Display**: Fetches complete `.plain.html` content
-- **Professional Styling**: Spectrum design with shadows and rounded corners
-- **Multiple Close Methods**: X button, click outside, ESC key support
-- **Responsive Layout**: Adapts to different screen sizes (max 800px width, 80vh height)
-- **Loading States**: User feedback during content fetching
-- **Error Handling**: Graceful fallbacks when content is unavailable
+- **Immersive Design**: Full-screen modal with background image from card content
+- **Glassmorphism Effects**: Translucent elements with backdrop blur for modern aesthetics
+- **Hero Layout**: Large typography with gradient overlay for optimal readability
+- **Dynamic Content**: Fetches complete `.plain.html` content and displays as styled text
+- **Multiple Close Methods**: Glassmorphism close button, click outside, ESC key support
+- **Responsive Layout**: Adapts to mobile screens with adjusted typography and spacing
+- **Loading States**: Elegant loading feedback during content fetching
+- **Error Handling**: Graceful fallbacks when content is unavailable</search>
+</search_and_replace>
 
 ### Content Loading Architecture
 
@@ -194,10 +197,12 @@ Modify these values to customize the component's appearance and behavior.
 ### Enhanced User Experience
 
 - **Numbered Slide Badges**: Visual hierarchy with Spectrum blue styling
-- **Modal Overlay System**: In-page content display without navigation
-- **Full Content Loading**: Complete `.plain.html` content in modals
-- **Multiple Close Methods**: X button, click outside, ESC key support
-- **Professional Styling**: Spectrum design system integration
+- **Immersive Modal System**: Full-screen content display with background imagery
+- **Glassmorphism Design**: Modern translucent elements with backdrop blur effects
+- **Hero Typography**: Large-scale text with gradient overlays for impact
+- **Dynamic Content Loading**: Complete `.plain.html` content rendered as styled text
+- **Multiple Close Methods**: Glassmorphism close button, click outside, ESC key support
+- **Cross-browser Compatibility**: Webkit prefixes for Safari support
 
 ### Performance Optimizations
 
@@ -222,7 +227,8 @@ Modify these values to customize the component's appearance and behavior.
 - Mobile-friendly grid layout
 - Flexible card sizing with max-width constraints
 - Touch-friendly interactions
-- Modal overlays adapt to screen size (max 800px width, 80vh height)
+- Immersive modal adapts to screen size (full-screen with responsive typography)
+- Mobile-optimized modal layout with adjusted padding and font sizes
 - Responsive badge positioning
 
 ## Troubleshooting
@@ -245,8 +251,8 @@ Modify these values to customize the component's appearance and behavior.
 
 - Check browser console for JavaScript errors
 - Verify `.plain.html` endpoints are accessible
-- Ensure close icon dependency is loaded (`sp-icon-close`)
 - Check that modal event listeners are properly attached
+- Ensure background images are loading correctly
 
 ### Modal content not loading
 
@@ -254,6 +260,14 @@ Modify these values to customize the component's appearance and behavior.
 - Check that `.plain.html` endpoints return valid HTML
 - Ensure proxy configuration handles content requests
 - Check browser network tab for failed content requests
+- Verify glassmorphism effects are rendering (backdrop-filter support)
+
+### Modal styling issues
+
+- Check browser support for backdrop-filter (webkit prefixes included)
+- Verify background images are accessible and loading
+- Ensure gradient overlays are rendering correctly
+- Check responsive breakpoints for mobile devices
 
 ### Image not displaying
 

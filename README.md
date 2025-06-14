@@ -1,6 +1,6 @@
 # Spectrum Card Component for Adobe Edge Delivery Services
 
-This project demonstrates how to build professional UI components for Adobe Edge Delivery Services (EDS) using Spectrum Web Components - Adobe's design system built on web standards. The component features numbered slide badges and modal overlay functionality for enhanced user experience.
+This project demonstrates how to build professional UI components for Adobe Edge Delivery Services (EDS) using Spectrum Web Components - Adobe's design system built on web standards. The component features numbered slide badges and immersive full-screen modal overlays with glassmorphism effects for a modern, visually striking user experience.
 
 ## Project Structure
 
@@ -114,15 +114,18 @@ EDS automatically calls the component's `decorate` function, which fetches data 
 
 Each card displays a numbered badge in the top-left corner, providing visual hierarchy and slide ordering. The badges use Spectrum blue (#0265DC) with white text for optimal contrast and brand consistency.
 
-### Modal Overlay System
+### Immersive Modal Overlay System
 
-Clicking "Read More" opens a professional modal overlay that:
+Clicking "Read More" opens a full-screen immersive modal that:
 
-- Displays full content from the corresponding `.plain.html` endpoint
-- Includes a header with slide number and title for context
-- Provides multiple close methods (X button, click outside, ESC key)
-- Features scrollable content area for long articles
-- Uses professional Spectrum styling with shadows and rounded corners
+- Displays full content from the corresponding `.plain.html` endpoint with stunning visual design
+- Features background imagery from the card for visual impact
+- Uses glassmorphism design with translucent elements and backdrop blur effects
+- Includes hero-style typography with large-scale text and gradient overlays
+- Provides slide number badge and close button with glassmorphism styling
+- Supports multiple close methods (glassmorphism close button, click outside, ESC key)
+- Adapts responsively to mobile devices with optimized typography and spacing
+- Includes cross-browser compatibility with webkit prefixes for Safari support
 
 ### Content Loading
 
@@ -138,9 +141,12 @@ The component intelligently fetches content from EDS:
 ### Enhanced User Experience
 
 - ✅ **Numbered Slide Badges** - Visual hierarchy indicators with Spectrum blue styling
-- ✅ **Modal Overlay System** - In-page content display without navigation
-- ✅ **Full Content Loading** - Fetches complete `.plain.html` content for modals
-- ✅ **Multiple Close Methods** - X button, click outside, and ESC key support
+- ✅ **Immersive Modal System** - Full-screen content display with background imagery
+- ✅ **Glassmorphism Design** - Modern translucent elements with backdrop blur effects
+- ✅ **Hero Typography** - Large-scale text with gradient overlays for visual impact
+- ✅ **Dynamic Content Loading** - Fetches complete `.plain.html` content rendered as styled text
+- ✅ **Multiple Close Methods** - Glassmorphism close button, click outside, and ESC key support
+- ✅ **Cross-browser Compatibility** - Webkit prefixes for Safari support
 
 ### Technical Excellence
 

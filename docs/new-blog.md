@@ -223,88 +223,110 @@ function createCard(cardData, index) {
 }
 ```
 
-### Modal Overlay System
+### Immersive Modal Overlay System
 
-Implement a professional modal system for content display:
+Implement a full-screen immersive modal system with glassmorphism effects for stunning content display:
 
 ```javascript
 async function showContentModal(cardData, index) {
-  // Create modal overlay with semi-transparent background
+  // Create modal overlay with enhanced backdrop blur
   const overlay = document.createElement('div');
   overlay.className = 'spectrum-card-modal-overlay';
   overlay.style.cssText = `
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.8); z-index: 1000;
     display: flex; align-items: center; justify-content: center;
-    padding: 20px;
+    padding: 20px; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
   `;
 
-  // Create modal content container
+  // Create immersive modal with background image
   const modal = document.createElement('div');
   modal.className = 'spectrum-card-modal';
+  const backgroundImage = cardData.image || 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80';
   modal.style.cssText = `
-    background-color: white; border-radius: 8px;
-    max-width: 800px; max-height: 80vh; width: 100%;
-    position: relative; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    overflow: hidden; display: flex; flex-direction: column;
+    background-image: url(${backgroundImage}); background-size: cover;
+    background-position: center; background-repeat: no-repeat;
+    border-radius: 12px; max-width: 1000px; max-height: 80vh;
+    width: 100%; height: 600px; position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); overflow: hidden;
   `;
 
-  // Add header with slide number and title
-  const header = document.createElement('div');
-  header.style.cssText = `
-    padding: 20px 24px; border-bottom: 1px solid #e0e0e0;
-    display: flex; justify-content: space-between; align-items: center;
-    background-color: #f5f5f5;
+  // Create dark overlay for text readability
+  const darkOverlay = document.createElement('div');
+  darkOverlay.style.cssText = `
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(15, 23, 42, 0.75) 100%);
+    display: flex; flex-direction: column; justify-content: center;
+    align-items: flex-start; padding: 60px; color: white;
   `;
 
-  const titleContainer = document.createElement('div');
-  titleContainer.style.cssText = `
-    display: flex; align-items: center; gap: 12px;
-  `;
-
+  // Create glassmorphism slide number badge
   const slideNumberBadge = document.createElement('div');
   slideNumberBadge.textContent = (index + 1).toString();
   slideNumberBadge.style.cssText = `
-    background-color: #0265DC; color: white; border-radius: 50%;
-    width: 24px; height: 24px; display: flex; align-items: center;
-    justify-content: center; font-size: 12px; font-weight: bold;
+    position: absolute; top: 30px; left: 30px;
+    background-color: rgba(255, 255, 255, 0.2);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    color: white; border-radius: 50%; width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: bold;
+    border: 2px solid rgba(255, 255, 255, 0.3);
   `;
 
-  const title = document.createElement('h2');
+  // Create glassmorphism close button
+  const closeButton = document.createElement('button');
+  closeButton.innerHTML = '×';
+  closeButton.style.cssText = `
+    position: absolute; top: 20px; right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%; width: 40px; height: 40px;
+    color: white; font-size: 24px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s ease;
+  `;
+
+  // Create hero title
+  const title = document.createElement('h1');
   title.textContent = cardData.title || 'Untitled';
   title.style.cssText = `
-    margin: 0; font-size: 1.5rem; font-weight: 600;
+    margin: 0 0 20px 0; font-size: 3.5rem; font-weight: 700;
+    color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    line-height: 1.1;
   `;
 
-  titleContainer.appendChild(slideNumberBadge);
-  titleContainer.appendChild(title);
+  // Create subtitle
+  const subtitle = document.createElement('p');
+  subtitle.textContent = cardData.description || 'No description available';
+  subtitle.style.cssText = `
+    margin: 0 0 30px 0; font-size: 1.25rem; font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    line-height: 1.4; max-width: 600px;
+  `;
 
-  // Create close button with Spectrum icon
-  const closeButton = document.createElement('sp-button');
-  closeButton.setAttribute('treatment', 'outline');
-  closeButton.setAttribute('size', 's');
-  closeButton.setAttribute('quiet', '');
-
-  const closeIcon = document.createElement('sp-icon-close');
-  closeIcon.setAttribute('size', 's');
-  closeButton.appendChild(closeIcon);
-
-  header.appendChild(titleContainer);
-  header.appendChild(closeButton);
-
-  // Create scrollable content area
+  // Create content area for fetched HTML
   const content = document.createElement('div');
   content.className = 'spectrum-card-modal-content';
   content.style.cssText = `
-    padding: 24px; max-height: calc(80vh - 120px);
-    overflow-y: auto; line-height: 1.6;
+    font-size: 1.1rem; line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    max-width: 700px; max-height: 200px; overflow-y: auto;
   `;
 
   // Add loading state
-  content.innerHTML = '<p style="text-align: center; color: #666;">Loading content...</p>';
+  content.innerHTML = '<p style="color: rgba(255, 255, 255, 0.7);">Loading content...</p>';
 
-  modal.appendChild(header);
-  modal.appendChild(content);
+  // Assemble the modal
+  darkOverlay.appendChild(title);
+  darkOverlay.appendChild(subtitle);
+  darkOverlay.appendChild(content);
+  
+  modal.appendChild(darkOverlay);
+  modal.appendChild(slideNumberBadge);
+  modal.appendChild(closeButton);
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
   document.body.style.overflow = 'hidden'; // Prevent background scrolling
@@ -314,6 +336,14 @@ async function showContentModal(cardData, index) {
     document.body.removeChild(overlay);
     document.body.style.overflow = ''; // Restore scrolling
   };
+
+  // Enhanced close button interactions
+  closeButton.addEventListener('mouseenter', () => {
+    closeButton.style.background = 'rgba(255, 255, 255, 0.3)';
+  });
+  closeButton.addEventListener('mouseleave', () => {
+    closeButton.style.background = 'rgba(255, 255, 255, 0.2)';
+  });
 
   // Multiple close methods for better UX
   closeButton.addEventListener('click', closeModal);
@@ -330,18 +360,35 @@ async function showContentModal(cardData, index) {
   };
   document.addEventListener('keydown', handleEscape);
 
-  // Fetch and display full content
+  // Fetch and display full content with enhanced styling
   if (cardData.path) {
     try {
       const html = await fetchPlainHtml(cardData.path);
       if (html) {
-        content.innerHTML = html;
+        // Extract text content and style it for the immersive modal
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        const textContent = tempDiv.textContent || tempDiv.innerText || '';
+        
+        const styledContent = document.createElement('p');
+        styledContent.textContent = textContent;
+        styledContent.style.cssText = `
+          font-size: 1.1rem; line-height: 1.6;
+          color: rgba(255, 255, 255, 0.9);
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+          margin: 0;
+        `;
+        
+        content.innerHTML = '';
+        content.appendChild(styledContent);
       } else {
-        content.innerHTML = '<p style="color: #666;">Content not available.</p>';
+        content.innerHTML = '<p style="color: rgba(255, 255, 255, 0.7); font-style: italic;">Content not available - Unable to load the full content for this slide.</p>';
       }
     } catch (error) {
-      content.innerHTML = '<p style="color: #d73502;">Error loading content.</p>';
+      content.innerHTML = '<p style="color: rgba(255, 255, 255, 0.7); font-style: italic;">Error loading content.</p>';
     }
+  } else {
+    content.innerHTML = '<p style="color: rgba(255, 255, 255, 0.7); font-style: italic;">No content path available</p>';
   }
 }
 ```
