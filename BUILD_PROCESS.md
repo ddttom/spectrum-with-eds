@@ -25,13 +25,13 @@ spectrum-with-eds/
 
 ## Build Process Overview
 
-The build process works with the component developed in `/build/spectrum-card/` and outputs production-ready files to `/blocks/spectrum-card/` for EDS deployment:
+The build process uses Vite to bundle all Spectrum Web Components dependencies and creates browser-ready files for EDS deployment:
 
 1. **Development Source** - `/build/spectrum-card/` contains the source files, testing environment, and development tools
-2. **Testing Environment** - HTML file that mimics EDS behavior for local development
-3. **Development Tools** - Vite configuration for hot reload and optimization
-4. **Build Output** - Optimized files are copied to `/blocks/spectrum-card/` for EDS deployment
-5. **Ephemeral Blocks** - The `/blocks/` directory is the deployment target, not the source
+2. **Dependency Bundling** - Vite bundles all Spectrum Web Components into a single file
+3. **Build Output** - Bundled files are created in `/build/spectrum-card/dist/`
+4. **EDS Deployment** - Bundled files are copied to `/blocks/spectrum-card/` for EDS deployment
+5. **Browser Compatibility** - Bundled files work directly in browsers without module resolution
 
 ## Running the Build
 
@@ -43,10 +43,11 @@ npm run build:component
 
 This script:
 
-- Copies component files from `blocks/spectrum-card/` to `build/spectrum-card/`
-- Updates dependencies in the build package.json
-- Ensures proper directory structure
-- Provides next steps for testing
+- Installs dependencies in `build/spectrum-card/`
+- Runs Vite build to bundle all Spectrum Web Components
+- Creates bundled files in `build/spectrum-card/dist/`
+- Copies bundled files to `blocks/spectrum-card/` for EDS deployment
+- Validates build output and provides testing instructions
 
 ### Manual Build Steps
 
@@ -57,19 +58,20 @@ If you need to understand or customize the build process:
    ```bash
    cd build/spectrum-card
    npm install
-   npm run dev  # For development
+   npm run dev  # For development with hot reload
    ```
 
 2. **Build for Production**
 
    ```bash
-   npm run build  # Creates optimized version
+   npm run build  # Creates bundled files in dist/ directory
    ```
 
-3. **Copy to Blocks Directory**
+3. **Copy Bundled Files to Blocks Directory**
 
    ```bash
-   npm run build:component  # Copies built files to blocks/
+   cd ../..  # Return to project root
+   npm run build:component  # Runs full build + copy process
    ```
 
 The build directory contains:
@@ -171,21 +173,22 @@ Modify these values to customize appearance and behavior.
 
 ### Build Issues
 
-- Ensure source files exist in `blocks/spectrum-card/`
-- Check file permissions for copying
-- Verify Node.js version supports ES modules
+- **Build fails**: Ensure `build/spectrum-card/` directory exists with `package.json` and `vite.config.js`
+- **Dependencies not found**: Run `npm install` in `build/spectrum-card/` directory
+- **Vite build errors**: Check that all Spectrum Web Components are properly imported
+- **File permissions**: Verify write permissions for `blocks/` directory
 
 ### Component Issues
 
-- Check browser console for errors
-- Ensure Spectrum dependencies are loaded
-- Verify theme setup in test.html
+- **Module resolution errors**: Ensure you're using bundled files from `blocks/` directory
+- **Spectrum components not rendering**: Check browser console for import errors
+- **Theme not applied**: Verify Spectrum theme components are bundled correctly
 
 ### EDS Integration Issues
 
-- Confirm block naming matches directory structure
-- Check that decorate function is exported as default
-- Ensure content structure matches expected format
+- **Block not loading**: Confirm `blocks/spectrum-card/spectrum-card.js` contains bundled code (no import statements)
+- **Direct browser testing**: Open `build/spectrum-card/aem.html` directly to test EDS compatibility
+- **CORS errors**: Use development server or ensure proper CORS headers for query-index.json
 
 ## Extending the Process
 

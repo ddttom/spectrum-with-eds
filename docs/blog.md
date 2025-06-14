@@ -40,11 +40,17 @@ npm run dev         # Starts http://localhost:5173
 - **Styles**: `spectrum-card.css` - Component styling  
 - **Test**: `index.html` - Test different query endpoints
 
-### 3. Deploy Changes
+### 3. Build and Deploy Changes
 
 ```bash
-npm run build:component  # Copies to /blocks/ for EDS
+npm run build:component  # Bundles dependencies and copies to /blocks/ for EDS
 ```
+
+This command:
+- Runs `npm install` and `npm run build` in the build directory
+- Bundles all Spectrum Web Components into a single file
+- Copies bundled files to `/blocks/spectrum-card/` for EDS deployment
+- Creates browser-compatible files that work without module resolution
 
 ## The Query-Index Pattern
 
@@ -491,12 +497,32 @@ The beauty of this approach lies in its flexibility. Authors manage content thro
 
 ## Build Process
 
-The project uses a streamlined build process:
+The project uses a streamlined build process with dependency bundling:
 
-1. **Development**: Work in `/build/spectrum-card/` with full Vite tooling
+1. **Development**: Work in `/build/spectrum-card/` with full Vite tooling and hot reload
 2. **Testing**: Hot reload at <http://localhost:5173> with instant feedback
-3. **Building**: `npm run build:component` copies files to `/blocks/` directory
-4. **Deployment**: Copy files from `/blocks/spectrum-card/` to your EDS project
+3. **Building**: `npm run build:component` bundles all Spectrum Web Components and copies to `/blocks/`
+4. **Browser Testing**: Open `build/spectrum-card/aem.html` directly to test EDS compatibility
+5. **Deployment**: Copy bundled files from `/blocks/spectrum-card/` to your EDS project
+
+### Testing Notes
+
+When you open [`aem.html`](../build/spectrum-card/aem.html) directly from the file system, you'll see network errors in the browser console complaining about missing proxy server or CORS issues. **This is expected and actually indicates success!** The errors mean:
+
+- ✅ **Block loaded successfully** - The Spectrum Web Components are rendering
+- ✅ **Build process worked** - No module resolution errors
+- ❌ **Data fetch failed** - Expected when no server is available
+
+### EDS Deployment
+
+To deploy to your EDS project:
+
+1. Copy the contents of `/blocks/spectrum-card/` to your EDS repository
+2. The bundled files will work properly in the EDS environment with live data
+
+### Dependency Bundling
+
+The build process automatically bundles all Spectrum Web Components into a single file, making it compatible with direct browser usage and EDS deployment without requiring module resolution.
 
 The `/build/` directory contains your source code and development environment. The `/blocks/` directory is ephemeral build output, ready for EDS deployment.
 

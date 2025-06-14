@@ -16,11 +16,15 @@ This directory contains the source files for developing the Spectrum Card compon
 2. **Build for Production**
 
    ```bash
-   npm run build  # Optional: create optimized version
-   npm run build:component  # Copy to blocks directory
+   npm run build  # Creates bundled version in dist/
+   npm run build:component  # Bundles dependencies and copies to blocks directory
    ```
 
-   Copies files to `/blocks/spectrum-card/` for EDS deployment.
+   This process:
+   - Bundles all Spectrum Web Components into a single file
+   - Creates browser-compatible files in `dist/` directory
+   - Copies bundled files to `/blocks/spectrum-card/` for EDS deployment
+   - Ensures compatibility with direct browser usage (file:// protocol)
 
 ## Files
 
@@ -242,10 +246,11 @@ Modify these values to customize the component's appearance and behavior.
 
 ### Cards not rendering
 
-- Verify Spectrum dependencies are loaded
+- Verify bundled Spectrum dependencies are loaded (check blocks/spectrum-card.js contains bundled code)
 - Check that `decorate` function is being called
 - Ensure `sp-theme` wrapper is present with `system="spectrum"`
 - Verify numbered badges are positioned correctly
+- Test by opening `aem.html` directly in browser to check EDS compatibility
 
 ### Modal not opening
 

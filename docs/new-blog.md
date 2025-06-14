@@ -32,6 +32,10 @@ mkdir -p build/spectrum-card
 mkdir -p blocks/spectrum-card
 mkdir -p scripts
 mkdir -p docs
+
+### Important Testing Note
+
+When testing the built component by opening `build/spectrum-card/aem.html` directly in your browser, you'll see network errors in the console about missing proxy server or CORS issues. **This is expected and indicates success!** The errors mean the Spectrum Web Components are loading correctly, but data fetching fails without a server - exactly what we want to verify.
 ```
 
 ### Essential Files Structure
@@ -45,7 +49,7 @@ spectrum-with-eds/
 │   ├── package.json               # Dev dependencies & scripts
 │   └── vite.config.js             # Development server config
 ├── blocks/spectrum-card/          # 📦 Built output (ephemeral)
-│   ├── spectrum-card.js           # EDS-ready component
+│   ├── spectrum-card.js           # EDS-ready bundled component
 │   └── spectrum-card.css          # EDS-ready styles
 ├── scripts/
 │   └── build-component.js         # Build automation

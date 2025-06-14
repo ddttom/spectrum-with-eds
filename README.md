@@ -14,7 +14,7 @@ spectrum-with-eds/
 │   ├── vite.config.js             # Development server config
 │   └── README.md                  # Component documentation
 ├── blocks/spectrum-card/          # 📦 Built output (ephemeral)
-│   ├── spectrum-card.js           # EDS-ready component
+│   ├── spectrum-card.js           # EDS-ready bundled component
 │   └── spectrum-card.css          # EDS-ready styles
 ├── docs/
 │   └── blog.md                    # Complete tutorial & documentation
@@ -64,11 +64,17 @@ spectrum-with-eds/
    }
    ```
 
-4. **Deploy Changes**
+4. **Build and Deploy Changes**
 
    ```bash
-   npm run build:component  # Copies to /blocks/ for EDS
+   npm run build:component  # Bundles dependencies and copies to /blocks/ for EDS
    ```
+
+   This command:
+   - Runs Vite build to bundle all Spectrum Web Components
+   - Creates browser-compatible files in `dist/` directory  
+   - Copies bundled files to `/blocks/spectrum-card/` for EDS deployment
+   - Ensures compatibility with direct browser usage (file:// protocol)
 
 ### Development Features
 
@@ -174,6 +180,24 @@ This project demonstrates the integration of:
 4. **Development Best Practices** - Hot reload, testing, documentation
 
 The result is a professional component development workflow that maintains EDS's simplicity while providing sophisticated UI capabilities.
+
+## Testing & Deployment
+
+### Testing the Build
+
+When you open [`build/spectrum-card/aem.html`](build/spectrum-card/aem.html) directly from the file system, you'll see network errors in the browser console about missing proxy server or CORS issues. **This is expected and indicates success!** The errors mean:
+
+- ✅ **Block loaded successfully** - The Spectrum Web Components are rendering
+- ✅ **Build process worked** - No module resolution errors  
+- ❌ **Data fetch failed** - Expected when no server is available
+
+### EDS Deployment
+
+To deploy to your EDS project:
+
+1. Copy the contents of `/blocks/spectrum-card/` to your EDS repository's blocks directory
+2. The bundled files will work properly in the EDS environment with live data
+3. No additional configuration needed - the components are ready to use
 
 ## Browser Support
 
