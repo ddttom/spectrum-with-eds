@@ -1,0 +1,10 @@
+/* Spectrum Card Block Styles */
+.spectrum-card {
+  display: block;
+  margin: 1rem 0;
+}
+
+/* Override any default block styles if needed */
+.spectrum-card sp-card {
+  margin: 0;
+}

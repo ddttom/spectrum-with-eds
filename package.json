@@ -1,0 +1,22 @@
+{
+  "name": "spectrum-with-eds",
+  "version": "1.0.0",
+  "description": "Spectrum Card component for Adobe Edge Delivery Services",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "eslint": "^8.50.0"
+  },
+  "dependencies": {
+    "@spectrum-web-components/theme": "^0.42.4",
+    "@spectrum-web-components/card": "^0.42.4",
+    "@spectrum-web-components/button": "^0.42.4",
+    "@spectrum-web-components/icons-workflow": "^0.42.4"
+  }
+}
