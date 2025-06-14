@@ -17,7 +17,7 @@ The Spectrum Card component transforms simple document content into professional
 
 ## Project Structure
 
-```
+```bash
 spectrum-with-eds/
 ├── blocks/
 │   └── spectrum-card/
@@ -31,13 +31,15 @@ spectrum-with-eds/
 
 ## Installation
 
-1. Clone this repository:
+Clone this repository:
+
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/ddttom/spectrum-with-eds
 cd spectrum-with-eds
 ```
 
-2. Install dependencies:
+Install dependencies:
+
 ```bash
 npm install
 ```
@@ -45,6 +47,7 @@ npm install
 ## Development
 
 Run the development server:
+
 ```bash
 npm run dev
 ```
@@ -54,6 +57,7 @@ This will open the test page where you can see the Spectrum Card components in a
 ## Building
 
 Build the component for production:
+
 ```bash
 npm run build
 ```
@@ -68,12 +72,13 @@ Create a table in your document with the name "spectrum-card":
 
 | spectrum-card |
 |---------------|
-| https://example.com/image.png |
+| <https://example.com/image.png> |
 | Card Title |
 | Card description text |
 | Button Text |
 
 The block expects:
+
 1. Image URL (optional)
 2. Title
 3. Description
@@ -102,14 +107,17 @@ const SPECTRUM_CARD_CONFIG = {
 ## Troubleshooting
 
 **Grey box instead of card?**
+
 - Check that the image URL is valid and accessible
 - Ensure the block structure follows the expected format
 
 **No styles in local testing?**
+
 - Make sure you're importing the theme components
 - Verify the `decorate` function is called on your test blocks
 
 **Console warnings about theme?**
+
 - Always set `system="spectrum"` on your `<sp-theme>` element
 
 ## License
