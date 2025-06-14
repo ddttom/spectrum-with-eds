@@ -8,3 +8,40 @@
 .spectrum-card sp-card {
   margin: 0;
 }
+
+/* Remove bullet points from description paragraphs - comprehensive approach */
+.spectrum-card sp-card [slot="description"] p,
+.spectrum-card sp-card [slot="description"] div,
+.spectrum-card sp-card [slot="description"] * {
+  list-style: none !important;
+  list-style-type: none !important;
+  list-style-image: none !important;
+  list-style-position: outside !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  text-indent: 0 !important;
+}
+
+/* Ensure no pseudo-elements add bullets */
+.spectrum-card sp-card [slot="description"] p::before,
+.spectrum-card sp-card [slot="description"] div::before,
+.spectrum-card sp-card [slot="description"] *::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* Override any inherited list styles */
+.spectrum-card sp-card [slot="description"] {
+  list-style: none !important;
+  list-style-type: none !important;
+}
+
+/* Target any potential list elements */
+.spectrum-card sp-card [slot="description"] ul,
+.spectrum-card sp-card [slot="description"] ol,
+.spectrum-card sp-card [slot="description"] li {
+  list-style: none !important;
+  list-style-type: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}

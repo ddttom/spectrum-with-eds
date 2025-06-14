@@ -12,6 +12,8 @@
     "url": "https://github.com/ddttom/spectrum-with-eds/issues"
   },
   "scripts": {
+    "dev": "cd build/spectrum-card && npm run dev",
+    "build": "node scripts/build-component.js",
     "build:component": "node scripts/build-component.js"
   },
   "devDependencies": {

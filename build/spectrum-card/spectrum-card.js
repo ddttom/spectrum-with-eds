@@ -80,7 +80,16 @@ async function fetchPlainHtml(path) {
     }
     
     const html = await response.text();
-    return html;
+    
+    // Fix relative image paths in the HTML content
+    let fixedHtml = html;
+    
+    // Fix various relative path patterns
+    fixedHtml = fixedHtml.replace(/src="\.\/media\//g, `src="${baseUrl}/media/`);
+    fixedHtml = fixedHtml.replace(/src="media\//g, `src="${baseUrl}/media/`);
+    fixedHtml = fixedHtml.replace(/src="\.\.\/media\//g, `src="${baseUrl}/media/`);
+    
+    return fixedHtml;
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('[spectrum-card] plain HTML fetch error:', error);
@@ -289,12 +298,22 @@ function createCard(cardData, index) {
   const descriptionDiv = document.createElement('div');
   descriptionDiv.setAttribute('slot', 'description');
   
-  // Main description (bold)
+  // Main description (bold) - clean any unwanted formatting
   const mainDesc = document.createElement('p');
   mainDesc.style.fontWeight = 'bold';
   mainDesc.style.margin = '0 0 8px 0';
   mainDesc.style.lineHeight = '1.4';
-  mainDesc.textContent = cardData.description || SPECTRUM_CARD_CONFIG.DEFAULT_DESCRIPTION;
+  
+  // Clean description text by removing bullet points and extra whitespace
+  let cleanDescription = cardData.description || SPECTRUM_CARD_CONFIG.DEFAULT_DESCRIPTION;
+  
+  // Clean description text by removing bullet points and extra whitespace
+  cleanDescription = cleanDescription.replace(/^[•*\-\u2022\u2023\u25E6\u2043\u2219\s]+/, '').trim(); // Remove leading bullets
+  cleanDescription = cleanDescription.replace(/\n[•*\-\u2022\u2023\u25E6\u2043\u2219\s]+/g, '\n').trim(); // Remove bullets after newlines
+  cleanDescription = cleanDescription.replace(/&bull;|&#8226;|&#x2022;/g, '').trim(); // Remove HTML bullet entities
+  cleanDescription = cleanDescription.replace(/^\s*[-*]\s*/, '').trim(); // Remove markdown-style bullets
+  
+  mainDesc.textContent = cleanDescription;
   descriptionDiv.appendChild(mainDesc);
   
   // Supporting text if available
