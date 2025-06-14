@@ -2,23 +2,6 @@
 
 A comprehensive guide to creating dynamic, accessible UI components using Adobe Spectrum Web Components and the EDS query-index.json pattern, with practical examples, troubleshooting, and advanced techniques.
 
-## Table of Contents
-
-1. [Prerequisites and Setup](#prerequisites-and-setup)
-2. [Project Structure and Architecture](#project-structure-and-architecture)
-3. [Step-by-Step Implementation](#step-by-step-implementation)
-4. [Enhanced Features: Numbered Badges and Modals](#enhanced-features)
-5. [Unusual Patterns and Technical Decisions](#unusual-patterns-and-technical-decisions)
-6. [Testing and Debugging](#testing-and-debugging)
-7. [Common Pitfalls and Troubleshooting](#troubleshooting)
-8. [Customization Examples](#customization-examples)
-9. [Performance Optimization](#performance-optimization)
-10. [Accessibility Deep Dive](#accessibility-deep-dive)
-11. [Integration Examples](#integration-examples)
-12. [Advanced Features](#advanced-features)
-13. [Deployment and Production](#deployment-and-production)
-14. [Extension Patterns](#extension-patterns)
-
 ## Prerequisites and Setup
 
 ### Environment Requirements
@@ -53,7 +36,7 @@ mkdir -p docs
 
 ### Essential Files Structure
 
-```
+```bash
 spectrum-with-eds/
 ├── build/spectrum-card/           # 🔧 Development source
 │   ├── spectrum-card.js           # Component source code
@@ -65,12 +48,14 @@ spectrum-with-eds/
 │   ├── spectrum-card.js           # EDS-ready component
 │   └── spectrum-card.css          # EDS-ready styles
 ├── scripts/
-│   ├── aem.js                     # Centralized utilities
-│   ├── scripts.js                 # Main application script
 │   └── build-component.js         # Build automation
-└── docs/
-    └── blog.md                    # Documentation
-```
+├── docs/
+│   ├── blog.md                    # Documentation
+│   └── new-blog.md                # Comprehensive tutorial
+├── package.json                   # Project dependencies
+├── vite.config.js                 # Root Vite configuration
+└── README.md                      # Project overview
+```</search>
 
 ## Project Structure and Architecture
 
