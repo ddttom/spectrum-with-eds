@@ -1,6 +1,6 @@
 # Spectrum Card Component for Adobe Edge Delivery Services
 
-This project demonstrates how to build professional UI components for Adobe Edge Delivery Services (EDS) using Spectrum Web Components - Adobe's design system built on web standards.
+This project demonstrates how to build professional UI components for Adobe Edge Delivery Services (EDS) using Spectrum Web Components - Adobe's design system built on web standards. The component features numbered slide badges and modal overlay functionality for enhanced user experience.
 
 ## Project Structure
 
@@ -72,10 +72,12 @@ spectrum-with-eds/
 
 ### Development Features
 
-- ✅ **Live Preview** - See component as it appears in EDS
-- ✅ **Hot Reload** - Changes update instantly
-- ✅ **Debug Logs** - Component logs in browser console
-- ✅ **Spectrum Integration** - Full Adobe design system
+- ✅ **Live Preview** - See component as it appears in EDS with numbered slides
+- ✅ **Hot Reload** - Changes update instantly without refresh
+- ✅ **Debug Logs** - Component logs fetch and rendering steps, including modal interactions
+- ✅ **Spectrum Integration** - Full Adobe design system with theming and icons
+- ✅ **Modal Testing** - Interactive modal system with real content loading
+- ✅ **Proxy Support** - CORS handling for development with `https://allabout.network`
 
 ### Key Concepts
 
@@ -87,27 +89,68 @@ spectrum-with-eds/
 
 ## Component Usage in EDS
 
-Create a table in your EDS document:
+Create a block in your EDS document:
+
+### Basic Usage (uses default /slides/query-index.json)
 
 ```bash
 | spectrum-card |
 | :---- |
-| https://example.com/image.png |
-| Card Title |
-| Card description text |
-| Button Text |
 ```
 
-EDS automatically transforms this into a fully interactive Spectrum card component.
+### Custom Query Path
+
+```bash
+| spectrum-card |
+| :---- |
+| /custom/query-index.json |
+```
+
+EDS automatically calls the component's `decorate` function, which fetches data from the specified query-index.json endpoint and renders interactive Spectrum cards.
+
+## Enhanced Functionality
+
+### Numbered Slide Badges
+
+Each card displays a numbered badge in the top-left corner, providing visual hierarchy and slide ordering. The badges use Spectrum blue (#0265DC) with white text for optimal contrast and brand consistency.
+
+### Modal Overlay System
+
+Clicking "Read More" opens a professional modal overlay that:
+
+- Displays full content from the corresponding `.plain.html` endpoint
+- Includes a header with slide number and title for context
+- Provides multiple close methods (X button, click outside, ESC key)
+- Features scrollable content area for long articles
+- Uses professional Spectrum styling with shadows and rounded corners
+
+### Content Loading
+
+The component intelligently fetches content from EDS:
+
+- **Card Data**: From `query-index.json` endpoints for card previews
+- **Full Content**: From `.plain.html` endpoints for modal display
+- **Error Handling**: Graceful fallbacks when content is unavailable
+- **Loading States**: User feedback during content fetching
 
 ## Features
 
+### Enhanced User Experience
+
+- ✅ **Numbered Slide Badges** - Visual hierarchy indicators with Spectrum blue styling
+- ✅ **Modal Overlay System** - In-page content display without navigation
+- ✅ **Full Content Loading** - Fetches complete `.plain.html` content for modals
+- ✅ **Multiple Close Methods** - X button, click outside, and ESC key support
+
+### Technical Excellence
+
 - ✅ **Modern JavaScript** - ES Modules, no TypeScript compilation needed
-- ✅ **Spectrum Design System** - Professional Adobe UI components
-- ✅ **Built-in Accessibility** - Keyboard navigation, screen readers, ARIA
+- ✅ **Spectrum Design System** - Professional Adobe UI components with icons
+- ✅ **Built-in Accessibility** - Keyboard navigation, screen readers, ARIA support
 - ✅ **Responsive Design** - Mobile-friendly with CSS custom properties
-- ✅ **Development Tools** - Hot reload, error logging, easy testing
+- ✅ **Development Tools** - Hot reload, error logging, proxy configuration
 - ✅ **Performance Optimized** - Tree-shaking, minimal runtime overhead
+- ✅ **Error Handling** - Graceful fallbacks for network failures and missing content
 
 ## Documentation
 

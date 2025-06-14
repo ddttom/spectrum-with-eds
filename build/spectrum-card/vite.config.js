@@ -6,7 +6,14 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
     open: true,
-    host: true
+    host: true,
+    proxy: {
+      '/slides': {
+        target: 'https://allabout.network',
+        changeOrigin: true,
+        secure: true
+      }
+    }
   },
   build: {
     lib: {
