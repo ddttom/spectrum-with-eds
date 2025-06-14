@@ -12,19 +12,18 @@
     "url": "https://github.com/ddttom/spectrum-with-eds/issues"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "eslint ."
+    "build:component": "node scripts/build-component.js"
   },
   "devDependencies": {
-    "vite": "^5.0.0",
     "eslint": "^8.50.0"
   },
-  "dependencies": {
-    "@spectrum-web-components/theme": "^0.42.4",
-    "@spectrum-web-components/card": "^0.42.4",
-    "@spectrum-web-components/button": "^0.42.4",
-    "@spectrum-web-components/icons-workflow": "^0.42.4"
-  }
+  "keywords": [
+    "spectrum",
+    "web-components",
+    "adobe",
+    "eds",
+    "edge-delivery-services"
+  ],
+  "author": "Tom Cranstoun",
+  "license": "MIT"
 }

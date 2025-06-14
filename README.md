@@ -1,131 +1,139 @@
 # Spectrum Card Component for Adobe Edge Delivery Services
 
-This repository contains a Spectrum Card component built for Adobe Edge Delivery Services (EDS/Franklin), demonstrating how to integrate Adobe Spectrum Web Components with EDS's document-driven approach.
-
-## Overview
-
-The Spectrum Card component transforms simple document content into professional, accessible UI cards using Adobe's design system. Authors can create cards using familiar document editing tools while delivering polished components that match Adobe's design standards.
-
-## Features
-
-- ✅ Professional UI using Adobe Spectrum Web Components
-- ✅ Full accessibility support (keyboard navigation, screen readers)
-- ✅ Responsive design out of the box
-- ✅ Document-driven content management
-- ✅ No framework dependencies
-- ✅ Optimized build with Vite
+This project demonstrates how to build professional UI components for Adobe Edge Delivery Services (EDS) using Spectrum Web Components - Adobe's design system built on web standards.
 
 ## Project Structure
 
 ```bash
 spectrum-with-eds/
-├── blocks/
-│   └── spectrum-card/
-│       ├── spectrum-card.js    # Main component
-│       └── spectrum-card.css    # Component styles
-├── test.html                    # Local testing file
-├── package.json                 # Dependencies
-├── vite.config.js              # Build configuration
-└── README.md                   # This file
+├── build/spectrum-card/           # 🔧 Development source files
+│   ├── spectrum-card.js           # Component source code
+│   ├── spectrum-card.css          # Component styles
+│   ├── index.html                 # Local testing page
+│   ├── package.json               # Dev dependencies & scripts
+│   ├── vite.config.js             # Development server config
+│   └── README.md                  # Component documentation
+├── blocks/spectrum-card/          # 📦 Built output (ephemeral)
+│   ├── spectrum-card.js           # EDS-ready component
+│   └── spectrum-card.css          # EDS-ready styles
+├── docs/
+│   └── blog.md                    # Complete tutorial & documentation
+├── scripts/
+│   └── build-component.js         # Build automation
+└── BUILD_PROCESS.md               # Detailed build documentation
 ```
 
-## Installation
+## Quick Start
 
-Clone this repository:
+### 🚀 How to Develop This Block
+
+1. **Start Development Server**
+
+   ```bash
+   cd build/spectrum-card
+   npm install          # First time only
+   npm run dev         # Starts http://localhost:5173
+   ```
+
+2. **Edit Component Files**
+   - **Logic**: [`build/spectrum-card/spectrum-card.js`](build/spectrum-card/spectrum-card.js) - Query-index.json integration
+   - **Styles**: [`build/spectrum-card/spectrum-card.css`](build/spectrum-card/spectrum-card.css) - Component styling  
+   - **Test**: [`build/spectrum-card/index.html`](build/spectrum-card/index.html) - Test different query endpoints
+
+3. **Query-Index Pattern**
+   This component uses EDS query-index.json endpoints for dynamic content:
+
+   ```javascript
+   // Default endpoint: /slides/query-index.json
+   // Custom endpoint via block content
+   ```
+
+   Expected data format:
+
+   ```json
+   {
+     "data": [
+       {
+         "path": "/slides/slide-1",
+         "title": "Slide Title", 
+         "description": "Slide description",
+         "image": "/slides/image.png",
+         "buttonText": "Learn More"
+       }
+     ]
+   }
+   ```
+
+4. **Deploy Changes**
+
+   ```bash
+   npm run build:component  # Copies to /blocks/ for EDS
+   ```
+
+### Development Features
+
+- ✅ **Live Preview** - See component as it appears in EDS
+- ✅ **Hot Reload** - Changes update instantly
+- ✅ **Debug Logs** - Component logs in browser console
+- ✅ **Spectrum Integration** - Full Adobe design system
+
+### Key Concepts
+
+- **`/build/spectrum-card/`** - Primary development environment with Vite tooling and dependencies
+- **`/blocks/spectrum-card/`** - Build output, ready for EDS deployment (ephemeral, git-ignored)
+- **Root level** - Minimal project coordination, no dependencies needed
+- **Component follows EDS block pattern** - Uses `decorate` function to transform DOM
+- **Spectrum Web Components** - Professional Adobe design system integration
+
+## Component Usage in EDS
+
+Create a table in your EDS document:
 
 ```bash
-git clone https://github.com/ddttom/spectrum-with-eds
-cd spectrum-with-eds
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-## Development
-
-Run the development server:
-
-```bash
-npm run dev
-```
-
-This will open the test page where you can see the Spectrum Card components in action.
-
-## Building
-
-Build the component for production:
-
-```bash
-npm run build
-```
-
-The optimized output will be in the `dist` directory.
-
-## Usage in EDS
-
-### Document Structure
-
-Create a table in your document with the name "spectrum-card":
-
 | spectrum-card |
-|---------------|
-| <https://example.com/image.png> |
+| :---- |
+| https://example.com/image.png |
 | Card Title |
 | Card description text |
 | Button Text |
-
-The block expects:
-
-1. Image URL (optional)
-2. Title
-3. Description
-4. Button text
-
-### Deployment
-
-Deploy the `blocks/spectrum-card` directory to your EDS project's `/blocks/spectrum-card/` path.
-
-## Configuration
-
-You can modify the component configuration in `spectrum-card.js`:
-
-```javascript
-const SPECTRUM_CARD_CONFIG = {
-  CARD_VARIANT: 'quiet',        // Card style variant
-  BUTTON_TREATMENT: 'accent',   // Button style
-  BUTTON_SIZE: 'm',            // Button size
-  MAX_WIDTH: '400px',          // Maximum card width
-  DEFAULT_TITLE: 'Card Title',
-  DEFAULT_DESCRIPTION: 'Card description',
-  DEFAULT_BUTTON_TEXT: 'Action',
-};
 ```
 
-## Troubleshooting
+EDS automatically transforms this into a fully interactive Spectrum card component.
 
-**Grey box instead of card?**
+## Features
 
-- Check that the image URL is valid and accessible
-- Ensure the block structure follows the expected format
+- ✅ **Modern JavaScript** - ES Modules, no TypeScript compilation needed
+- ✅ **Spectrum Design System** - Professional Adobe UI components
+- ✅ **Built-in Accessibility** - Keyboard navigation, screen readers, ARIA
+- ✅ **Responsive Design** - Mobile-friendly with CSS custom properties
+- ✅ **Development Tools** - Hot reload, error logging, easy testing
+- ✅ **Performance Optimized** - Tree-shaking, minimal runtime overhead
 
-**No styles in local testing?**
+## Documentation
 
-- Make sure you're importing the theme components
-- Verify the `decorate` function is called on your test blocks
+- [`docs/blog.md`](docs/blog.md) - Complete tutorial and implementation guide
+- [`BUILD_PROCESS.md`](BUILD_PROCESS.md) - Detailed build process documentation
+- [`build/spectrum-card/README.md`](build/spectrum-card/README.md) - Component-specific docs
 
-**Console warnings about theme?**
+## Architecture
 
-- Always set `system="spectrum"` on your `<sp-theme>` element
+This project demonstrates the integration of:
+
+1. **Adobe Spectrum Web Components** - Professional design system
+2. **Adobe Edge Delivery Services** - Document-first web development
+3. **Modern Web Standards** - ES Modules, Web Components, CSS Custom Properties
+4. **Development Best Practices** - Hot reload, testing, documentation
+
+The result is a professional component development workflow that maintains EDS's simplicity while providing sophisticated UI capabilities.
+
+## Browser Support
+
+Supports all modern browsers with:
+
+- ES Modules
+- Web Components
+- CSS Custom Properties
 
 ## License
 
-This project is licensed under the Apache License 2.0.
-
-## Resources
-
-- [Adobe Spectrum Web Components](https://opensource.adobe.com/spectrum-web-components/)
-- [Adobe Edge Delivery Services](https://www.aem.live/docs/)
-- [EDS Block Development](https://www.aem.live/developer/block-collection)
+MIT

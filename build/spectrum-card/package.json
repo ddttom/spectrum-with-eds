@@ -1,0 +1,36 @@
+{
+  "name": "spectrum-card-build",
+  "version": "1.0.0",
+  "description": "Spectrum Card component build for Adobe Edge Delivery Services",
+  "type": "module",
+  "main": "spectrum-card.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:component": "cd ../.. && npm run build:component",
+    "preview": "vite preview",
+    "test": "vite --open index.html"
+  },
+  "dependencies": {
+    "@spectrum-web-components/theme": "^0.42.4",
+    "@spectrum-web-components/card": "^0.42.4",
+    "@spectrum-web-components/button": "^0.42.4",
+    "@spectrum-web-components/icons-workflow": "^0.42.4"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "proxy": "https://allabout.network",
+  "keywords": [
+    "spectrum",
+    "web-components",
+    "adobe",
+    "eds",
+    "edge-delivery-services",
+    "card",
+    "component",
+    "query-index"
+  ],
+  "author": "Tom Cranstoun",
+  "license": "MIT"
+}
