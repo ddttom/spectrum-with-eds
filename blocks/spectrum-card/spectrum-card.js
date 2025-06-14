@@ -80,7 +80,16 @@ async function fetchPlainHtml(path) {
     }
     
     const html = await response.text();
-    return html;
+    
+    // Fix relative image paths in the HTML content
+    let fixedHtml = html;
+    
+    // Fix various relative path patterns
+    fixedHtml = fixedHtml.replace(/src="\.\/media\//g, `src="${baseUrl}/media/`);
+    fixedHtml = fixedHtml.replace(/src="media\//g, `src="${baseUrl}/media/`);
+    fixedHtml = fixedHtml.replace(/src="\.\.\/media\//g, `src="${baseUrl}/media/`);
+    
+    return fixedHtml;
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('[spectrum-card] plain HTML fetch error:', error);
@@ -98,90 +107,135 @@ function showContentModal(cardData, index) {
   overlay.style.left = '0';
   overlay.style.width = '100%';
   overlay.style.height = '100%';
-  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
   overlay.style.zIndex = '1000';
   overlay.style.display = 'flex';
   overlay.style.alignItems = 'center';
   overlay.style.justifyContent = 'center';
   overlay.style.padding = '20px';
 
-  // Create modal content container
+  // Create modal content container with background image
   const modal = document.createElement('div');
   modal.className = 'spectrum-card-modal';
-  modal.style.backgroundColor = 'white';
-  modal.style.borderRadius = '8px';
-  modal.style.maxWidth = '800px';
+  modal.style.backgroundImage = cardData.image ? `url(${cardData.image})` : 'url(https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80)';
+  modal.style.backgroundSize = 'cover';
+  modal.style.backgroundPosition = 'center';
+  modal.style.backgroundRepeat = 'no-repeat';
+  modal.style.borderRadius = '12px';
+  modal.style.maxWidth = '1000px';
   modal.style.maxHeight = '80vh';
   modal.style.width = '100%';
+  modal.style.height = '600px';
   modal.style.position = 'relative';
-  modal.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+  modal.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.5)';
   modal.style.overflow = 'hidden';
 
-  // Create modal header with close button
-  const header = document.createElement('div');
-  header.style.display = 'flex';
-  header.style.justifyContent = 'space-between';
-  header.style.alignItems = 'center';
-  header.style.padding = '20px 24px';
-  header.style.borderBottom = '1px solid var(--spectrum-global-color-gray-300)';
-  header.style.backgroundColor = 'var(--spectrum-global-color-gray-50)';
+  // Create dark overlay for text readability
+  const darkOverlay = document.createElement('div');
+  darkOverlay.style.position = 'absolute';
+  darkOverlay.style.top = '0';
+  darkOverlay.style.left = '0';
+  darkOverlay.style.width = '100%';
+  darkOverlay.style.height = '100%';
+  darkOverlay.style.background = 'linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(15, 23, 42, 0.75) 100%)';
+  darkOverlay.style.display = 'flex';
+  darkOverlay.style.flexDirection = 'column';
+  darkOverlay.style.justifyContent = 'center';
+  darkOverlay.style.alignItems = 'flex-start';
+  darkOverlay.style.padding = '60px';
+  darkOverlay.style.color = 'white';
 
-  // Add slide number and title
-  const titleContainer = document.createElement('div');
-  titleContainer.style.display = 'flex';
-  titleContainer.style.alignItems = 'center';
-  titleContainer.style.gap = '12px';
-
+  // Create slide number badge
   const slideNumberBadge = document.createElement('div');
   slideNumberBadge.textContent = (index + 1).toString();
-  slideNumberBadge.style.backgroundColor = '#0265DC';
+  slideNumberBadge.style.position = 'absolute';
+  slideNumberBadge.style.top = '30px';
+  slideNumberBadge.style.left = '30px';
+  slideNumberBadge.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+  slideNumberBadge.style.webkitBackdropFilter = 'blur(10px)';
+  slideNumberBadge.style.backdropFilter = 'blur(10px)';
   slideNumberBadge.style.color = 'white';
   slideNumberBadge.style.borderRadius = '50%';
-  slideNumberBadge.style.width = '24px';
-  slideNumberBadge.style.height = '24px';
+  slideNumberBadge.style.width = '40px';
+  slideNumberBadge.style.height = '40px';
   slideNumberBadge.style.display = 'flex';
   slideNumberBadge.style.alignItems = 'center';
   slideNumberBadge.style.justifyContent = 'center';
-  slideNumberBadge.style.fontSize = '12px';
+  slideNumberBadge.style.fontSize = '16px';
   slideNumberBadge.style.fontWeight = 'bold';
-
-  const title = document.createElement('h2');
-  title.textContent = cardData.title || SPECTRUM_CARD_CONFIG.DEFAULT_TITLE;
-  title.style.margin = '0';
-  title.style.fontSize = '1.5rem';
-  title.style.fontWeight = '600';
-
-  titleContainer.appendChild(slideNumberBadge);
-  titleContainer.appendChild(title);
+  slideNumberBadge.style.border = '2px solid rgba(255, 255, 255, 0.3)';
 
   // Create close button
-  const closeButton = document.createElement('sp-button');
-  closeButton.setAttribute('treatment', 'outline');
-  closeButton.setAttribute('size', 's');
-  closeButton.setAttribute('quiet', '');
-  closeButton.style.minWidth = 'auto';
-  closeButton.style.padding = '8px';
+  const closeButton = document.createElement('button');
+  closeButton.innerHTML = '×';
+  closeButton.style.position = 'absolute';
+  closeButton.style.top = '20px';
+  closeButton.style.right = '20px';
+  closeButton.style.background = 'rgba(255, 255, 255, 0.2)';
+  closeButton.style.webkitBackdropFilter = 'blur(10px)';
+  closeButton.style.backdropFilter = 'blur(10px)';
+  closeButton.style.border = '2px solid rgba(255, 255, 255, 0.3)';
+  closeButton.style.borderRadius = '50%';
+  closeButton.style.width = '40px';
+  closeButton.style.height = '40px';
+  closeButton.style.color = 'white';
+  closeButton.style.fontSize = '24px';
+  closeButton.style.cursor = 'pointer';
+  closeButton.style.display = 'flex';
+  closeButton.style.alignItems = 'center';
+  closeButton.style.justifyContent = 'center';
+  closeButton.style.transition = 'all 0.3s ease';
 
-  const closeIcon = document.createElement('sp-icon-close');
-  closeIcon.setAttribute('size', 's');
-  closeButton.appendChild(closeIcon);
+  closeButton.addEventListener('mouseenter', () => {
+    closeButton.style.background = 'rgba(255, 255, 255, 0.3)';
+  });
+  closeButton.addEventListener('mouseleave', () => {
+    closeButton.style.background = 'rgba(255, 255, 255, 0.2)';
+  });
 
-  header.appendChild(titleContainer);
-  header.appendChild(closeButton);
+  // Create title
+  const title = document.createElement('h1');
+  title.textContent = cardData.title || SPECTRUM_CARD_CONFIG.DEFAULT_TITLE;
+  title.style.margin = '0 0 20px 0';
+  title.style.fontSize = '3.5rem';
+  title.style.fontWeight = '700';
+  title.style.color = 'white';
+  title.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)';
+  title.style.lineHeight = '1.1';
 
-  // Create content area
+  // Create subtitle
+  const subtitle = document.createElement('p');
+  subtitle.textContent = cardData.description || SPECTRUM_CARD_CONFIG.DEFAULT_DESCRIPTION;
+  subtitle.style.margin = '0 0 30px 0';
+  subtitle.style.fontSize = '1.25rem';
+  subtitle.style.fontWeight = '500';
+  subtitle.style.color = 'rgba(255, 255, 255, 0.95)';
+  subtitle.style.textShadow = '1px 1px 2px rgba(0, 0, 0, 0.5)';
+  subtitle.style.lineHeight = '1.4';
+  subtitle.style.maxWidth = '600px';
+
+  // Create content area for fetched HTML
   const content = document.createElement('div');
   content.className = 'spectrum-card-modal-content';
-  content.style.padding = '24px';
-  content.style.maxHeight = 'calc(80vh - 120px)';
-  content.style.overflowY = 'auto';
+  content.style.fontSize = '1.1rem';
   content.style.lineHeight = '1.6';
+  content.style.color = 'rgba(255, 255, 255, 0.9)';
+  content.style.textShadow = '1px 1px 2px rgba(0, 0, 0, 0.5)';
+  content.style.maxWidth = '700px';
+  content.style.maxHeight = '200px';
+  content.style.overflowY = 'auto';
 
   // Add loading state
-  content.innerHTML = '<p style="text-align: center; color: var(--spectrum-global-color-gray-600);">Loading content...</p>';
+  content.innerHTML = '<p style="color: rgba(255, 255, 255, 0.7);">Loading content...</p>';
 
-  modal.appendChild(header);
-  modal.appendChild(content);
+  // Assemble the modal
+  darkOverlay.appendChild(title);
+  darkOverlay.appendChild(subtitle);
+  darkOverlay.appendChild(content);
+  
+  modal.appendChild(darkOverlay);
+  modal.appendChild(slideNumberBadge);
+  modal.appendChild(closeButton);
   overlay.appendChild(modal);
 
   // Add to document
@@ -215,21 +269,37 @@ function showContentModal(cardData, index) {
   if (cardData.path) {
     fetchPlainHtml(cardData.path).then(html => {
       if (html) {
-        content.innerHTML = html;
+        // Extract text content from HTML and style it for the modal
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        
+        // Look for specific content patterns or just use the text content
+        const textContent = tempDiv.textContent || tempDiv.innerText || '';
+        
+        // Create a styled paragraph for the content
+        const styledContent = document.createElement('p');
+        styledContent.textContent = textContent;
+        styledContent.style.fontSize = '1.1rem';
+        styledContent.style.lineHeight = '1.6';
+        styledContent.style.color = 'rgba(255, 255, 255, 0.9)';
+        styledContent.style.textShadow = '1px 1px 2px rgba(0, 0, 0, 0.5)';
+        styledContent.style.margin = '0';
+        
+        content.innerHTML = '';
+        content.appendChild(styledContent);
       } else {
         content.innerHTML = `
-          <div style="text-align: center; color: var(--spectrum-global-color-gray-600);">
-            <p>Content not available</p>
-            <p style="font-size: 0.9rem;">Unable to load the full content for this slide.</p>
-          </div>
+          <p style="color: rgba(255, 255, 255, 0.7); font-style: italic;">
+            Content not available - Unable to load the full content for this slide.
+          </p>
         `;
       }
     });
   } else {
     content.innerHTML = `
-      <div style="text-align: center; color: var(--spectrum-global-color-gray-600);">
-        <p>No content path available</p>
-      </div>
+      <p style="color: rgba(255, 255, 255, 0.7); font-style: italic;">
+        No content path available
+      </p>
     `;
   }
 }
@@ -289,12 +359,22 @@ function createCard(cardData, index) {
   const descriptionDiv = document.createElement('div');
   descriptionDiv.setAttribute('slot', 'description');
   
-  // Main description (bold)
+  // Main description (bold) - clean any unwanted formatting
   const mainDesc = document.createElement('p');
   mainDesc.style.fontWeight = 'bold';
   mainDesc.style.margin = '0 0 8px 0';
   mainDesc.style.lineHeight = '1.4';
-  mainDesc.textContent = cardData.description || SPECTRUM_CARD_CONFIG.DEFAULT_DESCRIPTION;
+  
+  // Clean description text by removing bullet points and extra whitespace
+  let cleanDescription = cardData.description || SPECTRUM_CARD_CONFIG.DEFAULT_DESCRIPTION;
+  
+  // Clean description text by removing bullet points and extra whitespace
+  cleanDescription = cleanDescription.replace(/^[\u2022\u2023\u25E6\u2043\u2219\u204C\u204D\u2047\u2048\u2049\u204A\u204B\u25CF\u25CB\u25AA\u25AB\u25A0\u25A1•*\-\s]+/, '').trim();
+  cleanDescription = cleanDescription.replace(/\n[\u2022\u2023\u25E6\u2043\u2219\u204C\u204D\u2047\u2048\u2049\u204A\u204B\u25CF\u25CB\u25AA\u25AB\u25A0\u25A1•*\-\s]+/g, '\n').trim();
+  cleanDescription = cleanDescription.replace(/&bull;|&#8226;|&#x2022;|&#8227;|&#9679;|&#9675;/g, '').trim();
+  cleanDescription = cleanDescription.replace(/^\s*[-*•]\s*/, '').trim();
+  
+  mainDesc.textContent = cleanDescription;
   descriptionDiv.appendChild(mainDesc);
   
   // Supporting text if available
