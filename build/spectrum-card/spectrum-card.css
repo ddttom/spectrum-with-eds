@@ -9,39 +9,60 @@
   margin: 0;
 }
 
-/* Remove bullet points from description paragraphs - comprehensive approach */
-.spectrum-card sp-card [slot="description"] p,
-.spectrum-card sp-card [slot="description"] div,
-.spectrum-card sp-card [slot="description"] * {
+/* NUCLEAR APPROACH: Remove ALL possible bullet points */
+/* Target every possible element and pseudo-element */
+.spectrum-card *,
+.spectrum-card *::before,
+.spectrum-card *::after,
+sp-card *,
+sp-card *::before,
+sp-card *::after {
   list-style: none !important;
   list-style-type: none !important;
   list-style-image: none !important;
   list-style-position: outside !important;
+  content: none !important;
+}
+
+/* Specifically target description slots */
+[slot="description"],
+[slot="description"] *,
+[slot="description"]::before,
+[slot="description"]::after,
+[slot="description"] *::before,
+[slot="description"] *::after {
+  list-style: none !important;
+  list-style-type: none !important;
+  list-style-image: none !important;
+  content: none !important;
+  display: block !important;
   margin-left: 0 !important;
   padding-left: 0 !important;
   text-indent: 0 !important;
 }
 
-/* Ensure no pseudo-elements add bullets */
-.spectrum-card sp-card [slot="description"] p::before,
-.spectrum-card sp-card [slot="description"] div::before,
-.spectrum-card sp-card [slot="description"] *::before {
+/* Override Spectrum Web Components shadow DOM styles */
+sp-card::part(*) {
+  list-style: none !important;
+  list-style-type: none !important;
+}
+
+/* Force override ALL pseudo-elements globally within cards */
+.spectrum-card ::before,
+.spectrum-card ::after {
   content: none !important;
   display: none !important;
 }
 
-/* Override any inherited list styles */
-.spectrum-card sp-card [slot="description"] {
+/* Target specific Spectrum slotted content */
+sp-card::slotted(*) {
   list-style: none !important;
   list-style-type: none !important;
 }
 
-/* Target any potential list elements */
-.spectrum-card sp-card [slot="description"] ul,
-.spectrum-card sp-card [slot="description"] ol,
-.spectrum-card sp-card [slot="description"] li {
+/* Override any inherited styles from parent elements */
+.spectrum-card,
+.spectrum-card * {
   list-style: none !important;
   list-style-type: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
 }

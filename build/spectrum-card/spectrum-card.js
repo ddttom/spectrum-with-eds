@@ -308,10 +308,10 @@ function createCard(cardData, index) {
   let cleanDescription = cardData.description || SPECTRUM_CARD_CONFIG.DEFAULT_DESCRIPTION;
   
   // Clean description text by removing bullet points and extra whitespace
-  cleanDescription = cleanDescription.replace(/^[•*\-\u2022\u2023\u25E6\u2043\u2219\s]+/, '').trim(); // Remove leading bullets
-  cleanDescription = cleanDescription.replace(/\n[•*\-\u2022\u2023\u25E6\u2043\u2219\s]+/g, '\n').trim(); // Remove bullets after newlines
-  cleanDescription = cleanDescription.replace(/&bull;|&#8226;|&#x2022;/g, '').trim(); // Remove HTML bullet entities
-  cleanDescription = cleanDescription.replace(/^\s*[-*]\s*/, '').trim(); // Remove markdown-style bullets
+  cleanDescription = cleanDescription.replace(/^[\u2022\u2023\u25E6\u2043\u2219\u204C\u204D\u2047\u2048\u2049\u204A\u204B\u25CF\u25CB\u25AA\u25AB\u25A0\u25A1•*\-\s]+/, '').trim();
+  cleanDescription = cleanDescription.replace(/\n[\u2022\u2023\u25E6\u2043\u2219\u204C\u204D\u2047\u2048\u2049\u204A\u204B\u25CF\u25CB\u25AA\u25AB\u25A0\u25A1•*\-\s]+/g, '\n').trim();
+  cleanDescription = cleanDescription.replace(/&bull;|&#8226;|&#x2022;|&#8227;|&#9679;|&#9675;/g, '').trim();
+  cleanDescription = cleanDescription.replace(/^\s*[-*•]\s*/, '').trim();
   
   mainDesc.textContent = cleanDescription;
   descriptionDiv.appendChild(mainDesc);
