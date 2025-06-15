@@ -183,13 +183,100 @@ The result is a professional component development workflow that maintains EDS's
 
 ## Testing & Deployment
 
-### Testing the Build
+### AEM Emulation Layer Test Environment
 
-When you open [`build/spectrum-card/aem.html`](build/spectrum-card/aem.html) directly from the file system, you'll see network errors in the browser console about missing proxy server or CORS issues. **This is expected and indicates success!** The errors mean:
+The project includes a sophisticated AEM emulation layer that provides a complete testing environment for EDS components. This system serves local files while seamlessly proxying missing resources from the production environment.
 
-- ✅ **Block loaded successfully** - The Spectrum Web Components are rendering
-- ✅ **Build process worked** - No module resolution errors  
-- ❌ **Data fetch failed** - Expected when no server is available
+#### Architecture Overview
+
+The AEM emulation layer consists of:
+
+1. **Local File Server** - Serves [`aem.html`](aem.html) and all local project files
+2. **Intelligent Proxy System** - Automatically proxies missing files from https://allabout.network
+3. **Development Integration** - Seamless integration with the existing development workflow
+4. **Production Simulation** - Accurately simulates the EDS production environment
+
+#### Running the Test Environment
+
+Start the AEM emulation server:
+
+```bash
+# Using npm script (recommended)
+npm run serve
+
+# Or directly with Node.js
+node server.js
+```
+
+The server will start on http://localhost:3000 and provide:
+
+- 📄 **Main test page**: http://localhost:3000/aem.html
+- 🔗 **Automatic proxy**: Missing files fetched from https://allabout.network
+- 📁 **Local file serving**: All project files served directly
+- 🚀 **Hot development**: Works alongside existing development tools
+
+#### Server Architecture
+
+```javascript
+// Core server functionality
+import { createServer } from 'http';
+import { readFile, access } from 'fs/promises';
+
+// Intelligent file resolution:
+// 1. Check for local file first
+// 2. Serve local file if available
+// 3. Proxy to https://allabout.network if missing
+// 4. Return 404 if both fail
+```
+
+#### Expected Output
+
+When running successfully, you'll see:
+
+```bash
+🚀 Server running at http://localhost:3000
+📁 Serving files from: /path/to/project
+🔗 Proxying missing files to: https://allabout.network
+📄 Main page: http://localhost:3000/aem.html
+```
+
+The server logs show real-time file serving and proxy operations:
+
+```bash
+Request: GET /aem.html
+Serving local file: /path/to/project/aem.html
+Request: GET /scripts/aem.js
+Serving local file: /path/to/project/scripts/aem.js
+Request: GET /slides/query-index.json
+Local file not found, attempting proxy for: /slides/query-index.json
+Proxying request to: https://allabout.network/slides/query-index.json
+```
+
+#### Key Features
+
+- ✅ **Seamless Integration** - Works with existing [`aem.html`](aem.html) test page
+- ✅ **Intelligent Routing** - Local files take precedence over proxy
+- ✅ **Production Accuracy** - Exact simulation of EDS environment
+- ✅ **Development Friendly** - No interference with existing workflows
+- ✅ **Error Handling** - Graceful fallbacks for missing resources
+- ✅ **MIME Type Support** - Proper content types for all file formats
+- ✅ **CORS Handling** - Automatic CORS resolution for external resources
+
+#### Troubleshooting
+
+**Server won't start:**
+- Check if port 3000 is available
+- Use `PORT=3001 node server.js` for alternative port
+
+**Files not loading:**
+- Verify file paths are relative to project root
+- Check browser console for specific error messages
+- Ensure https://allabout.network is accessible
+
+**Proxy not working:**
+- Confirm internet connectivity
+- Check if target URLs exist on https://allabout.network
+- Review server logs for proxy error messages
 
 ### EDS Deployment
 

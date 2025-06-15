@@ -14,7 +14,9 @@
   "scripts": {
     "dev": "cd build/spectrum-card && npm run dev",
     "build": "node scripts/build-component.js",
-    "build:component": "node scripts/build-component.js"
+    "build:component": "node scripts/build-component.js",
+    "serve": "node server.js",
+    "start": "node server.js"
   },
   "devDependencies": {
     "eslint": "^8.50.0"

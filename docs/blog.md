@@ -505,13 +505,26 @@ The project uses a streamlined build process with dependency bundling:
 4. **Browser Testing**: Open `build/spectrum-card/aem.html` directly to test EDS compatibility
 5. **Deployment**: Copy bundled files from `/blocks/spectrum-card/` to your EDS project
 
-### Testing Notes
+### AEM Emulation Layer Testing
 
-When you open [`aem.html`](../build/spectrum-card/aem.html) directly from the file system, you'll see network errors in the browser console complaining about missing proxy server or CORS issues. **This is expected and actually indicates success!** The errors mean:
+The project includes a sophisticated AEM emulation layer that provides a complete testing environment for EDS components. This system eliminates the need for manual file system testing and provides a production-accurate development experience.
 
-- ✅ **Block loaded successfully** - The Spectrum Web Components are rendering
-- ✅ **Build process worked** - No module resolution errors
-- ❌ **Data fetch failed** - Expected when no server is available
+#### Starting the Test Environment
+
+```bash
+# Start the AEM emulation server
+npm run serve
+
+# Or use Node.js directly
+node server.js
+```
+
+The server provides:
+
+- ✅ **Complete Environment Simulation** - Accurate EDS production behavior
+- ✅ **Local File Priority** - Serves project files directly for fast development
+- ✅ **Intelligent Proxy** - Automatically fetches missing resources from https://allabout.network
+- ✅ **Real-time Logging** - Detailed request/response information for debugging
 
 ### EDS Deployment
 
