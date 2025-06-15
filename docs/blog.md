@@ -400,22 +400,69 @@ The development environment includes hot reload and live preview. The `index.htm
 </html>
 ```
 
-### Development Configuration
+### AEM Emulation Layer Implementation
 
-The component includes proxy configuration for development to handle CORS:
+The project includes a comprehensive AEM emulation layer built with Node.js that provides a production-accurate testing environment:
 
-```json
-{
-  "proxy": "https://allabout.network"
+```javascript
+// server.js - Core emulation layer implementation
+import { createServer } from 'http';
+import { readFile, access } from 'fs/promises';
+import { join, extname } from 'path';
+
+const PORT = process.env.PORT || 3000;
+const PROXY_HOST = 'https://allabout.network';
+
+// Intelligent file resolution strategy
+async function handleRequest(req, res) {
+  const url = req.url === '/' ? '/aem.html' : req.url;
+  const filePath = join(__dirname, url.startsWith('/') ? url.slice(1) : url);
+  
+  // 1. Try to serve local file first
+  if (await fileExists(filePath)) {
+    console.log(`Serving local file: ${filePath}`);
+    await serveLocalFile(filePath, res);
+    return;
+  }
+  
+  // 2. Proxy to production environment if local file missing
+  console.log(`Proxying request to: ${PROXY_HOST}${url}`);
+  await proxyRequest(url, res);
 }
+```
+
+#### Key Architecture Features
+
+- **Local File Priority**: Always serves project files directly for fast development
+- **Intelligent Proxy**: Automatically fetches missing resources from production
+- **MIME Type Support**: Proper content types for all file formats (JS, CSS, images, fonts)
+- **Error Handling**: Graceful fallbacks with detailed logging
+- **Development Integration**: Works seamlessly with existing development tools
+
+#### Server Configuration
+
+The emulation layer supports comprehensive MIME type handling:
+
+```javascript
+const mimeTypes = {
+  '.html': 'text/html',
+  '.js': 'application/javascript',
+  '.css': 'text/css',
+  '.json': 'application/json',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.svg': 'image/svg+xml',
+  '.woff2': 'font/woff2',
+  '.ttf': 'font/ttf'
+};
 ```
 
 This configuration:
 
-- Forwards API requests to your EDS instance during development
-- Prevents CORS issues by making requests appear same-origin
-- Only affects development environment
-- Production deployments use direct relative paths
+- Eliminates CORS issues through intelligent proxying
+- Provides accurate production environment simulation
+- Supports all EDS file types and formats
+- Enables real-time development with live data
 
 ### Vite Configuration
 

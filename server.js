@@ -63,23 +63,57 @@ async function proxyRequest(url, res) {
     const proxyUrl = `${PROXY_HOST}${url}`;
     console.log(`Proxying request to: ${proxyUrl}`);
     
-    const response = await fetch(proxyUrl);
+    const response = await fetch(proxyUrl, {
+      method: 'GET',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; EDS-Emulation-Layer/1.0)',
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive'
+      }
+    });
+    
+    console.log(`Proxy response status: ${response.status} ${response.statusText}`);
+    console.log('Proxy response headers:', Object.fromEntries(response.headers.entries()));
     
     if (!response.ok) {
+      console.error(`Proxy request failed: ${response.status} ${response.statusText}`);
+      console.error(`Failed URL: ${proxyUrl}`);
       throw new Error(`Proxy request failed: ${response.status} ${response.statusText}`);
     }
     
     const contentType = response.headers.get('content-type') || 'application/octet-stream';
-    const content = await response.arrayBuffer();
+    console.log(`Proxy content type: ${contentType}`);
+    
+    // Handle different content types appropriately
+    let content;
+    if (contentType.includes('text/') || contentType.includes('application/json') || contentType.includes('application/javascript')) {
+      content = await response.text();
+      console.log(`Proxy content length (text): ${content.length} characters`);
+    } else {
+      content = await response.arrayBuffer();
+      console.log(`Proxy content length (binary): ${content.byteLength} bytes`);
+    }
     
     res.writeHead(200, {
       'Content-Type': contentType,
-      'Cache-Control': 'no-cache'
+      'Cache-Control': 'no-cache',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization'
     });
-    res.end(Buffer.from(content));
+    
+    if (typeof content === 'string') {
+      res.end(content);
+    } else {
+      res.end(Buffer.from(content));
+    }
+    
+    console.log(`✅ Successfully proxied: ${url}`);
     return true;
   } catch (error) {
-    console.error(`Error proxying request for ${url}:`, error.message);
+    console.error(`❌ Error proxying request for ${url}:`, error.message);
+    console.error('Full error:', error);
     return false;
   }
 }
@@ -112,6 +146,7 @@ async function handleRequest(req, res) {
         <body>
           <h1>404 Not Found</h1>
           <p>The requested resource <code>${url}</code> was not found locally or on the proxy server.</p>
+          <p>Attempted proxy URL: <code>${PROXY_HOST}${url}</code></p>
         </body>
       </html>
     `);
