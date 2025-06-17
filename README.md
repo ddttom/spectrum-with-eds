@@ -229,7 +229,7 @@ Access your test at: `http://localhost:3000/blocks/your-block-name/test.html`
 - ✅ **Dynamic Content Testing** - Interactive testing with content manipulation
 - ✅ **Error Debugging** - Comprehensive error identification and resolution
 
-### Documentation
+### Debug Guide
 
 See [`docs/debug.md`](docs/debug.md) for the complete block debugging guide, including:
 
@@ -250,7 +250,7 @@ The project includes a sophisticated AEM emulation layer that provides a complet
 The AEM emulation layer consists of:
 
 1. **Local File Server** - Serves [`aem.html`](aem.html) and all local project files
-2. **Intelligent Proxy System** - Automatically proxies missing files from https://allabout.network
+2. **Intelligent Proxy System** - Automatically proxies missing files from <https://allabout.network>
 3. **Development Integration** - Seamless integration with the existing development workflow
 4. **Production Simulation** - Accurately simulates the EDS production environment
 
@@ -266,10 +266,10 @@ npm run serve
 node server.js
 ```
 
-The server will start on http://localhost:3000 and provide:
+The server will start on <http://localhost:3000> and provide:
 
-- 📄 **Main test page**: http://localhost:3000/aem.html
-- 🔗 **Automatic proxy**: Missing files fetched from https://allabout.network
+- 📄 **Main test page**: <http://localhost:3000/aem.html>
+- 🔗 **Automatic proxy**: Missing files fetched from <https://allabout.network>
 - 📁 **Local file serving**: All project files served directly
 - 🚀 **Hot development**: Works alongside existing development tools
 
@@ -310,7 +310,7 @@ Local file not found, attempting proxy for: /slides/query-index.json
 Proxying request to: https://allabout.network/slides/query-index.json
 ```
 
-#### Key Features
+#### Server Features
 
 - ✅ **Seamless Integration** - Works with existing [`aem.html`](aem.html) test page
 - ✅ **Intelligent Routing** - Local files take precedence over proxy
@@ -323,17 +323,20 @@ Proxying request to: https://allabout.network/slides/query-index.json
 #### Troubleshooting
 
 **Server won't start:**
+
 - Check if port 3000 is available
 - Use `PORT=3001 node server.js` for alternative port
 
 **Files not loading:**
+
 - Verify file paths are relative to project root
 - Check browser console for specific error messages
-- Ensure https://allabout.network is accessible
+- Ensure <https://allabout.network> is accessible
 
 **Proxy not working:**
+
 - Confirm internet connectivity
-- Check if target URLs exist on https://allabout.network
+- Check if target URLs exist on <https://allabout.network>
 - Review server logs for proxy error messages
 
 ### EDS Deployment

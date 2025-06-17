@@ -36,7 +36,7 @@ When developing blocks for EDS, it's recommended to use configuration constants 
   `// Content thresholds`  
   `MAX_ITEMS: 12,`  
   `LONG_DOCUMENT_THRESHOLD: 40,`  
-  `SUMMARY_LENGTH: 150,` 
+  `SUMMARY_LENGTH: 150,`
 
   `// Content labels`
 
@@ -51,7 +51,7 @@ When developing blocks for EDS, it's recommended to use configuration constants 
 
   `API_ENDPOINT: '/query-index.json',`  
   `CONTENT_ENDPOINT: '/content/pages.json',`  
-    
+
   `// Feature toggles`  
   `ENABLE_TRACKING: true,`  
   `SHOW_TIMESTAMPS: true`  
@@ -179,7 +179,6 @@ For event handling, use this pattern to maintain clean separation and avoid memo
   `button.textContent = 'Click me';`  
   `button.className = 'action-button';`  
   
-
   `// Define handler functions separately for clarity`
 
   `function handleClick(event) {`  
@@ -224,7 +223,6 @@ Define configuration through CSS variables to create consistent, flexible themin
   `--color-border: #e1e1e1;`  
   `--color-error: #d7373f;`  
   `--color-success: #268e6c;`  
- 
 
   `/* Typography */`
 
@@ -236,7 +234,6 @@ Define configuration through CSS variables to create consistent, flexible themin
   `--line-height-normal: 1.5;`  
   `--line-height-loose: 1.8;`  
   
-
   `/* Spacing system */`
 
   `--spacing-xs: 4px;`  
@@ -245,8 +242,6 @@ Define configuration through CSS variables to create consistent, flexible themin
   `--spacing-l: 24px;`  
   `--spacing-xl: 32px;`  
   `--spacing-xxl: 48px;`
-
- 
 
   `/* UI elements */`
 
@@ -257,15 +252,11 @@ Define configuration through CSS variables to create consistent, flexible themin
   `--shadow-medium: 0 4px 6px rgba(0,0,0,0.12);`  
   `--shadow-large: 0 10px 20px rgba(0,0,0,0.12);`
 
-  
-
   `/* Transitions */`
 
   `--transition-fast: 0.15s ease;`  
   `--transition-normal: 0.3s ease;`  
   `--transition-slow: 0.5s ease;`
-
-  
 
   `/* Layout */`
 
@@ -495,10 +486,10 @@ For complex JavaScript functions, use JSDoc-style comments:
 `/**`
 
  `* Processes a collection of content items and generates HTML elements`  
- `*`   
- `* This function takes raw data from the query index, filters based on`   
+ `*`
+ `* This function takes raw data from the query index, filters based on`
  `* the provided criteria, and creates DOM elements for each item.`  
- `*`   
+ `*`
  `* @param {Array} items - Collection of content items from query index`  
  `* @param {Object} options - Configuration options`  
  `* @param {number} options.limit - Maximum number of items to display`  
@@ -515,7 +506,7 @@ For CSS, include section comments to organize your stylesheet:
 
 `/* ---------------------------------------------------------------------`  
  `* CARD COMPONENT`  
- `*`   
+ `*`
  `* Core styles for card components including base layout, variations,`  
  `* and responsive behaviors.`  
  `* --------------------------------------------------------------------*/`
@@ -607,7 +598,7 @@ For CSS, include section comments to organize your stylesheet:
   `setTimeout(func, delay);`  
 `}`
 
-`// Usage`
+`// Usage Example`
 
 `delayFunction(() => {`  
   `// Initialize non-critical features`  
@@ -630,15 +621,12 @@ A clean pattern for implementing analytics without modifying core files:
     `return;`  
   `}`
 
-  
-
   `// Create script element with async loading`  
   `const script = document.createElement('script');`  
   `script.async = true;`  
   `script.src = 'https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X';`  
   `document.head.appendChild(script);`  
   
-
   `// Initialize analytics`
 
   `window.dataLayer = window.dataLayer || [];`  
@@ -650,7 +638,6 @@ A clean pattern for implementing analytics without modifying core files:
     `'page_path': window.location.pathname`  
   `});`
 
-    
   `// Add custom event tracking with event delegation`
 
   `document.addEventListener('click', e => {`  
@@ -702,7 +689,7 @@ A reusable block for implementing cookie consent:
     `acceptText: 'Accept',`  
     `declineText: 'Decline'`  
   `};`  
-    
+
   `// Only show if consent not yet given`  
   `if (getCookie(config.cookieName)) {`  
     `return;`  
@@ -713,7 +700,7 @@ A reusable block for implementing cookie consent:
   ``banner.className = `cookie-consent-banner ${config.position}`;``  
   `` banner.innerHTML = ` ``  
     `<div class="cookie-content">`  
-      `<p>${config.text}`   
+      `<p>${config.text}`
       `<a href="${config.learnMoreUrl}">${config.learnMoreText}</a></p>`  
       `<div class="cookie-buttons">`  
         `<button class="accept-button">${config.acceptText}</button>`  
@@ -727,7 +714,7 @@ A reusable block for implementing cookie consent:
     `setCookie(config.cookieName, 'accepted', config.cookieExpiry);`  
     `banner.remove();`  
     `enableTracking();`  
-  `});`   
+  `});`
   `banner.querySelector('.decline-button').addEventListener('click', () => {`  
     `setCookie(config.cookieName, 'declined', config.cookieExpiry);`  
     `banner.remove();`  
@@ -753,7 +740,7 @@ A reusable block for implementing cookie consent:
     `}`  
     `return null;`  
   `}`  
-   
+
   `function enableTracking() {`
 
     `// Load analytics and other tracking scripts`  
@@ -781,13 +768,11 @@ A reusable block for implementing simple personalization:
     `timestamp: Date.now(),`  
   `});`
 
-    
   `// Limit history length`  
   `if (userProfile.pageVisits.length > 20) {`  
     `userProfile.pageVisits = userProfile.pageVisits.slice(-20);`  
   `}`
 
-    
   `// Determine interests based on page visits`  
   `const interests = determineInterests(userProfile.pageVisits);`  
   `userProfile.interests = interests;`
@@ -812,7 +797,6 @@ A reusable block for implementing simple personalization:
       `blog: ['/blog/', '/articles/', '/news/'],`  
       `support: ['/support/', '/help/', '/faq/']`  
     `};`  
-   
 
     `// Count visits in each category`  
     `pageVisits.forEach(visit => {`  
@@ -831,7 +815,6 @@ A reusable block for implementing simple personalization:
     `return interests;`  
   `}`  
   
-
   `/**`  
    `* Creates personalized content based on user profile`  
    `* @param {HTMLElement} container - Element to populate`  
@@ -840,7 +823,7 @@ A reusable block for implementing simple personalization:
 
   `function personalizeContent(container, profile) {`  
     `// Clear container`  
-    `container.textContent = '';`    
+    `container.textContent = '';`
     `// Create personalized content heading`  
     `const heading = document.createElement('h2');`
 
