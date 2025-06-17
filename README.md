@@ -64,7 +64,15 @@ spectrum-with-eds/
    }
    ```
 
-4. **Build and Deploy Changes**
+4. **Debug and Test Blocks**
+
+   ```bash
+   npm run debug           # Starts debug server at http://localhost:3000
+   ```
+
+   Create test files in block directories and access them via the debug server for isolated testing.
+
+5. **Build and Deploy Changes**
 
    ```bash
    npm run build:component  # Bundles dependencies and copies to /blocks/ for EDS
@@ -84,6 +92,7 @@ spectrum-with-eds/
 - ✅ **Spectrum Integration** - Full Adobe design system with theming and icons
 - ✅ **Modal Testing** - Interactive modal system with real content loading
 - ✅ **Proxy Support** - CORS handling for development with `https://allabout.network`
+- ✅ **Block Debugging** - Comprehensive debugging workflow for EDS blocks
 
 ### Key Concepts
 
@@ -167,6 +176,7 @@ The component intelligently fetches content from EDS:
 ## Documentation
 
 - [`docs/blog.md`](docs/blog.md) - Complete tutorial and implementation guide
+- [`docs/debug.md`](docs/debug.md) - Block debugging guide for AI assistants
 - [`BUILD_PROCESS.md`](BUILD_PROCESS.md) - Detailed build process documentation
 - [`build/spectrum-card/README.md`](build/spectrum-card/README.md) - Component-specific docs
 
@@ -180,6 +190,54 @@ This project demonstrates the integration of:
 4. **Development Best Practices** - Hot reload, testing, documentation
 
 The result is a professional component development workflow that maintains EDS's simplicity while providing sophisticated UI capabilities.
+
+## Block Debugging for AI Assistants
+
+This project includes a comprehensive debugging workflow specifically designed to improve AI assistant effectiveness when working with EDS blocks. The debugging system enables testing blocks in isolation while maintaining full EDS compatibility.
+
+### Debug Server
+
+Start the debug server for block testing:
+
+```bash
+npm run debug
+```
+
+The debug server provides:
+
+- 🔧 **Block Isolation Testing** - Test individual blocks without full EDS setup
+- 🔄 **Local-First Development** - Serves local files with proxy fallback to production
+- 📝 **AI-Optimized Workflow** - Step-by-step debugging guide for AI assistants
+- 🎯 **EDS Structure Compliance** - Ensures exact replication of EDS block patterns
+
+### Creating Test Files
+
+For any block, create a `test.html` file in the block directory:
+
+```bash
+blocks/your-block-name/test.html
+```
+
+Access your test at: `http://localhost:3000/blocks/your-block-name/test.html`
+
+### Key Features
+
+- ✅ **EDS Block Structure Replication** - Exact DOM structure matching EDS processing
+- ✅ **ES Module Testing** - Full support for modern JavaScript imports/exports
+- ✅ **CSS Integration** - Proper stylesheet loading and testing
+- ✅ **Multiple Instance Testing** - Test blocks with various content configurations
+- ✅ **Dynamic Content Testing** - Interactive testing with content manipulation
+- ✅ **Error Debugging** - Comprehensive error identification and resolution
+
+### Documentation
+
+See [`docs/debug.md`](docs/debug.md) for the complete block debugging guide, including:
+
+- Step-by-step testing workflow
+- EDS block structure requirements
+- Common debugging scenarios
+- Troubleshooting checklist
+- Best practices for AI assistants
 
 ## Testing & Deployment
 
