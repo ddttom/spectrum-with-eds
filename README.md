@@ -249,7 +249,7 @@ The project includes a sophisticated AEM emulation layer that provides a complet
 
 The AEM emulation layer consists of:
 
-1. **Local File Server** - Serves [`aem.html`](aem.html) and all local project files
+1. **Local File Server** - Serves [`server.html`](server.html) and all local project files
 2. **Intelligent Proxy System** - Automatically proxies missing files from <https://allabout.network>
 3. **Development Integration** - Seamless integration with the existing development workflow
 4. **Production Simulation** - Accurately simulates the EDS production environment
@@ -268,7 +268,7 @@ node server.js
 
 The server will start on <http://localhost:3000> and provide:
 
-- 📄 **Main test page**: <http://localhost:3000/aem.html>
+- 📄 **Main test page**: <http://localhost:3000/server.html>
 - 🔗 **Automatic proxy**: Missing files fetched from <https://allabout.network>
 - 📁 **Local file serving**: All project files served directly
 - 🚀 **Hot development**: Works alongside existing development tools
@@ -295,14 +295,14 @@ When running successfully, you'll see:
 🚀 Server running at http://localhost:3000
 📁 Serving files from: /path/to/project
 🔗 Proxying missing files to: https://allabout.network
-📄 Main page: http://localhost:3000/aem.html
+📄 Main page: http://localhost:3000/server.html
 ```
 
 The server logs show real-time file serving and proxy operations:
 
 ```bash
-Request: GET /aem.html
-Serving local file: /path/to/project/aem.html
+Request: GET /server.html
+Serving local file: /path/to/project/server.html
 Request: GET /scripts/aem.js
 Serving local file: /path/to/project/scripts/aem.js
 Request: GET /slides/query-index.json
@@ -312,7 +312,7 @@ Proxying request to: https://allabout.network/slides/query-index.json
 
 #### Server Features
 
-- ✅ **Seamless Integration** - Works with existing [`aem.html`](aem.html) test page
+- ✅ **Seamless Integration** - Works with existing [`server.html`](server.html) test page
 - ✅ **Intelligent Routing** - Local files take precedence over proxy
 - ✅ **Production Accuracy** - Exact simulation of EDS environment
 - ✅ **Development Friendly** - No interference with existing workflows

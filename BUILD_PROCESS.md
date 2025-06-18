@@ -187,7 +187,7 @@ Modify these values to customize appearance and behavior.
 ### EDS Integration Issues
 
 - **Block not loading**: Confirm `blocks/spectrum-card/spectrum-card.js` contains bundled code (no import statements)
-- **Direct browser testing**: Open `build/spectrum-card/aem.html` directly to test EDS compatibility
+- **Direct browser testing**: Open `build/spectrum-card/server.html` directly to test EDS compatibility
 - **CORS errors**: Use development server or ensure proper CORS headers for query-index.json
 
 ## Extending the Process

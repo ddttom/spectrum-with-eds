@@ -135,7 +135,7 @@ async function proxyRequest(url, res) {
 
 // Main request handler
 async function handleRequest(req, res) {
-  const url = req.url === '/' ? '/aem.html' : req.url;
+  const url = req.url === '/' ? '/server.html' : req.url;
   const filePath = join(__dirname, url.startsWith('/') ? url.slice(1) : url);
 
   // eslint-disable-next-line no-console
@@ -183,7 +183,7 @@ server.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`🔗 Proxying missing files to: ${PROXY_HOST}`);
   // eslint-disable-next-line no-console
-  console.log(`📄 Main page: http://localhost:${PORT}/aem.html`);
+  console.log(`📄 Main page: http://localhost:${PORT}/server.html`);
 });
 
 // Graceful shutdown

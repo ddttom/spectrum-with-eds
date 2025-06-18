@@ -192,7 +192,7 @@ The server provides comprehensive logging:
 🚀 Server running at http://localhost:3000
 📁 Serving files from: /path/to/project
 🔗 Proxying missing files to: https://allabout.network
-📄 Main page: http://localhost:3000/aem.html
+📄 Main page: http://localhost:3000/server.html
 
 Request: GET /blocks/my-block/test.html
 Serving local file: /path/to/project/blocks/my-block/test.html

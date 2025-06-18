@@ -130,7 +130,7 @@ The main request handler implements the local-first strategy:
 
 ```javascript
 async function handleRequest(req, res) {
-  const url = req.url === '/' ? '/aem.html' : req.url;
+  const url = req.url === '/' ? '/server.html' : req.url;
   const filePath = join(__dirname, url.startsWith('/') ? url.slice(1) : url);
 
   console.log(`Request: ${req.method} ${url}`);
@@ -183,7 +183,7 @@ You'll see output like this:
 🚀 Server running at http://localhost:3000
 📁 Serving files from: /path/to/project
 🔗 Proxying missing files to: https://allabout.network
-📄 Main page: http://localhost:3000/aem.html
+📄 Main page: http://localhost:3000/server.html
 ```
 
 ### Step 2: Block Structure Creation

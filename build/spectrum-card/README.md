@@ -250,7 +250,7 @@ Modify these values to customize the component's appearance and behavior.
 - Check that `decorate` function is being called
 - Ensure `sp-theme` wrapper is present with `system="spectrum"`
 - Verify numbered badges are positioned correctly
-- Test by opening `aem.html` directly in browser to check EDS compatibility
+- Test by opening `server.html` directly in browser to check EDS compatibility
 
 ### Modal not opening
 

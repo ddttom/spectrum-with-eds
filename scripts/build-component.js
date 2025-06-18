@@ -106,7 +106,7 @@ function main() {
     console.log('   blocks/spectrum-card/spectrum-card.js (bundled with all dependencies)');
     console.log('   blocks/spectrum-card/spectrum-card.css');
     console.log('\n🧪 Testing:');
-    console.log('   • Open build/spectrum-card/aem.html directly in browser');
+    console.log('   • Open build/spectrum-card/server.html directly in browser');
     console.log('   • Should work without module resolution errors');
     console.log('\n🚀 Development workflow:');
     console.log('   1. cd build/spectrum-card');

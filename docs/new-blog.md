@@ -53,7 +53,7 @@ node server.js
 🚀 Server running at http://localhost:3000
 📁 Serving files from: /path/to/your/project
 🔗 Proxying missing files to: https://allabout.network
-📄 Main page: http://localhost:3000/aem.html
+📄 Main page: http://localhost:3000/server.html
 ```
 
 #### Real-time Request Logging
@@ -61,8 +61,8 @@ node server.js
 The server provides detailed logging of all file operations:
 
 ```bash
-Request: GET /aem.html
-Serving local file: /path/to/project/aem.html
+Request: GET /server.html
+Serving local file: /path/to/project/server.html
 Request: GET /scripts/aem.js
 Serving local file: /path/to/project/scripts/aem.js
 Request: GET /slides/query-index.json
@@ -512,7 +512,7 @@ const mimeTypes = {
 
 // Intelligent request handling with fallback strategy
 async function handleRequest(req, res) {
-  const url = req.url === '/' ? '/aem.html' : req.url;
+  const url = req.url === '/' ? '/server.html' : req.url;
   const filePath = join(__dirname, url.startsWith('/') ? url.slice(1) : url);
   
   console.log(`Request: ${req.method} ${url}`);
@@ -620,7 +620,7 @@ PORT=3001 node server.js
 🚀 Server running at http://localhost:3000
 📁 Serving files from: /Users/username/project/spectrum-with-eds
 🔗 Proxying missing files to: https://allabout.network
-📄 Main page: http://localhost:3000/aem.html
+📄 Main page: http://localhost:3000/server.html
 ```
 
 #### Real-time Request Monitoring
@@ -628,8 +628,8 @@ PORT=3001 node server.js
 The server provides comprehensive logging of all operations:
 
 ```bash
-Request: GET /aem.html
-Serving local file: /path/to/project/aem.html
+Request: GET /server.html
+Serving local file: /path/to/project/server.html
 Request: GET /scripts/aem.js
 Serving local file: /path/to/project/scripts/aem.js
 Request: GET /styles/styles.css
@@ -994,7 +994,7 @@ node server.js
 **Solution**:
 ```bash
 # Verify file structure
-ls -la aem.html
+ls -la server.html
 ls -la scripts/aem.js
 ls -la styles/styles.css
 
@@ -1121,7 +1121,7 @@ console.log(`User-Agent:`, req.headers['user-agent']);
 **Test Individual Components**:
 ```bash
 # Test specific endpoints
-curl -v http://localhost:3000/aem.html
+curl -v http://localhost:3000/server.html
 curl -v http://localhost:3000/scripts/aem.js
 curl -v http://localhost:3000/slides/query-index.json
 ```
