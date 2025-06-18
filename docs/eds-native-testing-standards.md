@@ -1,4 +1,4 @@
-# EDS-Native Pattern Testing Standards
+# AI text for EDS-Native Pattern Testing Standards
 
 ## Overview
 
@@ -195,7 +195,7 @@ This document defines testing standards specifically for EDS-Native pattern comp
 EDS-Native components should leverage the existing style system in `/styles/`:
 
 - **`styles.css`**: Core EDS design tokens and base styles
-- **`fonts.css`**: Roboto and Roboto Condensed font definitions
+- **`fonts.css`**:  font definitions
 - **`lazy-styles.css`**: Post-LCP global styles
 
 ### Design Tokens Available
@@ -238,7 +238,7 @@ EDS-Native components should leverage the existing style system in `/styles/`:
 **Style Loading Order:**
 
 1. **`styles.css`** - Core EDS design tokens, base styles, and critical CSS
-2. **`fonts.css`** - Font face definitions for Roboto and Roboto Condensed
+2. **`fonts.css`** - Font face definitions
 3. **`lazy-styles.css`** - Post-LCP (Largest Contentful Paint) global styles
 4. **Custom `<style>` block** - Test-specific styling for nice looking background and layout (not part of component functionality)
 

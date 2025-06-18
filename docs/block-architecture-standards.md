@@ -416,7 +416,7 @@ function extractContent(block) {
 
 ### Spectrum-Enhanced Pattern Implementation
 
-#### HTML Structure
+#### Spectrum HTML Structure
 
 ```html
 <sp-theme color="light" scale="medium" system="spectrum">
@@ -508,7 +508,7 @@ export default async function decorate(block) {
 </html>
 ```
 
-## CSS Standards (Both Patterns)
+## CSS Standards
 
 ### CSS Custom Properties
 
@@ -585,7 +585,7 @@ export default async function decorate(block) {
 - [ ] Dependencies identified and approved
 - [ ] Accessibility requirements defined
 
-### Development Checklist (Both Patterns)
+### Development Checklist
 
 #### JavaScript Implementation
 

@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-This document establishes architectural patterns and standards for EDS-native block development, focusing on simplicity, performance, and maintainability. These standards ensure consistency across EDS components while maintaining the platform's core principles of minimal dependencies and direct DOM manipulation.
+This document, created for an AI assistant,  establishes architectural patterns and standards for EDS-native block development, focusing on simplicity, performance, and maintainability. These standards ensure consistency across EDS components while maintaining the platform's core principles of minimal dependencies and direct DOM manipulation.
 
 ## Architecture Overview
 
@@ -29,7 +29,6 @@ graph TD
 
 ### Use When
 
-- Component has < 5 interactive elements
 - Simple or no state management required
 - Custom styling needs
 - Performance is critical
@@ -428,7 +427,6 @@ function extractContent(block) {
 
 ### Pre-Development Checklist
 
-- [ ] Component complexity assessed (< 5 interactive elements)
 - [ ] EDS-Native pattern confirmed as appropriate choice
 - [ ] File structure planned according to standards
 - [ ] No external dependencies required

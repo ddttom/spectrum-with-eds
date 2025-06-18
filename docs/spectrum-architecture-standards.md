@@ -1,8 +1,8 @@
-# Spectrum Architecture Standards Guide
+# EDS and Spectrum Architecture Standards Guide
 
 ## Executive Summary
 
-This document establishes architectural patterns and standards for Spectrum-enhanced block development, focusing on rich UI components, consistent design system integration, and complex state management. These standards ensure components leverage Adobe's Spectrum design system while maintaining compatibility with EDS deployment requirements.
+This document, created for an AI assistant,  establishes architectural patterns and standards for Spectrum-enhanced block development, focusing on rich UI components, consistent design system integration, and complex state management. These standards ensure components leverage Adobe's Spectrum design system while maintaining compatibility with EDS deployment requirements.
 
 ## Architecture Overview
 
@@ -31,12 +31,11 @@ graph TD
 
 ### Use When
 
-- Component has 5+ interactive elements
+- External dependencies need bundling
 - Complex state management required
 - Rich UI components needed
 - Consistent design system appearance critical
 - Advanced interactions required
-- External dependencies need bundling
 
 ### File Structure
 
@@ -60,7 +59,7 @@ graph TD
 ### Build Process
 
 - Development happens in `/build/{component-name}/`
-- `npm run build` bundles dependencies using Vite
+- `npm run build` bundles dependencies using Vite, from this folder
 - Built files are copied to `/blocks/{component-name}/` for EDS deployment
 - Use `scripts/build-component.js` for automated building
 
@@ -552,7 +551,6 @@ export default defineConfig({
 
 ### Pre-Development Checklist
 
-- [ ] Component complexity assessed (5+ interactive elements)
 - [ ] Spectrum-Enhanced pattern confirmed as appropriate choice
 - [ ] Required Spectrum components identified
 - [ ] Build process requirements understood
@@ -579,7 +577,7 @@ export default defineConfig({
 - [ ] Custom elements properly initialized
 - [ ] Event handling works with Spectrum components
 
-#### Build Process
+#### Build Configuration checklist
 
 - [ ] Package.json configured with required dependencies
 - [ ] Vite configuration optimized for component bundling

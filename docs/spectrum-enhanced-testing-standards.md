@@ -1,4 +1,4 @@
-# Spectrum-Enhanced Pattern Testing Standards
+# AI text for Spectrum-Enhanced EDS Pattern Testing Standards
 
 ## Overview
 
@@ -184,7 +184,7 @@ This document defines testing standards specifically for Spectrum-Enhanced patte
 </html>
 ```
 
-### Production Test File Template (`/blocks/{component-name}/test.html`)
+### Production Block Test File Template (`/blocks/{component-name}/test.html`)
 
 ```html
 <!DOCTYPE html>
