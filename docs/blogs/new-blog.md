@@ -15,7 +15,6 @@ A comprehensive tutorial for creating dynamic, accessible UI components using Ad
 9. [Performance Optimization](#performance-optimization)
 10. [Production Deployment](#production-deployment)
 11. [Troubleshooting](#troubleshooting)
-12. [Advanced Patterns](#advanced-patterns)
 
 ## Prerequisites and Environment Setup
 
