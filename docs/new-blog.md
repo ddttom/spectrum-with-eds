@@ -138,6 +138,7 @@ Use this matrix to choose the appropriate pattern:
 ### EDS-Native Pattern
 
 **Best for:**
+
 - Simple content blocks (alerts, banners, text components)
 - Custom-styled components
 - Performance-critical implementations
@@ -145,6 +146,7 @@ Use this matrix to choose the appropriate pattern:
 - Components with minimal interactivity
 
 **Examples:**
+
 - [`floating-alert`](../blocks/floating-alert/test.html)
 - Content cards
 - Navigation components
@@ -153,6 +155,7 @@ Use this matrix to choose the appropriate pattern:
 ### Spectrum-Enhanced Pattern
 
 **Best for:**
+
 - Complex interactive components
 - Data-driven interfaces
 - Rich UI components requiring consistent design
@@ -160,6 +163,7 @@ Use this matrix to choose the appropriate pattern:
 - Integration with Adobe ecosystem
 
 **Examples:**
+
 - [`spectrum-card`](../blocks/spectrum-card/test.html)
 - Data tables
 - Complex forms
@@ -985,6 +989,7 @@ function testModalAccessibility() {
 ### Testing Checklist
 
 #### EDS-Native Components
+
 - [ ] Component initializes without errors
 - [ ] EDS block structure is properly recognized
 - [ ] Error handling displays user-friendly messages
@@ -993,6 +998,7 @@ function testModalAccessibility() {
 - [ ] Performance meets standards (< 200ms load time)
 
 #### Spectrum-Enhanced Components
+
 - [ ] Build process completes without errors
 - [ ] Spectrum components render correctly
 - [ ] Theme integration works properly
@@ -1380,6 +1386,7 @@ function createSafeElement(tag, attributes = {}, textContent = '') {
 **Problem**: `Error: listen EADDRINUSE :::3000`
 
 **Solution**:
+
 ```bash
 # Method 1: Use different port
 PORT=3001 node server.js
@@ -1395,6 +1402,7 @@ kill -9 [PID]
 **Problem**: Local files return 404 errors
 
 **Solution**:
+
 ```bash
 # Verify file structure
 ls -la server.html
@@ -1410,6 +1418,7 @@ ls -la styles/styles.css
 **Problem**: Vite build fails with module resolution errors
 
 **Solution**:
+
 ```bash
 # Ensure proper package.json in build directory
 cd build/spectrum-card
@@ -1426,6 +1435,7 @@ cat vite.config.js  # Verify configuration
 **Problem**: Spectrum components not rendering
 
 **Solution**:
+
 ```javascript
 // Ensure proper import order
 import '@spectrum-web-components/theme/sp-theme.js';
@@ -1443,6 +1453,7 @@ await customElements.whenDefined('sp-card');
 **Problem**: EDS block not initializing
 
 **Solution**:
+
 ```html
 <!-- Verify proper EDS block structure -->
 <div class="component-name block" data-block-name="component-name" data-block-status="initialized">
@@ -1457,6 +1468,7 @@ await customElements.whenDefined('sp-card');
 **Problem**: CSS not loading
 
 **Solution**:
+
 ```javascript
 // For EDS-Native: CSS is loaded automatically by EDS
 // Verify file exists at: /blocks/component-name/component-name.css

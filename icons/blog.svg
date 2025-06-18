@@ -1,0 +1,181 @@
+<svg width="500" height="400" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0265DC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d3ecf;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="spectrumGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F7931E;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="500" height="400" fill="url(#bgGradient)"/>
+  
+  <!-- Title Banner -->
+  <rect x="0" y="0" width="500" height="60" fill="url(#blueGradient)"/>
+  <text x="250" y="35" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">
+    EDS Dual-Pattern Architecture Guide
+  </text>
+  
+  <!-- Main Content Area -->
+  <rect x="20" y="80" width="460" height="280" fill="white" rx="8" filter="url(#shadow)"/>
+  
+  <!-- Left Side - EDS-Native Pattern -->
+  <g transform="translate(50, 100)">
+    <!-- EDS-Native Header -->
+    <rect x="0" y="0" width="170" height="30" fill="#e3f2fd" rx="4"/>
+    <text x="85" y="20" text-anchor="middle" fill="#0265DC" font-family="Arial, sans-serif" font-size="14" font-weight="bold">
+      EDS-Native Pattern
+    </text>
+    
+    <!-- Simple component representation -->
+    <rect x="5" y="40" width="160" height="60" fill="#f5f5f5" stroke="#0265DC" stroke-width="2" rx="4"/>
+    <text x="85" y="60" text-anchor="middle" fill="#333" font-family="Arial, sans-serif" font-size="10">
+      Simple Components
+    </text>
+    <text x="85" y="75" text-anchor="middle" fill="#666" font-family="Arial, sans-serif" font-size="8">
+      &lt; 5 interactive elements
+    </text>
+    <text x="85" y="88" text-anchor="middle" fill="#666" font-family="Arial, sans-serif" font-size="8">
+      No build process
+    </text>
+    
+    <!-- Features list -->
+    <g transform="translate(5, 115)">
+      <circle cx="5" cy="5" r="2" fill="#0265DC"/>
+      <text x="12" y="9" fill="#333" font-family="Arial, sans-serif" font-size="9">Direct implementation</text>
+      
+      <circle cx="5" cy="20" r="2" fill="#0265DC"/>
+      <text x="12" y="24" fill="#333" font-family="Arial, sans-serif" font-size="9">Custom styling</text>
+      
+      <circle cx="5" cy="35" r="2" fill="#0265DC"/>
+      <text x="12" y="39" fill="#333" font-family="Arial, sans-serif" font-size="9">Performance optimized</text>
+      
+      <circle cx="5" cy="50" r="2" fill="#0265DC"/>
+      <text x="12" y="54" fill="#333" font-family="Arial, sans-serif" font-size="9">Minimal dependencies</text>
+    </g>
+  </g>
+  
+  <!-- Right Side - Spectrum-Enhanced Pattern -->
+  <g transform="translate(280, 100)">
+    <!-- Spectrum-Enhanced Header -->
+    <rect x="0" y="0" width="170" height="30" fill="#fff3e0" rx="4"/>
+    <text x="85" y="20" text-anchor="middle" fill="#FF6B35" font-family="Arial, sans-serif" font-size="14" font-weight="bold">
+      Spectrum-Enhanced
+    </text>
+    
+    <!-- Complex component representation -->
+    <rect x="5" y="40" width="160" height="60" fill="#f5f5f5" stroke="#FF6B35" stroke-width="2" rx="4"/>
+    <text x="85" y="60" text-anchor="middle" fill="#333" font-family="Arial, sans-serif" font-size="10">
+      Complex Components
+    </text>
+    <text x="85" y="75" text-anchor="middle" fill="#666" font-family="Arial, sans-serif" font-size="8">
+      5+ interactive elements
+    </text>
+    <text x="85" y="88" text-anchor="middle" fill="#666" font-family="Arial, sans-serif" font-size="8">
+      Vite build process
+    </text>
+    
+    <!-- Features list -->
+    <g transform="translate(5, 115)">
+      <circle cx="5" cy="5" r="2" fill="#FF6B35"/>
+      <text x="12" y="9" fill="#333" font-family="Arial, sans-serif" font-size="9">Spectrum Web Components</text>
+      
+      <circle cx="5" cy="20" r="2" fill="#FF6B35"/>
+      <text x="12" y="24" fill="#333" font-family="Arial, sans-serif" font-size="9">Theme integration</text>
+      
+      <circle cx="5" cy="35" r="2" fill="#FF6B35"/>
+      <text x="12" y="39" fill="#333" font-family="Arial, sans-serif" font-size="9">Rich interactions</text>
+      
+      <circle cx="5" cy="50" r="2" fill="#FF6B35"/>
+      <text x="12" y="54" fill="#333" font-family="Arial, sans-serif" font-size="9">Design system consistency</text>
+    </g>
+  </g>
+  
+  <!-- Center Arrow and Decision Point -->
+  <g transform="translate(250, 140)">
+    <!-- Decision diamond -->
+    <polygon points="10,0 20,10 10,20 0,10" fill="#FFD700" stroke="#333" stroke-width="1"/>
+    <text x="10" y="14" text-anchor="middle" fill="#333" font-family="Arial, sans-serif" font-size="8" font-weight="bold">?</text>
+    
+    <!-- Arrows -->
+    <line x1="-5" y1="10" x2="-45" y2="10" stroke="#0265DC" stroke-width="2" marker-end="url(#arrowBlue)"/>
+    <line x1="25" y1="10" x2="65" y2="10" stroke="#FF6B35" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  </g>
+  
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0265DC"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#FF6B35"/>
+    </marker>
+  </defs>
+  
+  <!-- Bottom Section - Key Features -->
+  <g transform="translate(70, 320)">
+    <!-- Server.js representation -->
+    <rect x="0" y="0" width="85" height="25" fill="#28a745" rx="4"/>
+    <text x="42.5" y="16" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">
+      Server.js
+    </text>
+    <text x="42.5" y="35" text-anchor="middle" fill="#333" font-family="Arial, sans-serif" font-size="8">
+      AEM Emulation
+    </text>
+    
+    <!-- Testing representation -->
+    <rect x="105" y="0" width="85" height="25" fill="#6f42c1" rx="4"/>
+    <text x="147.5" y="16" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">
+      AI Testing
+    </text>
+    <text x="147.5" y="35" text-anchor="middle" fill="#333" font-family="Arial, sans-serif" font-size="8">
+      Comprehensive
+    </text>
+    
+    <!-- Accessibility representation -->
+    <rect x="210" y="0" width="85" height="25" fill="#dc3545" rx="4"/>
+    <text x="252.5" y="16" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">
+      A11y
+    </text>
+    <text x="252.5" y="35" text-anchor="middle" fill="#333" font-family="Arial, sans-serif" font-size="8">
+      WCAG Compliant
+    </text>
+    
+    <!-- Performance representation -->
+    <rect x="315" y="0" width="85" height="25" fill="#fd7e14" rx="4"/>
+    <text x="357.5" y="16" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">
+      Performance
+    </text>
+    <text x="357.5" y="35" text-anchor="middle" fill="#333" font-family="Arial, sans-serif" font-size="8">
+      Optimized
+    </text>
+  </g>
+  
+  <!-- Decorative elements -->
+  <!-- Code brackets -->
+  <g transform="translate(30, 70)" opacity="0.3">
+    <text fill="#0265DC" font-family="monospace" font-size="16">&lt;/&gt;</text>
+  </g>
+  
+  <g transform="translate(450, 70)" opacity="0.3">
+    <text fill="#FF6B35" font-family="monospace" font-size="16">{}</text>
+  </g>
+  
+  <!-- Lightbulb for learning -->
+  <g transform="translate(470, 90)" opacity="0.4">
+    <circle cx="5" cy="5" r="4" fill="#FFD700" stroke="#333" stroke-width="0.5"/>
+    <rect x="3.5" y="8" width="3" height="2" fill="#FFD700"/>
+    <line x1="4" y1="10" x2="6" y2="10" stroke="#333" stroke-width="0.3"/>
+  </g>
+</svg>
