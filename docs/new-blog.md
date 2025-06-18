@@ -1,53 +1,188 @@
-# Complete Tutorial: Building Professional Spectrum Components for Adobe Edge Delivery Services
+# Complete Guide: Building Professional EDS Components with Dual Architecture Patterns
 
-A comprehensive guide to creating dynamic, accessible UI components using Adobe Spectrum Web Components and the EDS query-index.json pattern, with practical examples, troubleshooting, and advanced techniques.
+A comprehensive tutorial for creating dynamic, accessible UI components using Adobe Edge Delivery Services with both EDS-Native and Spectrum-Enhanced patterns, featuring modern development workflows, comprehensive testing, and production deployment strategies.
 
-## Prerequisites and Setup
+## Table of Contents
 
-### Environment Requirements
+1. [Prerequisites and Environment Setup](#prerequisites-and-environment-setup)
+2. [Architecture Overview](#architecture-overview)
+3. [Pattern Selection Guide](#pattern-selection-guide)
+4. [Development Environment](#development-environment)
+5. [EDS-Native Pattern Implementation](#eds-native-pattern-implementation)
+6. [Spectrum-Enhanced Pattern Implementation](#spectrum-enhanced-pattern-implementation)
+7. [Testing Standards](#testing-standards)
+8. [Error Handling and Accessibility](#error-handling-and-accessibility)
+9. [Performance Optimization](#performance-optimization)
+10. [Production Deployment](#production-deployment)
+11. [Troubleshooting](#troubleshooting)
+12. [Advanced Patterns](#advanced-patterns)
+
+## Prerequisites and Environment Setup
+
+### System Requirements
 
 Before starting, ensure you have:
 
-- **Node.js 18+** for development tooling
-- **Modern browser** with ES modules support
-- **Basic knowledge** of JavaScript ES6+ and CSS
-- **Understanding** of web components concepts
-- **Familiarity** with Adobe Edge Delivery Services
+- **Node.js 18+** for development tooling and build processes
+- **Modern browser** with ES modules support (Chrome 91+, Firefox 89+, Safari 15+)
+- **Git** for version control and project management
+- **Code editor** with JavaScript and CSS support (VS Code recommended)
 
-### Development Tools Setup
+### Core Concepts
 
-```bash
-# Clone or create your EDS project
-mkdir spectrum-with-eds
-cd spectrum-with-eds
+Understanding these concepts is essential:
 
-# Initialize package.json
-npm init -y
+- **Adobe Edge Delivery Services (EDS)** block architecture
+- **ES Modules** and modern JavaScript patterns
+- **Web Components** and Shadow DOM concepts
+- **Progressive Enhancement** principles
+- **Accessibility (WCAG 2.1)** standards
 
-# Install development dependencies
-npm install --save-dev vite eslint
+### Project Architecture Philosophy
 
-# Create project structure
-mkdir -p build/spectrum-card
-mkdir -p blocks/spectrum-card
-mkdir -p scripts
-mkdir -p docs
+This project follows key principles:
 
-### AEM Emulation Layer Test Environment
+1. **Simplicity First**: No TypeScript, minimal build complexity
+2. **Performance Focus**: Lazy loading, efficient DOM operations
+3. **Accessibility**: WCAG compliance, keyboard navigation
+4. **Maintainability**: Clear separation of concerns, comprehensive documentation
+5. **Dual Pattern Support**: Choose the right tool for component complexity
 
-The project includes a sophisticated AEM emulation layer that provides a complete, production-accurate testing environment. This eliminates the need for manual file system testing and provides seamless integration with the EDS ecosystem.
+## Architecture Overview
 
-#### Starting the Test Environment
+### Dual Pattern Framework
 
-```bash
-# Start the AEM emulation server (recommended)
-npm run serve
+The project supports two complementary architectural patterns:
 
-# Alternative: Direct Node.js execution
-node server.js
+```mermaid
+graph TD
+    A[New Component Requirement] --> B{Complexity Assessment}
+    
+    B -->|Simple Components<br/>< 5 interactive elements| C[EDS-Native Pattern]
+    B -->|Complex Components<br/>5+ interactive elements| D[Spectrum-Enhanced Pattern]
+    
+    C --> E[Direct Implementation]
+    C --> F[No Build Process]
+    C --> G[Custom Styling]
+    
+    D --> H[Build Process Required]
+    D --> I[Spectrum Web Components]
+    D --> J[Theme Integration]
+    
+    E --> K[Common Standards]
+    F --> K
+    G --> K
+    H --> K
+    I --> K
+    J --> K
+    
+    K --> L[Error Handling]
+    K --> M[Accessibility]
+    K --> N[Performance]
+    K --> O[Testing]
 ```
 
-#### What You'll See
+### Project Structure
+
+```bash
+spectrum-with-eds/
+├── build/                          # 🔧 Development source files
+│   └── {component-name}/           # Spectrum-Enhanced development
+│       ├── {component-name}.js     # Source implementation
+│       ├── {component-name}.css    # Source styles
+│       ├── index.html              # Development test file
+│       ├── package.json            # Dependencies and scripts
+│       ├── vite.config.js          # Build configuration
+│       └── README.md               # Development docs
+├── blocks/                         # 📦 EDS deployment files
+│   └── {component-name}/           # Both patterns deploy here
+│       ├── {component-name}.js     # EDS-ready component
+│       ├── {component-name}.css    # EDS-ready styles
+│       ├── test.html               # EDS test file
+│       ├── README.md               # Usage documentation
+│       └── example.md              # Content author examples
+├── styles/                         # 🎨 EDS native styles
+│   ├── styles.css                  # Core design tokens
+│   ├── fonts.css                   # Font definitions
+│   └── lazy-styles.css             # Post-LCP styles
+├── scripts/                        # 🛠️ Build automation
+│   └── build-component.js          # Component build script
+├── docs/                           # 📚 Documentation
+│   ├── block-architecture-standards.md
+│   ├── eds-native-testing-standards.md
+│   ├── spectrum-enhanced-testing-standards.md
+│   └── new-blog.md                 # This tutorial
+├── server.js                       # 🚀 AEM emulation layer
+├── server.html                     # Development homepage
+├── package.json                    # Root project config
+└── README.md                       # Project overview
+```
+
+## Pattern Selection Guide
+
+### Decision Matrix
+
+Use this matrix to choose the appropriate pattern:
+
+| Criteria | EDS-Native | Spectrum-Enhanced |
+|----------|------------|-------------------|
+| **Interactive Elements** | < 5 elements | 5+ elements |
+| **State Management** | Simple/None | Complex |
+| **Design System** | Custom styling | Adobe Spectrum |
+| **Build Process** | None required | Vite bundling |
+| **Dependencies** | Minimal | External packages |
+| **Performance** | Optimal | Good |
+| **Development Speed** | Fast | Moderate |
+| **Maintenance** | Simple | Structured |
+
+### EDS-Native Pattern
+
+**Best for:**
+- Simple content blocks (alerts, banners, text components)
+- Custom-styled components
+- Performance-critical implementations
+- Rapid prototyping
+- Components with minimal interactivity
+
+**Examples:**
+- [`floating-alert`](../blocks/floating-alert/test.html)
+- Content cards
+- Navigation components
+- Simple forms
+
+### Spectrum-Enhanced Pattern
+
+**Best for:**
+- Complex interactive components
+- Data-driven interfaces
+- Rich UI components requiring consistent design
+- Components with advanced state management
+- Integration with Adobe ecosystem
+
+**Examples:**
+- [`spectrum-card`](../blocks/spectrum-card/test.html)
+- Data tables
+- Complex forms
+- Dashboards
+- Modal systems
+
+## Development Environment
+
+### AEM Emulation Layer
+
+The project includes a sophisticated development server that simulates Adobe Edge Delivery Services locally:
+
+#### Starting the Development Environment
+
+```bash
+# Start the AEM emulation server
+node server.js
+
+# Alternative with npm script
+npm run serve
+```
+
+#### Server Features
 
 ```bash
 🚀 Server running at http://localhost:3000
@@ -56,73 +191,304 @@ node server.js
 📄 Main page: http://localhost:3000/server.html
 ```
 
-#### Real-time Request Logging
+The server provides:
 
-The server provides detailed logging of all file operations:
+1. **Local File Priority** - Serves project files directly for maximum development speed
+2. **Intelligent Proxy** - Automatically fetches missing resources from production
+3. **Real-time Logging** - Detailed request/response monitoring
+4. **CORS Handling** - Automatic cross-origin request management
+5. **MIME Type Support** - Comprehensive file type handling
+
+#### Request Flow Example
 
 ```bash
 Request: GET /server.html
 Serving local file: /path/to/project/server.html
-Request: GET /scripts/aem.js
-Serving local file: /path/to/project/scripts/aem.js
+
+Request: GET /styles/styles.css
+Serving local file: /path/to/project/styles/styles.css
+
 Request: GET /slides/query-index.json
 Local file not found, attempting proxy for: /slides/query-index.json
 Proxying request to: https://allabout.network/slides/query-index.json
+✅ Successfully proxied: /slides/query-index.json
 ```
 
-This logging shows the intelligent file resolution in action - local files are served directly while missing resources are automatically proxied from the production environment.
-```
-
-### Essential Files Structure
+### Essential Development Tools
 
 ```bash
-spectrum-with-eds/
-├── build/spectrum-card/           # 🔧 Development source
-│   ├── spectrum-card.js           # Component source code
-│   ├── spectrum-card.css          # Component styles
-│   ├── index.html                 # Local testing page
-│   ├── package.json               # Dev dependencies & scripts
-│   └── vite.config.js             # Development server config
-├── blocks/spectrum-card/          # 📦 Built output (ephemeral)
-│   ├── spectrum-card.js           # EDS-ready bundled component
-│   └── spectrum-card.css          # EDS-ready styles
-├── scripts/
-│   └── build-component.js         # Build automation
-├── docs/
-│   ├── blog.md                    # Documentation
-│   └── new-blog.md                # Comprehensive tutorial
-├── package.json                   # Project dependencies
-├── vite.config.js                 # Root Vite configuration
-└── README.md                      # Project overview
-```</search>
+# Install project dependencies
+npm install
 
-## Project Structure and Architecture
+# Start development server
+npm run serve
 
-### Design Principles
+# Build components (Spectrum-Enhanced only)
+npm run build:component
 
-This project follows several key architectural principles:
-
-1. **Simplicity First**: No TypeScript, minimal build steps
-2. **Performance Focus**: Lazy loading, efficient DOM operations
-3. **Accessibility**: ARIA compliance, keyboard navigation
-4. **Maintainability**: Clear separation of concerns
-5. **Extensibility**: Modular design for easy customization
-
-### Component Architecture
-
-```javascript
-// Component layers from bottom to top:
-// 1. Adobe Spectrum Web Components (foundation)
-// 2. EDS query-index.json integration (data layer)
-// 3. Enhanced features (numbered badges, modals)
-// 4. Application-specific customizations
+# Run tests
+npm test
 ```
 
-## Step-by-Step Implementation
+## EDS-Native Pattern Implementation
 
-### Step 1: Basic Component Setup
+### Component Structure
 
-Create the foundation component structure:
+EDS-Native components follow the standard EDS block structure:
+
+```javascript
+// blocks/component-name/component-name.js
+const COMPONENT_CONFIG = {
+  // Performance settings
+  ANIMATION_DURATION: 300,
+  DEBOUNCE_DELAY: 250,
+  
+  // Error handling
+  MAX_RETRY_ATTEMPTS: 3,
+  TIMEOUT_DURATION: 5000,
+  
+  // Accessibility
+  FOCUS_TRAP_ENABLED: true,
+  ARIA_LIVE_REGION: 'polite',
+  
+  // User messages
+  LOADING_MESSAGE: 'Loading content...',
+  ERROR_MESSAGE: 'Unable to load content. Please try again.',
+  SUCCESS_MESSAGE: 'Content loaded successfully'
+};
+
+export default async function decorate(block) {
+  try {
+    // 1. Early validation and setup
+    if (!block || !block.children.length) {
+      throw new Error('Invalid block structure');
+    }
+    
+    // 2. Configuration and state initialization
+    const config = { ...COMPONENT_CONFIG };
+    
+    // 3. Content extraction using EDS pattern
+    const content = extractContent(block);
+    
+    // 4. DOM element creation
+    const container = createComponentStructure(content, config);
+    
+    // 5. Event handlers setup
+    setupEventHandlers(container, config);
+    
+    // 6. Accessibility implementation
+    setupAccessibility(container);
+    
+    // 7. Replace block content
+    block.innerHTML = '';
+    block.appendChild(container);
+    
+    // 8. Return cleanup function (optional)
+    return () => cleanup(container);
+    
+  } catch (error) {
+    handleComponentError(error, block, config);
+  }
+}
+
+// Content extraction for EDS nested structure
+function extractContent(block) {
+  let contentSource = block;
+  
+  const firstDiv = block.querySelector('div');
+  if (firstDiv) {
+    const secondDiv = firstDiv.querySelector('div');
+    if (secondDiv && (secondDiv.children.length > 0 || secondDiv.textContent.trim())) {
+      contentSource = secondDiv;
+    } else if (firstDiv.children.length > 0 || firstDiv.textContent.trim()) {
+      contentSource = firstDiv;
+    }
+  }
+  
+  return contentSource;
+}
+
+// Standard error handling
+function handleComponentError(error, block, config = {}) {
+  console.error(`Component Error [${block.className}]:`, error);
+  
+  const errorContainer = document.createElement('div');
+  errorContainer.className = 'component-error';
+  errorContainer.setAttribute('role', 'alert');
+  errorContainer.innerHTML = `
+    <div class="error-content">
+      <p>${config.ERROR_MESSAGE || 'Unable to load content. Please try again.'}</p>
+      <button class="retry-button" onclick="location.reload()">Retry</button>
+    </div>
+  `;
+  
+  block.innerHTML = '';
+  block.appendChild(errorContainer);
+}
+```
+
+### CSS Integration with EDS Design Tokens
+
+```css
+/* blocks/component-name/component-name.css */
+.component-name {
+  /* Use EDS design tokens */
+  font-family: var(--body-font-family);
+  color: var(--text-color);
+  background: var(--background-color);
+  
+  /* Component-specific styles */
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.component-name h2 {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-m);
+  color: var(--text-color);
+  margin: 0 0 1rem 0;
+}
+
+.component-name .button {
+  background: var(--link-color);
+  color: var(--background-color);
+  border: 2px solid transparent;
+  border-radius: 2.4em;
+  padding: 0.5em 1.2em;
+  font-family: var(--body-font-family);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.2s ease;
+}
+
+.component-name .button:hover {
+  background: var(--link-hover-color);
+}
+
+.component-name .button:focus {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+/* Error state styling */
+.component-error {
+  padding: 1rem;
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 4px;
+  color: #c33;
+}
+
+.component-error .retry-button {
+  background: #c33;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+```
+
+### Test File Template
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Test - EDS Native Pattern</title>
+    
+    <!-- EDS Native Styles (root-based paths for server.js) -->
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="/styles/fonts.css">
+    <link rel="stylesheet" href="/styles/lazy-styles.css">
+    <!-- Component CSS is loaded dynamically by EDS -->
+    
+    <style>
+        /* Test-specific styling for nice presentation */
+        body {
+            padding: 2rem;
+            background: var(--light-color);
+        }
+        
+        .test-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--background-color);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .test-section {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px solid var(--dark-color, #505050);
+            border-radius: 4px;
+        }
+        
+        /* Ensure body appears (EDS pattern) */
+        body.appear {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-content">
+        <h1>Component Test Page - EDS Native Pattern</h1>
+        <p>Testing EDS-Native component with direct implementation.</p>
+        
+        <!-- Standard EDS Block Structure -->
+        <div class="test-section">
+            <h2>Basic Component Test</h2>
+            <div class="component-name block" data-block-name="component-name" data-block-status="initialized">
+                <div>
+                    <div>
+                        <!-- Test content here -->
+                        <p>Sample content for testing</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import decorate from '/blocks/component-name/component-name.js';
+        
+        // EDS Native initialization pattern
+        document.addEventListener('DOMContentLoaded', () => {
+            // Make body appear (EDS pattern)
+            document.body.classList.add('appear');
+            
+            // Initialize components
+            const blocks = document.querySelectorAll('.component-name.block');
+            blocks.forEach(decorate);
+        });
+    </script>
+</body>
+</html>
+```
+
+## Spectrum-Enhanced Pattern Implementation
+
+### Development Structure
+
+Spectrum-Enhanced components use a build process for dependency bundling:
+
+```bash
+# Development workflow
+cd build/spectrum-card
+npm install
+npm run dev  # Development server with hot reload
+npm run build  # Create production bundle
+```
+
+### Component Implementation
 
 ```javascript
 // build/spectrum-card/spectrum-card.js
@@ -132,7 +498,6 @@ import '@spectrum-web-components/theme/scale-medium.js';
 import '@spectrum-web-components/card/sp-card.js';
 import '@spectrum-web-components/button/sp-button.js';
 
-// Configuration object for easy customization
 const SPECTRUM_CARD_CONFIG = {
   CARD_VARIANT: '',
   BUTTON_TREATMENT: 'accent',
@@ -144,29 +509,63 @@ const SPECTRUM_CARD_CONFIG = {
   QUERY_INDEX_PATH: '/slides/query-index.json',
 };
 
-// Environment-specific configuration
-const getConfig = () => ({
-  baseUrl: '', // Uses proxy in development, relative paths in production
-});
-```
+export default async function decorate(block) {
+  try {
+    // Ensure Spectrum components are ready
+    await customElements.whenDefined('sp-theme');
+    await customElements.whenDefined('sp-card');
+    
+    // Extract content from EDS structure
+    const content = extractContent(block);
+    
+    // Create Spectrum theme wrapper
+    const themeWrapper = document.createElement('sp-theme');
+    themeWrapper.color = 'light';
+    themeWrapper.scale = 'medium';
+    themeWrapper.system = 'spectrum';
+    
+    // Create container for cards
+    const container = document.createElement('div');
+    container.className = 'spectrum-card-container';
+    container.style.cssText = `
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px 0;
+    `;
+    
+    // Fetch data and create cards
+    const cardData = await fetchCardData(SPECTRUM_CARD_CONFIG.QUERY_INDEX_PATH);
+    
+    if (cardData.length === 0) {
+      container.innerHTML = '<p>No cards available</p>';
+    } else {
+      cardData.forEach((data, index) => {
+        const cardWrapper = createCard(data, index);
+        container.appendChild(cardWrapper);
+      });
+    }
+    
+    themeWrapper.appendChild(container);
+    
+    // Replace block content
+    block.innerHTML = '';
+    block.appendChild(themeWrapper);
+    
+  } catch (error) {
+    handleComponentError(error, block, SPECTRUM_CARD_CONFIG);
+  }
+}
 
-### Step 2: Data Fetching Implementation
-
-Implement robust data fetching with error handling:
-
-```javascript
+// Data fetching with error handling
 async function fetchCardData(queryPath) {
   try {
-    const { baseUrl } = getConfig();
-    const url = `${baseUrl}${queryPath}`;
-    
+    const url = queryPath;
     console.debug('[spectrum-card] fetching data from:', url);
     
     const response = await fetch(url, {
       mode: 'cors',
-      headers: {
-        'Accept': 'application/json',
-      }
+      headers: { 'Accept': 'application/json' }
     });
     
     if (!response.ok) {
@@ -182,32 +581,36 @@ async function fetchCardData(queryPath) {
     return [];
   }
 }
-```
 
-### Step 3: Basic Card Creation
-
-Create the fundamental card structure:
-
-```javascript
+// Card creation with Spectrum components
 function createCard(cardData, index) {
+  // Create wrapper for positioning context
+  const cardWrapper = document.createElement('div');
+  cardWrapper.style.position = 'relative';
+  cardWrapper.style.maxWidth = SPECTRUM_CARD_CONFIG.MAX_WIDTH;
+  cardWrapper.style.margin = '0 auto 20px auto';
+
+  // Create Spectrum card
   const card = document.createElement('sp-card');
   card.setAttribute('heading', cardData.title || SPECTRUM_CARD_CONFIG.DEFAULT_TITLE);
   card.style.width = '100%';
 
-  // Add image using proper preview slot
+  // Add image using preview slot
   if (cardData.image) {
     const img = document.createElement('img');
     img.setAttribute('slot', 'preview');
     img.src = cardData.image;
     img.alt = cardData.title || '';
-    img.style.width = '100%';
-    img.style.height = '200px';
-    img.style.objectFit = 'cover';
+    img.style.cssText = `
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    `;
     img.loading = 'lazy';
     card.appendChild(img);
   }
 
-  // Add description using proper description slot
+  // Add description using description slot
   const descriptionDiv = document.createElement('div');
   descriptionDiv.setAttribute('slot', 'description');
   const mainDesc = document.createElement('p');
@@ -216,122 +619,139 @@ function createCard(cardData, index) {
   descriptionDiv.appendChild(mainDesc);
   card.appendChild(descriptionDiv);
 
-  return card;
-}
-```
-
-## Enhanced Features
-
-### Numbered Badge Implementation
-
-The numbered badges (roundels) require a special wrapper pattern due to Spectrum Web Components' encapsulation:
-
-```javascript
-function createCard(cardData, index) {
-  // Create wrapper container for positioning context
-  const cardWrapper = document.createElement('div');
-  cardWrapper.style.position = 'relative';
-  cardWrapper.style.maxWidth = SPECTRUM_CARD_CONFIG.MAX_WIDTH;
-  cardWrapper.style.margin = '0 auto 20px auto';
+  // Add action button
+  const button = document.createElement('sp-button');
+  button.treatment = SPECTRUM_CARD_CONFIG.BUTTON_TREATMENT;
+  button.size = SPECTRUM_CARD_CONFIG.BUTTON_SIZE;
+  button.textContent = cardData.buttonText || SPECTRUM_CARD_CONFIG.DEFAULT_BUTTON_TEXT;
+  
+  // Add click handler for modal
+  button.addEventListener('click', () => {
+    showContentModal(cardData, index);
+  });
+  
+  card.appendChild(button);
 
   // Create numbered badge
   const slideNumber = document.createElement('div');
   slideNumber.className = 'slide-number';
   slideNumber.textContent = (index + 1).toString();
-  slideNumber.style.position = 'absolute';
-  slideNumber.style.top = '10px';
-  slideNumber.style.left = '10px';
-  slideNumber.style.backgroundColor = '#0265DC'; // Spectrum blue
-  slideNumber.style.color = 'white';
-  slideNumber.style.borderRadius = '50%';
-  slideNumber.style.width = '32px';
-  slideNumber.style.height = '32px';
-  slideNumber.style.display = 'flex';
-  slideNumber.style.alignItems = 'center';
-  slideNumber.style.justifyContent = 'center';
-  slideNumber.style.fontSize = '14px';
-  slideNumber.style.fontWeight = 'bold';
-  slideNumber.style.zIndex = '10';
-  slideNumber.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+  slideNumber.style.cssText = `
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #0265DC;
+    color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  `;
   
   cardWrapper.appendChild(slideNumber);
-  // ... create card and append to wrapper
   cardWrapper.appendChild(card);
   
   return cardWrapper;
 }
-```
 
-### Immersive Modal Overlay System
-
-Implement a full-screen immersive modal system with glassmorphism effects for stunning content display:
-
-```javascript
+// Modal implementation
 async function showContentModal(cardData, index) {
-  // Create modal overlay with enhanced backdrop blur
+  // Create modal overlay
   const overlay = document.createElement('div');
   overlay.className = 'spectrum-card-modal-overlay';
   overlay.style.cssText = `
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); z-index: 1000;
-    display: flex; align-items: center; justify-content: center;
-    padding: 20px; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
   `;
 
-  // Create immersive modal with background image
+  // Create modal content
   const modal = document.createElement('div');
   modal.className = 'spectrum-card-modal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.setAttribute('aria-labelledby', `modal-title-${index}`);
+  
   const backgroundImage = cardData.image || 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80';
   modal.style.cssText = `
-    background-image: url(${backgroundImage}); background-size: cover;
-    background-position: center; background-repeat: no-repeat;
-    border-radius: 12px; max-width: 1000px; max-height: 80vh;
-    width: 100%; height: 600px; position: relative;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); overflow: hidden;
+    background-image: url(${backgroundImage});
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    max-width: 1000px;
+    max-height: 80vh;
+    width: 100%;
+    height: 600px;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
   `;
 
-  // Create dark overlay for text readability
-  const darkOverlay = document.createElement('div');
-  darkOverlay.style.cssText = `
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  // Create content overlay
+  const contentOverlay = document.createElement('div');
+  contentOverlay.style.cssText = `
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(15, 23, 42, 0.75) 100%);
-    display: flex; flex-direction: column; justify-content: center;
-    align-items: flex-start; padding: 60px; color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px;
+    color: white;
   `;
 
-  // Create glassmorphism slide number badge
-  const slideNumberBadge = document.createElement('div');
-  slideNumberBadge.textContent = (index + 1).toString();
-  slideNumberBadge.style.cssText = `
-    position: absolute; top: 30px; left: 30px;
-    background-color: rgba(255, 255, 255, 0.2);
-    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-    color: white; border-radius: 50%; width: 40px; height: 40px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px; font-weight: bold;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-  `;
-
-  // Create glassmorphism close button
+  // Create close button
   const closeButton = document.createElement('button');
   closeButton.innerHTML = '×';
+  closeButton.setAttribute('aria-label', 'Close modal');
   closeButton.style.cssText = `
-    position: absolute; top: 20px; right: 20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
     background: rgba(255, 255, 255, 0.2);
-    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%; width: 40px; height: 40px;
-    color: white; font-size: 24px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.3s ease;
   `;
 
-  // Create hero title
+  // Create title
   const title = document.createElement('h1');
+  title.id = `modal-title-${index}`;
   title.textContent = cardData.title || 'Untitled';
   title.style.cssText = `
-    margin: 0 0 20px 0; font-size: 3.5rem; font-weight: 700;
-    color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 0 0 20px 0;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     line-height: 1.1;
   `;
 
@@ -339,52 +759,31 @@ async function showContentModal(cardData, index) {
   const subtitle = document.createElement('p');
   subtitle.textContent = cardData.description || 'No description available';
   subtitle.style.cssText = `
-    margin: 0 0 30px 0; font-size: 1.25rem; font-weight: 500;
+    margin: 0 0 30px 0;
+    font-size: 1.25rem;
+    font-weight: 500;
     color: rgba(255, 255, 255, 0.95);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    line-height: 1.4; max-width: 600px;
+    line-height: 1.4;
+    max-width: 600px;
   `;
 
-  // Create content area for fetched HTML
-  const content = document.createElement('div');
-  content.className = 'spectrum-card-modal-content';
-  content.style.cssText = `
-    font-size: 1.1rem; line-height: 1.6;
-    color: rgba(255, 255, 255, 0.9);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    max-width: 700px; max-height: 200px; overflow-y: auto;
-  `;
-
-  // Add loading state
-  content.innerHTML = '<p style="color: rgba(255, 255, 255, 0.7);">Loading content...</p>';
-
-  // Assemble the modal
-  darkOverlay.appendChild(title);
-  darkOverlay.appendChild(subtitle);
-  darkOverlay.appendChild(content);
-  
-  modal.appendChild(darkOverlay);
-  modal.appendChild(slideNumberBadge);
+  // Assemble modal
+  contentOverlay.appendChild(title);
+  contentOverlay.appendChild(subtitle);
+  modal.appendChild(contentOverlay);
   modal.appendChild(closeButton);
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
-  document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  document.body.style.overflow = 'hidden';
 
-  // Close modal function with cleanup
+  // Close modal function
   const closeModal = () => {
     document.body.removeChild(overlay);
-    document.body.style.overflow = ''; // Restore scrolling
+    document.body.style.overflow = '';
   };
 
-  // Enhanced close button interactions
-  closeButton.addEventListener('mouseenter', () => {
-    closeButton.style.background = 'rgba(255, 255, 255, 0.3)';
-  });
-  closeButton.addEventListener('mouseleave', () => {
-    closeButton.style.background = 'rgba(255, 255, 255, 0.2)';
-  });
-
-  // Multiple close methods for better UX
+  // Event handlers
   closeButton.addEventListener('click', closeModal);
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) closeModal();
@@ -399,309 +798,12 @@ async function showContentModal(cardData, index) {
   };
   document.addEventListener('keydown', handleEscape);
 
-  // Fetch and display full content with enhanced styling
-  if (cardData.path) {
-    try {
-      const html = await fetchPlainHtml(cardData.path);
-      if (html) {
-        // Extract text content and style it for the immersive modal
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = html;
-        const textContent = tempDiv.textContent || tempDiv.innerText || '';
-        
-        const styledContent = document.createElement('p');
-        styledContent.textContent = textContent;
-        styledContent.style.cssText = `
-          font-size: 1.1rem; line-height: 1.6;
-          color: rgba(255, 255, 255, 0.9);
-          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-          margin: 0;
-        `;
-        
-        content.innerHTML = '';
-        content.appendChild(styledContent);
-      } else {
-        content.innerHTML = '<p style="color: rgba(255, 255, 255, 0.7); font-style: italic;">Content not available - Unable to load the full content for this slide.</p>';
-      }
-    } catch (error) {
-      content.innerHTML = '<p style="color: rgba(255, 255, 255, 0.7); font-style: italic;">Error loading content.</p>';
-    }
-  } else {
-    content.innerHTML = '<p style="color: rgba(255, 255, 255, 0.7); font-style: italic;">No content path available</p>';
-  }
+  // Focus management
+  closeButton.focus();
 }
 ```
 
-## Unusual Patterns and Technical Decisions
-
-### Wrapper Container Pattern
-
-The numbered badge implementation uses an unusual wrapper pattern that's worth understanding:
-
-#### Why This Pattern is Necessary
-
-1. **Spectrum Card Encapsulation**: The `<sp-card>` component uses Shadow DOM, preventing direct styling of internal elements
-2. **Positioning Context**: Absolute positioning requires a positioned parent (`position: relative`)
-3. **Z-Index Layering**: The badge needs proper stacking context to appear above card content
-4. **Layout Preservation**: The wrapper maintains the card's intended behavior while adding overlay capability
-
-#### Alternative Approaches Considered
-
-- **CSS-only solution**: Not feasible due to Shadow DOM encapsulation
-- **Modifying Spectrum Card**: Would break component integrity and upgrade compatibility
-- **CSS custom properties**: Limited by the component's internal structure
-- **Pseudo-elements**: Cannot reliably position over web component content
-
-#### Benefits of the Wrapper Pattern
-
-- **Non-invasive**: Doesn't modify the Spectrum Card component
-- **Maintainable**: Clear separation of concerns
-- **Flexible**: Easy to adapt for different overlay needs
-- **Compatible**: Works with all Spectrum Card variants
-- **Future-proof**: Survives component library updates
-
-## AEM Emulation Layer Architecture
-
-### Overview and Purpose
-
-The AEM emulation layer is a sophisticated Node.js-based testing environment that simulates Adobe Edge Delivery Services behavior locally. It provides developers with a production-accurate testing environment while maintaining the simplicity and performance focus of the project.
-
-#### Core Architecture Principles
-
-1. **Local File Priority** - Always serves project files directly for maximum development speed
-2. **Intelligent Proxy** - Automatically fetches missing resources from production environment
-3. **Production Accuracy** - Exact simulation of EDS request/response patterns
-4. **Zero Configuration** - Works out of the box with existing project structure
-5. **Development Integration** - Seamless compatibility with existing development tools
-
-### Implementation Details
-
-#### Server Core Implementation
-
-```javascript
-// server.js - Complete AEM emulation layer
-import { createServer } from 'http';
-import { readFile, access } from 'fs/promises';
-import { join, extname } from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const PORT = process.env.PORT || 3000;
-const PROXY_HOST = 'https://allabout.network';
-
-// Comprehensive MIME type support for all EDS file types
-const mimeTypes = {
-  '.html': 'text/html',
-  '.js': 'application/javascript',
-  '.css': 'text/css',
-  '.json': 'application/json',
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.jpeg': 'image/jpeg',
-  '.gif': 'image/gif',
-  '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon',
-  '.woff': 'font/woff',
-  '.woff2': 'font/woff2',
-  '.ttf': 'font/ttf',
-  '.eot': 'application/vnd.ms-fontobject'
-};
-
-// Intelligent request handling with fallback strategy
-async function handleRequest(req, res) {
-  const url = req.url === '/' ? '/server.html' : req.url;
-  const filePath = join(__dirname, url.startsWith('/') ? url.slice(1) : url);
-  
-  console.log(`Request: ${req.method} ${url}`);
-  
-  // Strategy 1: Try to serve local file first
-  if (await fileExists(filePath)) {
-    console.log(`Serving local file: ${filePath}`);
-    const served = await serveLocalFile(filePath, res);
-    if (served) return;
-  }
-  
-  // Strategy 2: Proxy to production environment
-  console.log(`Local file not found, attempting proxy for: ${url}`);
-  const proxied = await proxyRequest(url, res);
-  
-  // Strategy 3: Return 404 if both strategies fail
-  if (!proxied) {
-    res.writeHead(404, { 'Content-Type': 'text/html' });
-    res.end(`
-      <!DOCTYPE html>
-      <html>
-        <head><title>404 Not Found</title></head>
-        <body>
-          <h1>404 Not Found</h1>
-          <p>The requested resource <code>${url}</code> was not found locally or on the proxy server.</p>
-        </body>
-      </html>
-    `);
-  }
-}
-```
-
-#### Local File Serving
-
-```javascript
-// Efficient local file serving with proper MIME types
-async function serveLocalFile(filePath, res) {
-  try {
-    const content = await readFile(filePath);
-    const ext = extname(filePath);
-    const contentType = mimeTypes[ext] || 'application/octet-stream';
-    
-    res.writeHead(200, {
-      'Content-Type': contentType,
-      'Cache-Control': 'no-cache'
-    });
-    res.end(content);
-    return true;
-  } catch (error) {
-    console.error(`Error serving local file ${filePath}:`, error.message);
-    return false;
-  }
-}
-```
-
-#### Intelligent Proxy System
-
-```javascript
-// Production environment proxy with error handling
-async function proxyRequest(url, res) {
-  try {
-    const proxyUrl = `${PROXY_HOST}${url}`;
-    console.log(`Proxying request to: ${proxyUrl}`);
-    
-    const response = await fetch(proxyUrl);
-    
-    if (!response.ok) {
-      throw new Error(`Proxy request failed: ${response.status} ${response.statusText}`);
-    }
-    
-    const contentType = response.headers.get('content-type') || 'application/octet-stream';
-    const content = await response.arrayBuffer();
-    
-    res.writeHead(200, {
-      'Content-Type': contentType,
-      'Cache-Control': 'no-cache'
-    });
-    res.end(Buffer.from(content));
-    return true;
-  } catch (error) {
-    console.error(`Error proxying request for ${url}:`, error.message);
-    return false;
-  }
-}
-```
-
-### Usage and Integration
-
-#### Starting the Server
-
-```bash
-# Method 1: Using npm script (recommended)
-npm run serve
-
-# Method 2: Direct Node.js execution
-node server.js
-
-# Method 3: Custom port
-PORT=3001 node server.js
-```
-
-#### Expected Server Output
-
-```bash
-🚀 Server running at http://localhost:3000
-📁 Serving files from: /Users/username/project/spectrum-with-eds
-🔗 Proxying missing files to: https://allabout.network
-📄 Main page: http://localhost:3000/server.html
-```
-
-#### Real-time Request Monitoring
-
-The server provides comprehensive logging of all operations:
-
-```bash
-Request: GET /server.html
-Serving local file: /path/to/project/server.html
-Request: GET /scripts/aem.js
-Serving local file: /path/to/project/scripts/aem.js
-Request: GET /styles/styles.css
-Serving local file: /path/to/project/styles/styles.css
-Request: GET /slides/query-index.json
-Local file not found, attempting proxy for: /slides/query-index.json
-Proxying request to: https://allabout.network/slides/query-index.json
-Request: GET /slides/media_123.png
-Local file not found, attempting proxy for: /slides/media_123.png
-Proxying request to: https://allabout.network/slides/media_123.png
-```
-
-### Advanced Features
-
-#### Graceful Shutdown
-
-```javascript
-// Proper server lifecycle management
-process.on('SIGINT', () => {
-  console.log('\n🛑 Shutting down server...');
-  server.close(() => {
-    console.log('✅ Server closed');
-    process.exit(0);
-  });
-});
-```
-
-#### Error Handling and Fallbacks
-
-The emulation layer includes comprehensive error handling:
-
-- **File System Errors**: Graceful handling of permission issues and missing files
-- **Network Errors**: Automatic fallback when proxy requests fail
-- **MIME Type Detection**: Intelligent content type detection for unknown file types
-- **Memory Management**: Efficient handling of large files and concurrent requests
-
-#### Development Integration
-
-The server integrates seamlessly with existing development workflows:
-
-```json
-{
-  "scripts": {
-    "dev": "cd build/spectrum-card && npm run dev",
-    "build": "node scripts/build-component.js",
-    "serve": "node server.js",
-    "start": "node server.js"
-  }
-}
-```
-
-### Benefits and Use Cases
-
-#### Primary Benefits
-
-1. **Production Accuracy** - Exact simulation of EDS environment behavior
-2. **Development Speed** - Local files served instantly without network delays
-3. **Resource Availability** - Automatic access to production assets and data
-4. **Zero Configuration** - Works immediately with existing project structure
-5. **Debugging Capability** - Detailed logging for troubleshooting issues
-
-#### Use Cases
-
-- **Component Development** - Test components with real production data
-- **Integration Testing** - Verify component behavior in EDS-like environment
-- **Content Validation** - Ensure content loads correctly from query-index endpoints
-- **Performance Testing** - Measure component performance with production assets
-- **Debugging** - Identify and resolve issues with detailed request logging
-
-## Testing and Debugging
-
-### Development Environment Setup
+### Build Configuration
 
 ```javascript
 // build/spectrum-card/vite.config.js
@@ -741,580 +843,330 @@ export default defineConfig({
 });
 ```
 
-### Testing Strategies
+### Package Configuration
 
-#### Unit Testing Approach
-
-```javascript
-// Test individual functions
-function testFetchCardData() {
-  console.group('Testing fetchCardData');
-  
-  // Test with valid endpoint
-  fetchCardData('/slides/query-index.json')
-    .then(data => {
-      console.log('✅ Valid endpoint test passed:', data.length, 'items');
-    })
-    .catch(error => {
-      console.error('❌ Valid endpoint test failed:', error);
-    });
-  
-  // Test with invalid endpoint
-  fetchCardData('/invalid/endpoint.json')
-    .then(data => {
-      console.log('✅ Invalid endpoint test passed (empty array):', data);
-    })
-    .catch(error => {
-      console.error('❌ Invalid endpoint test failed:', error);
-    });
-  
-  console.groupEnd();
-}
-```
-
-#### Integration Testing
-
-```javascript
-// Test complete component lifecycle
-function testComponentIntegration() {
-  console.group('Testing Component Integration');
-  
-  const testBlock = document.createElement('div');
-  testBlock.className = 'spectrum-card block';
-  document.body.appendChild(testBlock);
-  
-  // Test decoration
-  decorate(testBlock)
-    .then(() => {
-      console.log('✅ Component decoration completed');
-      
-      // Test card creation
-      const cards = testBlock.querySelectorAll('sp-card');
-      console.log('✅ Cards created:', cards.length);
-      
-      // Test badge presence
-      const badges = testBlock.querySelectorAll('.slide-number');
-      console.log('✅ Badges created:', badges.length);
-      
-      // Cleanup
-      document.body.removeChild(testBlock);
-    })
-    .catch(error => {
-      console.error('❌ Integration test failed:', error);
-    });
-  
-  console.groupEnd();
-}
-```
-
-### Debugging Tools and Techniques
-
-#### Console Logging Strategy
-
-```javascript
-// Structured logging for debugging
-const logger = {
-  debug: (message, data) => {
-    if (window.location.hostname === 'localhost') {
-      console.debug(`[spectrum-card] ${message}`, data);
-    }
-  },
-  error: (message, error) => {
-    console.error(`[spectrum-card] ${message}`, error);
-  },
-  performance: (label, fn) => {
-    const start = performance.now();
-    const result = fn();
-    const end = performance.now();
-    console.log(`[spectrum-card] ${label}: ${end - start}ms`);
-    return result;
-  }
-};
-```
-
-#### Network Debugging
-
-```javascript
-// Monitor fetch requests
-const originalFetch = window.fetch;
-window.fetch = function(...args) {
-  console.log('🌐 Fetch request:', args[0]);
-  return originalFetch.apply(this, args)
-    .then(response => {
-      console.log('✅ Fetch response:', response.status, args[0]);
-      return response;
-    })
-    .catch(error => {
-      console.error('❌ Fetch error:', error, args[0]);
-      throw error;
-    });
-};
-```
-
-## Troubleshooting
-
-### Common Issues and Solutions
-
-#### 1. CORS Issues
-
-**Problem**: Fetch requests blocked by CORS policy
-
-**Solution**:
-
-```javascript
-// Development: Use proxy in vite.config.js
-proxy: {
-  '/slides': {
-    target: 'https://allabout.network',
-    changeOrigin: true,
-    secure: true
-  }
-}
-
-// Production: Ensure proper CORS headers or same-origin deployment
-```
-
-#### 2. Spectrum Components Not Loading
-
-**Problem**: Components appear as undefined elements
-
-**Solution**:
-
-```javascript
-// Ensure proper import order
-import '@spectrum-web-components/theme/sp-theme.js';
-import '@spectrum-web-components/theme/theme-light.js';
-import '@spectrum-web-components/theme/scale-medium.js';
-// Import specific components after theme
-
-// Check for theme wrapper in HTML
-<sp-theme color="light" scale="medium" system="spectrum">
-  <!-- Your content here -->
-</sp-theme>
-```
-
-#### 3. Modal Not Displaying
-
-**Problem**: Modal overlay doesn't appear or appears behind content
-
-**Solution**:
-
-```javascript
-// Ensure proper z-index
-overlay.style.zIndex = '1000';
-
-// Check for competing positioned elements
-// Verify modal is appended to document.body
-document.body.appendChild(overlay);
-```
-
-#### 4. Badge Positioning Issues
-
-**Problem**: Numbered badges appear in wrong position
-
-**Solution**:
-
-```javascript
-// Ensure wrapper has position: relative
-cardWrapper.style.position = 'relative';
-
-// Verify badge has position: absolute
-slideNumber.style.position = 'absolute';
-
-// Check for CSS conflicts
-slideNumber.style.zIndex = '10';
-```
-
-#### 5. Query-Index Format Errors
-
-**Problem**: Data not loading or displaying incorrectly
-
-**Solution**:
-
-```javascript
-// Validate JSON structure
+```json
 {
-  "total": 3,
-  "offset": 0,
-  "limit": 3,
-  "data": [
-    {
-      "path": "/slides/slide-1",
-      "title": "Required field",
-      "description": "Required field",
-      "image": "/slides/image.png",
-      "buttonText": "Optional field"
-    }
-  ]
-}
-
-// Add validation function
-function validateCardData(data) {
-  return data.filter(item => 
-    item.title && 
-    item.description && 
-    typeof item.path === 'string'
-  );
-}
-```
-
-### AEM Emulation Layer Troubleshooting
-
-#### Server Startup Issues
-
-**Problem**: `Error: listen EADDRINUSE :::3000`
-
-**Solution**:
-```bash
-# Method 1: Use different port
-PORT=3001 node server.js
-
-# Method 2: Kill process using port 3000
-lsof -ti:3000 | xargs kill -9
-
-# Method 3: Find and kill specific process
-ps aux | grep "node server.js"
-kill -9 [PID]
-```
-
-**Problem**: `Error: Cannot find module`
-
-**Solution**:
-```bash
-# Ensure you're in the correct directory
-cd /path/to/spectrum-with-eds
-pwd  # Should show your project root
-node server.js
-```
-
-#### File Serving Issues
-
-**Problem**: Local files return 404 errors
-
-**Solution**:
-```bash
-# Verify file structure
-ls -la server.html
-ls -la scripts/aem.js
-ls -la styles/styles.css
-
-# Check server logs for file path resolution
-# Server should show: "Serving local file: /full/path/to/file"
-```
-
-**Problem**: Proxy requests failing
-
-**Solution**:
-```bash
-# Test connectivity to proxy target
-curl -I https://allabout.network
-curl -I https://allabout.network/slides/query-index.json
-
-# Check server logs for proxy errors
-# Look for: "Error proxying request for [URL]"
-```
-
-#### Performance and Memory Issues
-
-**Problem**: Slow response times
-
-**Solution**:
-```javascript
-// Monitor server logs for bottlenecks
-// Look for patterns like:
-// - Repeated proxy requests for same resource
-// - Large file transfers
-// - Network timeouts
-
-// Consider adding caching for frequently accessed resources
-const cache = new Map();
-
-async function cachedProxyRequest(url, res) {
-  if (cache.has(url)) {
-    console.log(`Serving cached: ${url}`);
-    return cache.get(url);
+  "name": "spectrum-card",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@spectrum-web-components/theme": "^0.42.4",
+    "@spectrum-web-components/card": "^0.42.4",
+    "@spectrum-web-components/button": "^0.42.4"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
   }
+}
+```
+
+## Testing Standards
+
+### EDS-Native Testing
+
+EDS-Native components use direct testing without build processes:
+
+```javascript
+// Testing initialization
+function testComponentInitialization() {
+  const block = document.querySelector('.component-name.block');
   
-  const result = await proxyRequest(url, res);
-  cache.set(url, result);
-  return result;
+  // Verify block exists
+  assert(block !== null, 'Component block should exist');
+  
+  // Verify data attributes
+  assert(block.getAttribute('data-block-name') === 'component-name', 'Block name should be set');
+  assert(block.getAttribute('data-block-status') === 'initialized', 'Block status should be initialized');
+  
+  // Verify component was decorated
+  assert(block.children.length > 0, 'Component should have content after decoration');
+}
+
+// Testing error handling
+function testErrorHandling() {
+  const invalidBlock = document.createElement('div');
+  invalidBlock.className = 'component-name block';
+  
+  try {
+    decorate(invalidBlock);
+    assert(invalidBlock.querySelector('.component-error') !== null, 'Error state should be displayed');
+  } catch (error) {
+    assert(false, 'Component should handle errors gracefully');
+  }
+}
+
+// Testing accessibility
+function testAccessibility() {
+  const component = document.querySelector('.component-name');
+  
+  // Check ARIA attributes
+  assert(component.getAttribute('role') !== null, 'Component should have role attribute');
+  assert(component.getAttribute('aria-label') !== null || 
+         component.getAttribute('aria-labelledby') !== null, 
+         'Component should have accessible name');
+  
+  // Test keyboard navigation
+  const focusableElements = component.querySelectorAll(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  );
+  assert(focusableElements.length > 0, 'Component should have focusable elements');
 }
 ```
 
-**Problem**: Memory usage growing over time
+### Spectrum-Enhanced Testing
 
-**Solution**:
-```bash
-# Monitor memory usage
-ps aux | grep "node server.js"
-
-# Restart server if memory issues persist
-# The server includes automatic cleanup, but restart if needed
-```
-
-#### Network and CORS Issues
-
-**Problem**: CORS errors in browser console
-
-**Expected Behavior**: The emulation layer handles CORS automatically through proxying
-
-**If Persistent**:
-```javascript
-// Check server logs for proxy errors
-// Verify target URLs are accessible
-// Ensure proxy configuration is correct
-
-const PROXY_HOST = 'https://allabout.network';
-// Should match your production environment
-```
-
-**Problem**: Mixed content warnings (http/https)
-
-**Solution**:
-```javascript
-// Ensure consistent protocol usage
-// Check for http:// resources when serving over https://
-// Update resource URLs to use relative paths or https://
-```
-
-#### Development Integration Issues
-
-**Problem**: Hot reload conflicts with emulation layer
-
-**Solution**:
-```bash
-# Run development server and emulation layer in separate terminals
-
-# Terminal 1: Component development
-cd build/spectrum-card
-npm run dev  # Runs on port 5173
-
-# Terminal 2: AEM emulation layer  
-node server.js  # Runs on port 3000
-
-# Use port 3000 for testing with real data
-# Use port 5173 for component development
-```
-
-**Problem**: Build process conflicts
-
-**Solution**:
-```bash
-# Ensure proper build sequence
-npm run build:component  # Build components first
-node server.js          # Then start emulation layer
-
-# Verify build outputs don't interfere
-ls -la blocks/spectrum-card/
-```
-
-#### Debugging Tips
-
-**Enable Detailed Logging**:
-```javascript
-// Add to server.js for more verbose output
-console.log(`[${new Date().toISOString()}] ${req.method} ${url}`);
-console.log(`Headers:`, req.headers);
-console.log(`User-Agent:`, req.headers['user-agent']);
-```
-
-**Test Individual Components**:
-```bash
-# Test specific endpoints
-curl -v http://localhost:3000/server.html
-curl -v http://localhost:3000/scripts/aem.js
-curl -v http://localhost:3000/slides/query-index.json
-```
-
-**Monitor Network Traffic**:
-```javascript
-// Use browser dev tools Network tab
-// Look for:
-// - Failed requests (red entries)
-// - Slow requests (long timing bars)
-// - CORS errors (console messages)
-// - 404 errors for missing resources
-```
-
-## Customization Examples
-
-### Theme Customization
+Spectrum-Enhanced components require additional testing for build process and Spectrum integration:
 
 ```javascript
-// Custom color scheme
-const CUSTOM_THEME = {
-  primaryColor: '#FF6B35',
-  secondaryColor: '#004E89',
-  backgroundColor: '#F7F9FB',
-  textColor: '#2C3E50'
-};
-
-// Apply custom badge styling
-function createCustomBadge(index) {
-  const badge = document.createElement('div');
-  badge.style.cssText = `
-    position: absolute; top: 10px; right: 10px;
-    background: linear-gradient(45deg, ${CUSTOM_THEME.primaryColor}, ${CUSTOM_THEME.secondaryColor});
-    color: white; border-radius: 50%;
-    width: 36px; height: 36px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: bold; z-index: 10;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    border: 2px solid white;
-  `;
-  badge.textContent = (index + 1).toString();
-  return badge;
+// Test Spectrum integration
+async function testSpectrumIntegration() {
+  // Wait for Spectrum components
+  await customElements.whenDefined('sp-theme');
+  await customElements.whenDefined('sp-card');
+  
+  const theme = document.querySelector('sp-theme');
+  assert(theme !== null, 'sp-theme should be present');
+  assert(theme.color === 'light', 'Theme should be set to light');
+  
+  // Test Spectrum component functionality
+  const cards = document.querySelectorAll('sp-card');
+  cards.forEach(card => {
+    assert(card.shadowRoot !== null, 'Spectrum cards should have shadow DOM');
+  });
 }
-```
 
-### Animation Examples
+// Test build process
+function testBuildProcess() {
+  // Verify bundled files exist
+  const jsFile = '/blocks/spectrum-card/spectrum-card.js';
+  const cssFile = '/blocks/spectrum-card/spectrum-card.css';
+  
+  fetch(jsFile).then(response => {
+    assert(response.ok, 'Bundled JS file should be accessible');
+    return response.text();
+  }).then(content => {
+    assert(!content.includes('import '), 'Bundle should not contain import statements');
+  });
+}
 
-```javascript
-// Fade-in animation for cards
-function animateCardEntry(card, delay = 0) {
-  card.style.opacity = '0';
-  card.style.transform = 'translateY(20px)';
-  card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+// Test modal accessibility
+function testModalAccessibility() {
+  const button = document.querySelector('sp-button');
+  
+  // Open modal
+  button.click();
+  
+  const modal = document.querySelector('.spectrum-card-modal');
+  assert(modal !== null, 'Modal should be created');
+  assert(modal.getAttribute('role') === 'dialog', 'Modal should have dialog role');
+  assert(modal.getAttribute('aria-modal') === 'true', 'Modal should have aria-modal');
+  
+  // Test focus management
+  const closeButton = modal.querySelector('button');
+  assert(document.activeElement === closeButton, 'Close button should be focused');
+  
+  // Test escape key
+  const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
+  modal.dispatchEvent(escapeEvent);
   
   setTimeout(() => {
-    card.style.opacity = '1';
-    card.style.transform = 'translateY(0)';
-  }, delay);
-}
-
-// Modal entrance animation
-function animateModalEntry(modal) {
-  modal.style.transform = 'scale(0.9)';
-  modal.style.opacity = '0';
-  modal.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
-  
-  requestAnimationFrame(() => {
-    modal.style.transform = 'scale(1)';
-    modal.style.opacity = '1';
-  });
+    assert(document.querySelector('.spectrum-card-modal') === null, 
+           'Modal should close on escape key');
+  }, 100);
 }
 ```
 
-### Layout Variations
+### Testing Checklist
+
+#### EDS-Native Components
+- [ ] Component initializes without errors
+- [ ] EDS block structure is properly recognized
+- [ ] Error handling displays user-friendly messages
+- [ ] Keyboard navigation works correctly
+- [ ] ARIA attributes are properly set
+- [ ] Performance meets standards (< 200ms load time)
+
+#### Spectrum-Enhanced Components
+- [ ] Build process completes without errors
+- [ ] Spectrum components render correctly
+- [ ] Theme integration works properly
+- [ ] Modal accessibility is implemented
+- [ ] Bundle size is reasonable (< 500KB)
+- [ ] Memory usage is optimized
+
+## Error Handling and Accessibility
+
+### Standardized Error Handling
 
 ```javascript
-// Masonry layout for cards
-function createMasonryLayout(container) {
-  container.style.cssText = `
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: 10px;
-    gap: 20px;
+// Network request with retry mechanism
+async function fetchWithRetry(url, options = {}, maxRetries = 3) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const response = await fetch(url, {
+        ...options,
+        signal: AbortSignal.timeout(5000) // 5 second timeout
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      return response;
+    } catch (error) {
+      if (attempt === maxRetries) throw error;
+      await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+    }
+  }
+}
+
+// User-friendly error display
+function showErrorState(container, message, retryCallback) {
+  const errorElement = document.createElement('div');
+  errorElement.className = 'component-error';
+  errorElement.setAttribute('role', 'alert');
+  errorElement.innerHTML = `
+    <div class="error-content">
+      <h3>Something went wrong</h3>
+      <p>${message}</p>
+      <button class="retry-button" type="button">Try Again</button>
+    </div>
   `;
   
-  // Auto-size cards based on content
-  container.querySelectorAll('.card-wrapper').forEach(card => {
-    const height = card.scrollHeight;
-    const spans = Math.ceil(height / 10);
-    card.style.gridRowEnd = `span ${spans}`;
+  const retryButton = errorElement.querySelector('.retry-button');
+  retryButton.addEventListener('click', retryCallback);
+  
+  container.innerHTML = '';
+  container.appendChild(errorElement);
+}
+```
+
+### Accessibility Implementation
+
+```javascript
+// Comprehensive accessibility setup
+function setupAccessibility(container) {
+  // 1. Semantic structure
+  ensureSemanticStructure(container);
+  
+  // 2. ARIA attributes
+  setupAriaAttributes(container);
+  
+  // 3. Keyboard navigation
+  setupKeyboardNavigation(container);
+  
+  // 4. Focus management
+  setupFocusManagement(container);
+  
+  // 5. Screen reader support
+  setupScreenReaderSupport(container);
+}
+
+function setupKeyboardNavigation(container) {
+  const focusableElements = container.querySelectorAll(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  );
+  
+  container.addEventListener('keydown', (event) => {
+    switch (event.key) {
+      case 'Escape':
+        handleEscapeKey(event, container);
+        break;
+      case 'Tab':
+        handleTabNavigation(event, focusableElements);
+        break;
+      case 'Enter':
+      case ' ':
+        handleActivation(event);
+        break;
+      case 'ArrowRight':
+      case 'ArrowDown':
+        handleArrowNavigation(event, focusableElements, 1);
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        handleArrowNavigation(event, focusableElements, -1);
+        break;
+    }
   });
 }
 
-// Horizontal scrolling layout
-function createHorizontalLayout(container) {
-  container.style.cssText = `
-    display: flex;
-    overflow-x: auto;
-    gap: 20px;
-    padding: 20px 0;
-    scroll-snap-type: x mandatory;
-  `;
+function setupAriaAttributes(container) {
+  // Set appropriate ARIA roles
+  if (!container.getAttribute('role')) {
+    container.setAttribute('role', 'region');
+  }
   
-  container.querySelectorAll('.card-wrapper').forEach(card => {
-    card.style.cssText = `
-      flex: 0 0 300px;
-      scroll-snap-align: start;
-    `;
-  });
+  // Add aria-label if needed
+  if (!container.getAttribute('aria-label') && !container.getAttribute('aria-labelledby')) {
+    const heading = container.querySelector('h1, h2, h3, h4, h5, h6');
+    if (heading) {
+      heading.id = heading.id || `heading-${Date.now()}`;
+      container.setAttribute('aria-labelledby', heading.id);
+    }
+  }
+  
+  // Set up live regions for dynamic content
+  const liveRegion = container.querySelector('[data-live-region]');
+  if (liveRegion) {
+    liveRegion.setAttribute('aria-live', 'polite');
+    liveRegion.setAttribute('aria-atomic', 'true');
+  }
+}
+
+// Screen reader announcements
+function announceToScreenReader(message) {
+  const announcement = document.createElement('div');
+  announcement.setAttribute('aria-live', 'polite');
+  announcement.setAttribute('aria-atomic', 'true');
+  announcement.style.cssText = `
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  `;
+  announcement.textContent = message;
+  
+  document.body.appendChild(announcement);
+  setTimeout(() => document.body.removeChild(announcement), 1000);
 }
 ```
 
 ## Performance Optimization
 
-### Image Optimization
+### Loading States and Optimization
 
 ```javascript
-// Responsive image loading
-function createOptimizedImage(src, alt, sizes = '(max-width: 768px) 100vw, 50vw') {
-  const img = document.createElement('img');
+// Loading state management
+function showLoadingState(container, message = 'Loading...') {
+  const loader = document.createElement('div');
+  loader.className = 'component-loader';
+  loader.setAttribute('aria-live', 'polite');
+  loader.innerHTML = `
+    <div class="loader-content">
+      <div class="spinner" aria-hidden="true"></div>
+      <span class="loader-text">${message}</span>
+    </div>
+  `;
   
-  // Generate responsive srcset
-  const baseSrc = src.split('?')[0];
-  const srcset = [
-    `${baseSrc}?width=400&format=webp&optimize=medium 400w`,
-    `${baseSrc}?width=800&format=webp&optimize=medium 800w`,
-    `${baseSrc}?width=1200&format=webp&optimize=medium 1200w`
-  ].join(', ');
-  
-  img.srcset = srcset;
-  img.sizes = sizes;
-  img.src = `${baseSrc}?width=800&format=webp&optimize=medium`;
-  img.alt = alt;
-  img.loading = 'lazy';
-  img.decoding = 'async';
-  
-  return img;
-}
-```
-
-### Lazy Loading Implementation
-
-```javascript
-// Intersection Observer for lazy loading
-const cardObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const card = entry.target;
-      loadCardContent(card);
-      cardObserver.unobserve(card);
-    }
-  });
-}, {
-  rootMargin: '50px'
-});
-
-function loadCardContent(cardElement) {
-  // Load heavy content only when card is visible
-  const img = cardElement.querySelector('img[data-src]');
-  if (img) {
-    img.src = img.dataset.src;
-    img.removeAttribute('data-src');
-  }
-}
-```
-
-### Memory Management
-
-```javascript
-// Cleanup function for modal
-function cleanupModal(overlay) {
-  // Remove event listeners
-  const closeButton = overlay.querySelector('sp-button');
-  if (closeButton) {
-    closeButton.removeEventListener('click', closeModal);
-  }
-  
-  // Clear content
-  const content = overlay.querySelector('.spectrum-card-modal-content');
-  if (content) {
-    content.innerHTML = '';
-  }
-  
-  // Remove from DOM
-  if (overlay.parentNode) {
-    overlay.parentNode.removeChild(overlay);
-  }
-  
-  // Restore body scroll
-  document.body.style.overflow = '';
+  container.appendChild(loader);
+  return loader;
 }
 
-// Debounced resize handler
+function hideLoadingState(loader) {
+  if (loader && loader.parentNode) {
+    loader.parentNode.removeChild(loader);
+  }
+}
+
+// Debounced event handling
 function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
@@ -1327,476 +1179,99 @@ function debounce(func, wait) {
   };
 }
 
-const handleResize = debounce(() => {
-  // Recalculate layouts
-  updateCardLayouts();
-}, 250);
-
-window.addEventListener('resize', handleResize);
-```
-
-## Accessibility Deep Dive
-
-### ARIA Implementation
-
-```javascript
-// Enhanced accessibility for cards
-function createAccessibleCard(cardData, index) {
-  const cardWrapper = createCard(cardData, index);
-  const card = cardWrapper.querySelector('sp-card');
-  
-  // Add ARIA attributes
-  card.setAttribute('role', 'article');
-  card.setAttribute('aria-labelledby', `card-title-${index}`);
-  card.setAttribute('aria-describedby', `card-desc-${index}`);
-  card.setAttribute('tabindex', '0');
-  
-  // Add unique IDs for screen readers
-  const title = card.querySelector('[slot="heading"]');
-  if (title) {
-    title.id = `card-title-${index}`;
-  }
-  
-  const description = card.querySelector('[slot="description"]');
-  if (description) {
-    description.id = `card-desc-${index}`;
-  }
-  
-  // Add slide number announcement
-  const badge = cardWrapper.querySelector('.slide-number');
-  if (badge) {
-    badge.setAttribute('aria-label', `Slide ${index + 1}`);
-    badge.setAttribute('role', 'img');
-  }
-  
-  return cardWrapper;
-}
-```
-
-### Keyboard Navigation
-
-```javascript
-// Enhanced keyboard support
-function addKeyboardNavigation(container) {
-  const cards = container.querySelectorAll('sp-card');
-  
-  cards.forEach((card, index) => {
-    card.addEventListener('keydown', (e) => {
-      switch (e.key) {
-        case 'Enter':
-        case ' ':
-          e.preventDefault();
-          // Trigger card action
-          const button = card.querySelector('sp-button');
-          if (button) button.click();
-          break;
-          
-        case 'ArrowRight':
-        case 'ArrowDown':
-          e.preventDefault();
-          focusNextCard(cards, index);
-          break;
-          
-        case 'ArrowLeft':
-        case 'ArrowUp':
-          e.preventDefault();
-          focusPreviousCard(cards, index);
-          break;
-          
-        case 'Home':
-          e.preventDefault();
-          cards[0].focus();
-          break;
-          
-        case 'End':
-          e.preventDefault();
-          cards[cards.length - 1].focus();
-          break;
-      }
-    });
+// Intersection Observer for lazy loading
+const lazyLoadObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const element = entry.target;
+      loadContent(element);
+      lazyLoadObserver.unobserve(element);
+    }
   });
-}
+}, {
+  rootMargin: '50px'
+});
 
-function focusNextCard(cards, currentIndex) {
-  const nextIndex = (currentIndex + 1) % cards.length;
-  cards[nextIndex].focus();
-}
-
-function focusPreviousCard(cards, currentIndex) {
-  const prevIndex = currentIndex === 0 ? cards.length - 1 : currentIndex - 1;
-  cards[prevIndex].focus();
-}
-```
-
-### Screen Reader Support
-
-```javascript
-// Live region for dynamic updates
-function createLiveRegion() {
-  const liveRegion = document.createElement('div');
-  liveRegion.setAttribute('aria-live', 'polite');
-  liveRegion.setAttribute('aria-atomic', 'true');
-  liveRegion.style.cssText = `
-    position: absolute; left: -10000px; width: 1px; height: 1px;
-    overflow: hidden;
-  `;
-  document.body.appendChild(liveRegion);
-  return liveRegion;
-}
-
-// Announce loading states
-function announceLoadingState(message) {
-  const liveRegion = document.querySelector('[aria-live]') || createLiveRegion();
-  liveRegion.textContent = message;
-}
-
-// Usage in component
-async function decorate(block) {
-  announceLoadingState('Loading cards...');
-  
-  try {
-    const cardData = await fetchCardData(queryPath);
-    announceLoadingState(`Loaded ${cardData.length} cards`);
-    
-    // Render cards...
-    
-  } catch (error) {
-    announceLoadingState('Error loading cards');
-  }
-}
-```
-
-## Integration Examples
-
-### Custom Event System
-
-```javascript
-// Custom events for component communication
-class SpectrumCardEvents {
-  static CARD_LOADED = 'spectrum-card:loaded';
-  static CARD_CLICKED = 'spectrum-card:clicked';
-  static MODAL_OPENED = 'spectrum-card:modal-opened';
-  static MODAL_CLOSED = 'spectrum-card:modal-closed';
-  
-  static dispatch(eventType, detail = {}) {
-    const event = new CustomEvent(eventType, {
-      detail,
-      bubbles: true,
-      cancelable: true
-    });
-    document.dispatchEvent(event);
-  }
-}
-
-// Usage in component
-function createCard(cardData, index) {
-  const card = createBasicCard(cardData, index);
-  
-  card.addEventListener('click', () => {
-    SpectrumCardEvents.dispatch(SpectrumCardEvents.CARD_CLICKED, {
-      cardData,
-      index,
-      timestamp: Date.now()
+// Memory management
+function cleanup(container) {
+  // Remove event listeners
+  const elements = container.querySelectorAll('[data-cleanup]');
+  elements.forEach(element => {
+    const events = element.dataset.cleanup.split(',');
+    events.forEach(event => {
+      element.removeEventListener(event.trim(), element._handler);
     });
   });
   
-  return card;
-}
-
-// Listen for events in application
-document.addEventListener(SpectrumCardEvents.CARD_CLICKED, (e) => {
-  console.log('Card clicked:', e.detail);
-  // Analytics tracking, state updates, etc.
-});
-```
-
-### Data Transformation Examples
-
-```javascript
-// Transform different data sources to card format
-class DataTransformer {
-  static fromBlogPosts(posts) {
-    return posts.map(post => ({
-      path: `/blog/${post.slug}`,
-      title: post.title,
-      description: post.excerpt,
-      image: post.featuredImage,
-      buttonText: 'Read Article',
-      author: post.author,
-      publishDate: post.publishDate,
-      category: post.category
-    }));
+  // Clear intervals and timeouts
+  if (container._intervals) {
+    container._intervals.forEach(clearInterval);
+  }
+  if (container._timeouts) {
+    container._timeouts.forEach(clearTimeout);
   }
   
-  static fromProducts(products) {
-    return products.map(product => ({
-      path: `/products/${product.id}`,
-      title: product.name,
-      description: product.shortDescription,
-      image: product.thumbnail,
-      buttonText: 'View Product',
-      price: product.price,
-      rating: product.rating,
-      inStock: product.inventory > 0
-    }));
-  }
-  
-  static fromEvents(events) {
-    return events.map(event => ({
-      path: `/events/${event.id}`,
-      title: event.name,
-      description: event.summary,
-      image: event.banner,
-      buttonText: 'Register',
-      date: event.startDate,
-      location: event.venue,
-      capacity: event.maxAttendees
-    }));
+  // Remove from DOM
+  if (container.parentNode) {
+    container.parentNode.removeChild(container);
   }
 }
 ```
 
-## Advanced Features
+### CSS Performance Patterns
 
-### Search and Filtering
+```css
+/* Efficient animations using transform and opacity */
+.component-card {
+  transform: translateZ(0); /* Force hardware acceleration */
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
 
-```javascript
-// Advanced search functionality
-class CardFilter {
-  constructor(cards) {
-    this.originalCards = cards;
-    this.filteredCards = cards;
-    this.filters = new Map();
-  }
-  
-  addFilter(name, predicate) {
-    this.filters.set(name, predicate);
-    this.applyFilters();
-  }
-  
-  removeFilter(name) {
-    this.filters.delete(name);
-    this.applyFilters();
-  }
-  
-  applyFilters() {
-    this.filteredCards = this.originalCards.filter(card => {
-      return Array.from(this.filters.values()).every(predicate => predicate(card));
-    });
-    this.render();
-  }
-  
-  search(query) {
-    const searchPredicate = (card) => {
-      const searchText = `${card.title} ${card.description}`.toLowerCase();
-      return searchText.includes(query.toLowerCase());
-    };
-    
-    if (query.trim()) {
-      this.addFilter('search', searchPredicate);
-    } else {
-      this.removeFilter('search');
-    }
-  }
-  
-  filterByCategory(category) {
-    if (category) {
-      this.addFilter('category', card => card.category === category);
-    } else {
-      this.removeFilter('category');
-    }
-  }
-  
-  render() {
-    // Re-render filtered cards
-    this.onRender?.(this.filteredCards);
+.component-card:hover {
+  transform: translateY(-2px) translateZ(0);
+}
+
+/* Efficient loading states */
+.component-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--light-color);
+  border-top: 2px solid var(--link-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive design with container queries */
+.component-container {
+  container-type: inline-size;
+}
+
+@container (min-width: 768px) {
+  .component-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-// Usage
-const cardFilter = new CardFilter(cardData);
-cardFilter.onRender = (filteredCards) => {
-  renderCards(filteredCards);
-};
-
-// Add search input
-const searchInput = document.createElement('input');
-searchInput.placeholder = 'Search cards...';
-searchInput.addEventListener('input', (e) => {
-  cardFilter.search(e.target.value);
-});
-```
-
-### Pagination Implementation
-
-```javascript
-// Pagination for large datasets
-class CardPagination {
-  constructor(cards, itemsPerPage = 12) {
-    this.allCards = cards;
-    this.itemsPerPage = itemsPerPage;
-    this.currentPage = 1;
-    this.totalPages = Math.ceil(cards.length / itemsPerPage);
-  }
-  
-  getCurrentPageCards() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.allCards.slice(startIndex, endIndex);
-  }
-  
-  goToPage(page) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.render();
-    }
-  }
-  
-  nextPage() {
-    this.goToPage(this.currentPage + 1);
-  }
-  
-  previousPage() {
-    this.goToPage(this.currentPage - 1);
-  }
-  
-  createPaginationControls() {
-    const controls = document.createElement('div');
-    controls.className = 'pagination-controls';
-    controls.style.cssText = `
-      display: flex; justify-content: center; align-items: center;
-      gap: 10px; margin: 20px 0;
-    `;
-    
-    // Previous button
-    const prevBtn = document.createElement('sp-button');
-    prevBtn.textContent = 'Previous';
-    prevBtn.disabled = this.currentPage === 1;
-    prevBtn.addEventListener('click', () => this.previousPage());
-    
-    // Page info
-    const pageInfo = document.createElement('span');
-    pageInfo.textContent = `Page ${this.currentPage} of ${this.totalPages}`;
-    
-    // Next button
-    const nextBtn = document.createElement('sp-button');
-    nextBtn.textContent = 'Next';
-    nextBtn.disabled = this.currentPage === this.totalPages;
-    nextBtn.addEventListener('click', () => this.nextPage());
-    
-    controls.appendChild(prevBtn);
-    controls.appendChild(pageInfo);
-    controls.appendChild(nextBtn);
-    
-    return controls;
-  }
-  
-  render() {
-    this.onRender?.(this.getCurrentPageCards());
+@container (min-width: 1024px) {
+  .component-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 ```
 
-### Animation System
-
-```javascript
-// Advanced animation system
-class CardAnimations {
-  static fadeInSequence(cards, delay = 100) {
-    cards.forEach((card, index) => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(20px)';
-      card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-      
-      setTimeout(() => {
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0)';
-      }, index * delay);
-    });
-  }
-  
-  static slideInFromLeft(cards, delay = 150) {
-    cards.forEach((card, index) => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateX(-50px)';
-      card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-      
-      setTimeout(() => {
-        card.style.opacity = '1';
-        card.style.transform = 'translateX(0)';
-      }, index * delay);
-    });
-  }
-  
-  static scaleIn(cards, delay = 80) {
-    cards.forEach((card, index) => {
-      card.style.opacity = '0';
-      card.style.transform = 'scale(0.8)';
-      card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-      
-      setTimeout(() => {
-        card.style.opacity = '1';
-        card.style.transform = 'scale(1)';
-      }, index * delay);
-    });
-  }
-  
-  static hoverEffects(card) {
-    card.style.transition = 'transform 0.2s ease, box-shadow 0.2s ease';
-    
-    card.addEventListener('mouseenter', () => {
-      card.style.transform = 'translateY(-5px)';
-      card.style.boxShadow = '0 10px 25px rgba(0,0,0,0.15)';
-    });
-    
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = 'translateY(0)';
-      card.style.boxShadow = '';
-    });
-  }
-}
-```
-
-## Deployment and Production
-
-### Build Optimization
-
-```javascript
-// Production build configuration
-// vite.config.prod.js
-import { defineConfig } from 'vite';
-
-export default defineConfig({
-  build: {
-    lib: {
-      entry: 'spectrum-card.js',
-      name: 'SpectrumCard',
-      fileName: () => 'spectrum-card.js',
-      formats: ['es']
-    },
-    rollupOptions: {
-      external: [
-        // Externalize Spectrum components for CDN loading
-        '@spectrum-web-components/theme/sp-theme.js',
-        '@spectrum-web-components/card/sp-card.js',
-        '@spectrum-web-components/button/sp-button.js'
-      ],
-      output: {
-        globals: {
-          // Define globals for externalized dependencies
-        }
-      }
-    },
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true
-      }
-    }
-  }
-});
-```
+## Production Deployment
 
 ### Environment Configuration
 
@@ -1824,91 +1299,243 @@ const ENV_CONFIG = {
 };
 
 function getEnvironmentConfig() {
-  const env = process.env.NODE_ENV || 'development';
-  return ENV_CONFIG[env] || ENV_CONFIG.development;
+  const hostname = window.location.hostname;
+  
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return ENV_CONFIG.development;
+  } else if (hostname.includes('staging')) {
+    return ENV_CONFIG.staging;
+  } else {
+    return ENV_CONFIG.production;
+  }
 }
 ```
 
-### Performance Monitoring
+### Build Process for Production
+
+```bash
+# Spectrum-Enhanced components build process
+cd build/spectrum-card
+npm install
+npm run build
+
+# Copy built files to blocks directory
+cd ../..
+npm run build:component
+
+# Verify build output
+ls -la blocks/spectrum-card/
+# Should contain:
+# - spectrum-card.js (bundled)
+# - spectrum-card.css (processed)
+# - test.html (production test)
+```
+
+### Security Considerations
 
 ```javascript
-// Performance monitoring utilities
-class PerformanceMonitor {
-  static measureComponentLoad(componentName, loadFunction) {
-    const startTime = performance.now();
-    
-    return loadFunction().then(result => {
-      const endTime = performance.now();
-      const loadTime = endTime - startTime;
-      
-      // Send to analytics
-      this.reportMetric('component_load_time', {
-        component: componentName,
-        duration: loadTime,
-        timestamp: Date.now()
-      });
-      
-      return result;
-    });
+// Content Security Policy helpers
+function sanitizeHTML(html) {
+  const div = document.createElement('div');
+  div.textContent = html;
+  return div.innerHTML;
+}
+
+// Safe URL validation
+function isValidURL(url) {
+  try {
+    const urlObj = new URL(url);
+    return ['http:', 'https:'].includes(urlObj.protocol);
+  } catch {
+    return false;
+  }
+}
+
+// XSS prevention
+function createSafeElement(tag, attributes = {}, textContent = '') {
+  const element = document.createElement(tag);
+  
+  // Sanitize attributes
+  Object.entries(attributes).forEach(([key, value]) => {
+    if (typeof value === 'string') {
+      element.setAttribute(key, value.replace(/[<>"']/g, ''));
+    }
+  });
+  
+  // Sanitize text content
+  if (textContent) {
+    element.textContent = textContent;
   }
   
-  static measureDataFetch(endpoint, fetchFunction) {
-    const startTime = performance.now();
-    
-    return fetchFunction().then(result => {
-      const endTime = performance.now();
-      const fetchTime = endTime - startTime;
-      
-      this.reportMetric('data_fetch_time', {
-        endpoint,
-        duration: fetchTime,
-        success: true,
-        timestamp: Date.now()
-      });
-      
-      return result;
-    }).catch(error => {
-      const endTime = performance.now();
-      const fetchTime = endTime - startTime;
-      
-      this.reportMetric('data_fetch_time', {
-        endpoint,
-        duration: fetchTime,
-        success: false,
-        error: error.message,
-        timestamp: Date.now()
-      });
-      
-      throw error;
-    });
-  }
-  
-  static reportMetric(metricName, data) {
-    // Send to your analytics service
-    if (window.gtag) {
-      window.gtag('event', metricName, data);
-    }
-    
-    // Or send to custom analytics endpoint
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon('/analytics', JSON.stringify({
-        metric: metricName,
-        data,
-        userAgent: navigator.userAgent,
-        url: window.location.href
-      }));
-    }
-  }
+  return element;
 }
 ```
 
-## Extension Patterns
+## Troubleshooting
+
+### Common Issues and Solutions
+
+#### Server.js Issues
+
+**Problem**: `Error: listen EADDRINUSE :::3000`
+
+**Solution**:
+```bash
+# Method 1: Use different port
+PORT=3001 node server.js
+
+# Method 2: Kill process using port 3000
+lsof -ti:3000 | xargs kill -9
+
+# Method 3: Find and kill specific process
+ps aux | grep "node server.js"
+kill -9 [PID]
+```
+
+**Problem**: Local files return 404 errors
+
+**Solution**:
+```bash
+# Verify file structure
+ls -la server.html
+ls -la scripts/aem.js
+ls -la styles/styles.css
+
+# Check server logs for file path resolution
+# Server should show: "Serving local file: /full/path/to/file"
+```
+
+#### Build Process Issues
+
+**Problem**: Vite build fails with module resolution errors
+
+**Solution**:
+```bash
+# Ensure proper package.json in build directory
+cd build/spectrum-card
+cat package.json  # Verify dependencies
+
+# Clean install
+rm -rf node_modules package-lock.json
+npm install
+
+# Check vite.config.js
+cat vite.config.js  # Verify configuration
+```
+
+**Problem**: Spectrum components not rendering
+
+**Solution**:
+```javascript
+// Ensure proper import order
+import '@spectrum-web-components/theme/sp-theme.js';
+import '@spectrum-web-components/theme/theme-light.js';
+import '@spectrum-web-components/theme/scale-medium.js';
+// Import specific components after theme
+
+// Wait for components to be defined
+await customElements.whenDefined('sp-theme');
+await customElements.whenDefined('sp-card');
+```
+
+#### Component Issues
+
+**Problem**: EDS block not initializing
+
+**Solution**:
+```html
+<!-- Verify proper EDS block structure -->
+<div class="component-name block" data-block-name="component-name" data-block-status="initialized">
+  <div>
+    <div>
+      <!-- Content here -->
+    </div>
+  </div>
+</div>
+```
+
+**Problem**: CSS not loading
+
+**Solution**:
+```javascript
+// For EDS-Native: CSS is loaded automatically by EDS
+// Verify file exists at: /blocks/component-name/component-name.css
+
+// For Spectrum-Enhanced: CSS is bundled
+// Verify build process completed successfully
+```
+
+### Debugging Tools
+
+```javascript
+// Component debugging utility
+const ComponentDebugger = {
+  logComponentState(component, label = 'Component State') {
+    console.group(label);
+    console.log('Element:', component);
+    console.log('Classes:', component.className);
+    console.log('Attributes:', Array.from(component.attributes).map(attr => `${attr.name}="${attr.value}"`));
+    console.log('Children:', component.children.length);
+    console.log('Text Content:', component.textContent.trim());
+    console.groupEnd();
+  },
+  
+  validateAccessibility(component) {
+    const issues = [];
+    
+    // Check for required ARIA attributes
+    if (!component.getAttribute('role') && !component.getAttribute('aria-label') && !component.getAttribute('aria-labelledby')) {
+      issues.push('Missing accessible name (aria-label or aria-labelledby)');
+    }
+    
+    // Check for focusable elements
+    const focusable = component.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (focusable.length === 0) {
+      issues.push('No focusable elements found');
+    }
+    
+    // Check for proper heading structure
+    const headings = component.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    if (headings.length > 0) {
+      const levels = Array.from(headings).map(h => parseInt(h.tagName.charAt(1)));
+      for (let i = 1; i < levels.length; i++) {
+        if (levels[i] > levels[i-1] + 1) {
+          issues.push('Heading levels skip (e.g., h2 to h4)');
+          break;
+        }
+      }
+    }
+    
+    if (issues.length > 0) {
+      console.warn('Accessibility issues found:', issues);
+    } else {
+      console.log('✅ No accessibility issues detected');
+    }
+    
+    return issues;
+  },
+  
+  measurePerformance(label, fn) {
+    const start = performance.now();
+    const result = fn();
+    const end = performance.now();
+    console.log(`${label}: ${end - start}ms`);
+    return result;
+  }
+};
+
+// Usage
+ComponentDebugger.logComponentState(document.querySelector('.spectrum-card'));
+ComponentDebugger.validateAccessibility(document.querySelector('.component-name'));
+```
+
+## Advanced Patterns
 
 ### Plugin Architecture
 
 ```javascript
-// Plugin system for extensibility
-class SpectrumCardPlugin {
+// Extensible plugin system
+class ComponentPlugin {
   constructor(name, version) {
     this.name = name;
     this.version = version;
@@ -1930,105 +1557,40 @@ class SpectrumCardPlugin {
   }
 }
 
-// Example plugins
-class AnalyticsPlugin extends SpectrumCardPlugin {
+// Example analytics plugin
+class AnalyticsPlugin extends ComponentPlugin {
   constructor() {
     super('analytics', '1.0.0');
     
-    this.addHook('card:clicked', (data) => {
-      this.trackCardClick(data);
+    this.addHook('component:initialized', (data) => {
+      this.trackComponentLoad(data);
       return data;
     });
     
-    this.addHook('modal:opened', (data) => {
-      this.trackModalOpen(data);
+    this.addHook('component:interacted', (data) => {
+      this.trackInteraction(data);
       return data;
     });
   }
   
-  trackCardClick(data) {
-    // Analytics implementation
-    console.log('Analytics: Card clicked', data);
-  }
-  
-  trackModalOpen(data) {
-    // Analytics implementation
-    console.log('Analytics: Modal opened', data);
-  }
-}
-
-class ThemePlugin extends SpectrumCardPlugin {
-  constructor(theme) {
-    super('theme', '1.0.0');
-    this.theme = theme;
-    
-    this.addHook('card:created', (card) => {
-      this.applyTheme(card);
-      return card;
-    });
-  }
-  
-  applyTheme(card) {
-    // Apply custom theme
-    card.style.setProperty('--custom-primary', this.theme.primary);
-    card.style.setProperty('--custom-secondary', this.theme.secondary);
-  }
-}
-```
-
-### Component Library Pattern
-
-```javascript
-// Reusable component library structure
-class SpectrumCardLibrary {
-  constructor() {
-    this.variants = new Map();
-    this.plugins = [];
-  }
-  
-  registerVariant(name, config) {
-    this.variants.set(name, config);
-  }
-  
-  addPlugin(plugin) {
-    this.plugins.push(plugin);
-  }
-  
-  createCard(data, variantName = 'default') {
-    const variant = this.variants.get(variantName);
-    if (!variant) {
-      throw new Error(`Unknown variant: ${variantName}`);
+  trackComponentLoad(data) {
+    if (window.gtag) {
+      window.gtag('event', 'component_load', {
+        component_name: data.name,
+        component_type: data.type
+      });
     }
-    
-    let card = variant.create(data);
-    
-    // Apply plugins
-    this.plugins.forEach(plugin => {
-      card = plugin.executeHook('card:created', card);
-    });
-    
-    return card;
+  }
+  
+  trackInteraction(data) {
+    if (window.gtag) {
+      window.gtag('event', 'component_interaction', {
+        component_name: data.name,
+        interaction_type: data.interaction
+      });
+    }
   }
 }
-
-// Register variants
-const cardLibrary = new SpectrumCardLibrary();
-
-cardLibrary.registerVariant('default', {
-  create: (data) => createStandardCard(data)
-});
-
-cardLibrary.registerVariant('compact', {
-  create: (data) => createCompactCard(data)
-});
-
-cardLibrary.registerVariant('featured', {
-  create: (data) => createFeaturedCard(data)
-});
-
-// Add plugins
-cardLibrary.addPlugin(new AnalyticsPlugin());
-cardLibrary.addPlugin(new ThemePlugin({ primary: '#0265DC', secondary: '#378EF0' }));
 ```
 
 ### Multi-language Support
@@ -2039,6 +1601,7 @@ class I18nManager {
   constructor(defaultLocale = 'en') {
     this.currentLocale = defaultLocale;
     this.translations = new Map();
+    this.fallbackLocale = 'en';
   }
   
   addTranslations(locale, translations) {
@@ -2047,11 +1610,14 @@ class I18nManager {
   
   setLocale(locale) {
     this.currentLocale = locale;
+    document.documentElement.lang = locale;
   }
   
   t(key, params = {}) {
     const translations = this.translations.get(this.currentLocale) || {};
-    let translation = translations[key] || key;
+    const fallbackTranslations = this.translations.get(this.fallbackLocale) || {};
+    
+    let translation = translations[key] || fallbackTranslations[key] || key;
     
     // Replace parameters
     Object.keys(params).forEach(param => {
@@ -2060,63 +1626,116 @@ class I18nManager {
     
     return translation;
   }
+  
+  formatNumber(number, options = {}) {
+    return new Intl.NumberFormat(this.currentLocale, options).format(number);
+  }
+  
+  formatDate(date, options = {}) {
+    return new Intl.DateTimeFormat(this.currentLocale, options).format(date);
+  }
 }
 
-// Usage in component
+// Usage
 const i18n = new I18nManager();
 
 i18n.addTranslations('en', {
-  'card.loading': 'Loading cards...',
-  'card.error': 'Error loading cards',
-  'card.readMore': 'Read More',
-  'modal.close': 'Close',
-  'modal.loading': 'Loading content...'
+  'component.loading': 'Loading...',
+  'component.error': 'Error loading content',
+  'component.retry': 'Try Again',
+  'component.close': 'Close'
 });
 
 i18n.addTranslations('es', {
-  'card.loading': 'Cargando tarjetas...',
-  'card.error': 'Error al cargar tarjetas',
-  'card.readMore': 'Leer Más',
-  'modal.close': 'Cerrar',
-  'modal.loading': 'Cargando contenido...'
+  'component.loading': 'Cargando...',
+  'component.error': 'Error al cargar contenido',
+  'component.retry': 'Intentar de Nuevo',
+  'component.close': 'Cerrar'
 });
+```
 
-// Use in component
-function createCard(data) {
-  const button = document.createElement('sp-button');
-  button.textContent = i18n.t('card.readMore');
-  // ...
+### Component Library Pattern
+
+```javascript
+// Reusable component library
+class ComponentLibrary {
+  constructor() {
+    this.components = new Map();
+    this.plugins = [];
+    this.themes = new Map();
+  }
+  
+  registerComponent(name, config) {
+    this.components.set(name, config);
+  }
+  
+  addPlugin(plugin) {
+    this.plugins.push(plugin);
+  }
+  
+  addTheme(name, theme) {
+    this.themes.set(name, theme);
+  }
+  
+  createComponent(name, data, options = {}) {
+    const config = this.components.get(name);
+    if (!config) {
+      throw new Error(`Unknown component: ${name}`);
+    }
+    
+    let component = config.create(data, options);
+    
+    // Apply plugins
+    this.plugins.forEach(plugin => {
+      component = plugin.executeHook('component:created', component);
+    });
+    
+    // Apply theme
+    if (options.theme && this.themes.has(options.theme)) {
+      const theme = this.themes.get(options.theme);
+      this.applyTheme(component, theme);
+    }
+    
+    return component;
+  }
+  
+  applyTheme(component, theme) {
+    Object.entries(theme).forEach(([property, value]) => {
+      component.style.setProperty(`--${property}`, value);
+    });
+  }
 }
 ```
 
 ## Conclusion
 
-This comprehensive tutorial provides a complete foundation for building professional Spectrum components for Adobe Edge Delivery Services. The patterns and techniques demonstrated here can be adapted for various content types and use cases, from simple card displays to complex interactive applications.
+This comprehensive guide provides a complete foundation for building professional EDS components using the dual-pattern architecture. The patterns and techniques demonstrated here can be adapted for various content types and use cases, from simple content blocks to complex interactive applications.
 
 ### Key Takeaways
 
-1. **Architecture Matters**: Proper separation of concerns and modular design enable maintainability and extensibility
-2. **Performance is Critical**: Lazy loading, efficient DOM operations, and proper memory management ensure smooth user experiences
-3. **Accessibility is Essential**: ARIA compliance, keyboard navigation, and screen reader support make components inclusive
-4. **Testing Prevents Issues**: Comprehensive testing strategies catch problems early and ensure reliability
-5. **Documentation Enables Adoption**: Clear documentation and examples help teams implement and customize components effectively
+1. **Architecture Flexibility**: The dual-pattern approach allows choosing the right tool for component complexity
+2. **Development Efficiency**: Server.js emulation layer provides production-accurate testing environment
+3. **Quality Standards**: Comprehensive testing, accessibility, and performance requirements ensure professional results
+4. **Maintainability**: Clear documentation, error handling, and code organization enable long-term success
+5. **Scalability**: Plugin architecture and component library patterns support growth and customization
 
 ### Next Steps
 
-- Experiment with different Spectrum components and layouts
-- Implement custom themes and animations
-- Add advanced features like search, filtering, and pagination
-- Create reusable component libraries for your organization
-- Contribute improvements back to the community
+- **Experiment** with both patterns to understand their strengths
+- **Implement** comprehensive testing for all components
+- **Create** reusable component libraries for your organization
+- **Contribute** improvements back to the community
+- **Stay Updated** with EDS and Spectrum Web Components evolution
 
-The combination of Adobe Spectrum Web Components and Edge Delivery Services provides a powerful foundation for building modern, performant web applications that maintain design consistency and accessibility standards.
+The combination of Adobe Edge Delivery Services and modern web development practices provides a powerful foundation for building fast, accessible, and maintainable web applications that scale with your needs.
 
 ---
 
-| metadata |  |
+| Metadata | Value |
 | :---- | :---- |
-| title | Complete Tutorial: Building Professional Spectrum Components for Adobe Edge Delivery Services |
-| description | A comprehensive guide to creating dynamic, accessible UI components using Adobe Spectrum Web Components and the EDS query-index.json pattern, with practical examples, troubleshooting, and advanced techniques. |
-| image |  |
-| author | Tom Cranstoun |
-| longdescription | This comprehensive tutorial covers everything needed to build professional Spectrum components for Adobe Edge Delivery Services, from basic setup through advanced features like numbered badges, modal overlays, accessibility implementation, performance optimization, and extension patterns. Includes practical examples, troubleshooting guides, and production deployment strategies. |
+| **Title** | Complete Guide: Building Professional EDS Components with Dual Architecture Patterns |
+| **Description** | A comprehensive tutorial for creating dynamic, accessible UI components using Adobe Edge Delivery Services with both EDS-Native and Spectrum-Enhanced patterns, featuring modern development workflows, comprehensive testing, and production deployment strategies. |
+| **Author** | Tom Cranstoun |
+| **Version** | 2.0.0 |
+| **Last Updated** | 2025-06-18 |
+| **Tags** | EDS, Adobe, Spectrum, Web Components, JavaScript, Accessibility, Performance, Testing |
