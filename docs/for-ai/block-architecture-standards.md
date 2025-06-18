@@ -33,7 +33,6 @@ graph TD
 
 **Use When:**
 
-- Component has < 5 interactive elements
 - Simple or no state management required
 - Custom styling needs
 - Performance is critical

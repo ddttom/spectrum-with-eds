@@ -58,8 +58,8 @@ The project supports two complementary architectural patterns:
 graph TD
     A[New Component Requirement] --> B{Complexity Assessment}
     
-    B -->|Simple Components<br/>< 5 interactive elements| C[EDS-Native Pattern]
-    B -->|Complex Components<br/>5+ interactive elements| D[Spectrum-Enhanced Pattern]
+    B -->|Simple Components<br/><| C[EDS-Native Pattern]
+    B -->|Complex Components<br/>| D[Spectrum-Enhanced Pattern]
     
     C --> E[Direct Implementation]
     C --> F[No Build Process]
@@ -126,7 +126,6 @@ Use this matrix to choose the appropriate pattern:
 
 | Criteria | EDS-Native | Spectrum-Enhanced |
 |----------|------------|-------------------|
-| **Interactive Elements** | < 5 elements | 5+ elements |
 | **State Management** | Simple/None | Complex |
 | **Design System** | Custom styling | Adobe Spectrum |
 | **Build Process** | None required | Vite bundling |
@@ -1539,184 +1538,6 @@ const ComponentDebugger = {
 // Usage
 ComponentDebugger.logComponentState(document.querySelector('.spectrum-card'));
 ComponentDebugger.validateAccessibility(document.querySelector('.component-name'));
-```
-
-## Advanced Patterns
-
-### Plugin Architecture
-
-```javascript
-// Extensible plugin system
-class ComponentPlugin {
-  constructor(name, version) {
-    this.name = name;
-    this.version = version;
-    this.hooks = new Map();
-  }
-  
-  addHook(hookName, callback) {
-    if (!this.hooks.has(hookName)) {
-      this.hooks.set(hookName, []);
-    }
-    this.hooks.get(hookName).push(callback);
-  }
-  
-  executeHook(hookName, data) {
-    const callbacks = this.hooks.get(hookName) || [];
-    return callbacks.reduce((result, callback) => {
-      return callback(result) || result;
-    }, data);
-  }
-}
-
-// Example analytics plugin
-class AnalyticsPlugin extends ComponentPlugin {
-  constructor() {
-    super('analytics', '1.0.0');
-    
-    this.addHook('component:initialized', (data) => {
-      this.trackComponentLoad(data);
-      return data;
-    });
-    
-    this.addHook('component:interacted', (data) => {
-      this.trackInteraction(data);
-      return data;
-    });
-  }
-  
-  trackComponentLoad(data) {
-    if (window.gtag) {
-      window.gtag('event', 'component_load', {
-        component_name: data.name,
-        component_type: data.type
-      });
-    }
-  }
-  
-  trackInteraction(data) {
-    if (window.gtag) {
-      window.gtag('event', 'component_interaction', {
-        component_name: data.name,
-        interaction_type: data.interaction
-      });
-    }
-  }
-}
-```
-
-### Multi-language Support
-
-```javascript
-// Internationalization system
-class I18nManager {
-  constructor(defaultLocale = 'en') {
-    this.currentLocale = defaultLocale;
-    this.translations = new Map();
-    this.fallbackLocale = 'en';
-  }
-  
-  addTranslations(locale, translations) {
-    this.translations.set(locale, translations);
-  }
-  
-  setLocale(locale) {
-    this.currentLocale = locale;
-    document.documentElement.lang = locale;
-  }
-  
-  t(key, params = {}) {
-    const translations = this.translations.get(this.currentLocale) || {};
-    const fallbackTranslations = this.translations.get(this.fallbackLocale) || {};
-    
-    let translation = translations[key] || fallbackTranslations[key] || key;
-    
-    // Replace parameters
-    Object.keys(params).forEach(param => {
-      translation = translation.replace(`{{${param}}}`, params[param]);
-    });
-    
-    return translation;
-  }
-  
-  formatNumber(number, options = {}) {
-    return new Intl.NumberFormat(this.currentLocale, options).format(number);
-  }
-  
-  formatDate(date, options = {}) {
-    return new Intl.DateTimeFormat(this.currentLocale, options).format(date);
-  }
-}
-
-// Usage
-const i18n = new I18nManager();
-
-i18n.addTranslations('en', {
-  'component.loading': 'Loading...',
-  'component.error': 'Error loading content',
-  'component.retry': 'Try Again',
-  'component.close': 'Close'
-});
-
-i18n.addTranslations('es', {
-  'component.loading': 'Cargando...',
-  'component.error': 'Error al cargar contenido',
-  'component.retry': 'Intentar de Nuevo',
-  'component.close': 'Cerrar'
-});
-```
-
-### Component Library Pattern
-
-```javascript
-// Reusable component library
-class ComponentLibrary {
-  constructor() {
-    this.components = new Map();
-    this.plugins = [];
-    this.themes = new Map();
-  }
-  
-  registerComponent(name, config) {
-    this.components.set(name, config);
-  }
-  
-  addPlugin(plugin) {
-    this.plugins.push(plugin);
-  }
-  
-  addTheme(name, theme) {
-    this.themes.set(name, theme);
-  }
-  
-  createComponent(name, data, options = {}) {
-    const config = this.components.get(name);
-    if (!config) {
-      throw new Error(`Unknown component: ${name}`);
-    }
-    
-    let component = config.create(data, options);
-    
-    // Apply plugins
-    this.plugins.forEach(plugin => {
-      component = plugin.executeHook('component:created', component);
-    });
-    
-    // Apply theme
-    if (options.theme && this.themes.has(options.theme)) {
-      const theme = this.themes.get(options.theme);
-      this.applyTheme(component, theme);
-    }
-    
-    return component;
-  }
-  
-  applyTheme(component, theme) {
-    Object.entries(theme).forEach(([property, value]) => {
-      component.style.setProperty(`--${property}`, value);
-    });
-  }
-}
 ```
 
 ## Conclusion

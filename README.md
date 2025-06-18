@@ -1,12 +1,30 @@
-# Spectrum Card Component for Adobe Edge Delivery Services
+# Adobe Spectrum Components Integration with Adobe EDS - Complete Tutorial
 
-This project demonstrates how to build professional UI components for Adobe Edge Delivery Services (EDS) using Spectrum Web Components - Adobe's design system built on web standards. The component features numbered slide badges and immersive full-screen modal overlays with glassmorphism effects for a modern, visually striking user experience.
+This comprehensive tutorial demonstrates how to integrate **Adobe Spectrum Web Components** with **Adobe Edge Delivery Services (EDS)** to create professional, design-system-compliant blocks. Learn two complementary approaches: **EDS-Native** for simple components and **Spectrum-Enhanced** for rich UI components using Adobe's design system.
+
+## What You'll Learn
+
+- ✅ **Spectrum Web Components Integration** - How to use Adobe's design system in EDS blocks
+- ✅ **Dual Architecture Patterns** - When and how to use EDS-Native vs Spectrum-Enhanced approaches
+- ✅ **Build Process Setup** - Complete Vite configuration for bundling Spectrum components
+- ✅ **Development Workflow** - Professional development environment with hot reload and testing
+- ✅ **EDS Deployment** - How to prepare Spectrum components for EDS production deployment
+- ✅ **Best Practices** - Architecture standards, accessibility, and performance optimization
+
+## Tutorial Overview
+
+This tutorial teaches you how to successfully integrate Adobe Spectrum Web Components into Adobe EDS blocks using two proven approaches:
+
+- **EDS-Native Pattern**: Traditional EDS blocks with minimal dependencies (baseline approach)
+- **Spectrum-Enhanced Pattern**: EDS blocks enhanced with Adobe Spectrum Web Components for rich UI
+
+**Key Integration Challenge Solved**: Adobe Spectrum Web Components require bundling and dependency management, while EDS expects simple, standalone files. This tutorial shows you how to bridge this gap with a professional development workflow.
 
 ## Project Structure
 
 ```bash
 spectrum-with-eds/
-├── build/spectrum-card/           # 🔧 Development source files
+├── build/spectrum-card/           # 🔧 Spectrum development source files
 │   ├── spectrum-card.js           # Component source code
 │   ├── spectrum-card.css          # Component styles
 │   ├── index.html                 # Local testing page
@@ -15,189 +33,244 @@ spectrum-with-eds/
 │   └── README.md                  # Component documentation
 ├── blocks/spectrum-card/          # 📦 Built output (ephemeral)
 │   ├── spectrum-card.js           # EDS-ready bundled component
-│   └── spectrum-card.css          # EDS-ready styles
-├── docs/
-│   └── blog.md                    # Complete tutorial & documentation
+│   ├── spectrum-card.css          # EDS-ready styles
+│   └── test.html                  # EDS test file
+├── docs/                          # 📚 Comprehensive documentation
+│   ├── for-ai/                    # AI assistant documentation
+│   │   ├── block-architecture-standards.md      # Combined architecture guide
+│   │   ├── eds-architecture-standards.md        # EDS-Native pattern standards
+│   │   ├── spectrum-architecture-standards.md   # Spectrum-Enhanced pattern standards
+│   │   ├── eds-native-testing-standards.md      # EDS-Native testing guide
+│   │   ├── spectrum-enhanced-testing-standards.md # Spectrum testing guide
+│   │   ├── debug.md               # Block debugging guide
+│   │   ├── eds-appendix.md        # EDS implementation details
+│   │   └── eds.md                 # EDS fundamentals
+│   ├── blogs/                     # Tutorial content
+│   │   ├── blog.md                # Complete tutorial & implementation guide
+│   │   └── new-blog.md            # Additional tutorials
+│   ├── json-prd.md                # JSON data structure guide
+│   └── Server-README.md           # Server configuration guide
 ├── scripts/
-│   └── build-component.js         # Build automation
+│   ├── build-component.js         # Build automation
+│   ├── aem.js                     # AEM integration utilities
+│   ├── scripts.js                 # Core EDS scripts
+│   └── delayed.js                 # Lazy loading utilities
+├── styles/                        # Global EDS styles
+│   ├── styles.css                 # Main stylesheet
+│   ├── fonts.css                  # Typography
+│   └── lazy-styles.css            # Performance-optimized styles
+├── server.js                      # Development server with proxy
+├── server.html                    # Test environment page
 └── BUILD_PROCESS.md               # Detailed build documentation
 ```
 
-## Quick Start
+## Tutorial: Two Approaches to Spectrum Integration
 
-### 🚀 How to Develop This Block
+### Approach 1: EDS-Native Pattern (Baseline)
 
-1. **Start Development Server**
+Learn the traditional EDS approach before adding Spectrum complexity:
 
-   ```bash
-   cd build/spectrum-card
-   npm install          # First time only
-   npm run dev         # Starts http://localhost:5173
-   ```
+**When to Use:**
 
-2. **Edit Component Files**
-   - **Logic**: [`build/spectrum-card/spectrum-card.js`](build/spectrum-card/spectrum-card.js) - Query-index.json integration
-   - **Styles**: [`build/spectrum-card/spectrum-card.css`](build/spectrum-card/spectrum-card.css) - Component styling  
-   - **Test**: [`build/spectrum-card/index.html`](build/spectrum-card/index.html) - Test different query endpoints
+- Learning EDS fundamentals
+- Performance-critical scenarios
+- No external dependencies needed
 
-3. **Query-Index Pattern**
-   This component uses EDS query-index.json endpoints for dynamic content:
+**What You'll Build:**
 
-   ```javascript
-   // Default endpoint: /slides/query-index.json
-   // Custom endpoint via block content
-   ```
+```bash
+/blocks/{component-name}/
+├── {component-name}.js           # Pure ES modules
+├── {component-name}.css          # Custom CSS
+├── test.html                     # EDS test structure
+├── README.md
+└── example.md
+```
 
-   Expected data format:
+**Tutorial Outcome:** Master EDS block fundamentals and direct DOM manipulation
 
-   ```json
-   {
-     "data": [
-       {
-         "path": "/slides/slide-1",
-         "title": "Slide Title", 
-         "description": "Slide description",
-         "image": "/slides/image.png",
-         "buttonText": "Learn More"
-       }
-     ]
-   }
-   ```
+### Approach 2: Spectrum-Enhanced Pattern (Advanced Integration)
 
-4. **Debug and Test Blocks**
+Learn how to integrate Adobe Spectrum Web Components into EDS:
+
+**When to Use:**
+
+- Rich UI components with Adobe design system
+- Complex state management required
+- Professional design consistency needed
+- 5+ interactive elements
+
+**What You'll Build:**
+
+```bash
+/build/{component-name}/           # 🔧 Development environment
+├── {component-name}.js           # Spectrum Web Components integration
+├── {component-name}.css          # Spectrum design tokens
+├── index.html                    # Development test with Spectrum theme
+├── package.json                  # Spectrum dependencies
+├── vite.config.js               # Bundling configuration
+└── README.md                     # Development docs
+
+/blocks/{component-name}/          # 📦 EDS-ready output
+├── {component-name}.js           # Bundled for EDS deployment
+├── {component-name}.css          # Processed styles
+├── test.html                     # EDS-compatible test
+└── README.md                     # Usage documentation
+```
+
+**Tutorial Outcome:** Master Spectrum Web Components integration with EDS deployment workflow
+
+**Key Learning:** How to bridge the gap between Spectrum's dependency-heavy architecture and EDS's simple file requirements through professional build tooling.
+
+## Tutorial Quick Start
+
+### 📚 Step 1: Learn EDS-Native Pattern (Foundation)
+
+Start with traditional EDS development to understand the fundamentals:
+
+1. **Explore the Working Example**
 
    ```bash
    npm run debug           # Starts debug server at http://localhost:3000
    ```
 
-   Create test files in block directories and access them via the debug server for isolated testing.
+   Study existing EDS-native components in `/blocks/` directory
 
-5. **Build and Deploy Changes**
+2. **Create Your First EDS Block**
 
    ```bash
-   npm run build:component  # Bundles dependencies and copies to /blocks/ for EDS
+   mkdir blocks/my-first-block
+   cd blocks/my-first-block
    ```
 
-   This command:
-   - Runs Vite build to bundle all Spectrum Web Components
-   - Creates browser-compatible files in `dist/` directory  
-   - Copies bundled files to `/blocks/spectrum-card/` for EDS deployment
-   - Ensures compatibility with direct browser usage (file:// protocol)
+3. **Follow EDS Structure**
+   - `my-first-block.js` - Component logic with `decorate` function
+   - `my-first-block.css` - Component styles
+   - `test.html` - Test file following EDS structure
 
-### Development Features
+4. **Test Your Block**
+   Access: `http://localhost:3000/blocks/my-first-block/test.html`
 
-- ✅ **Live Preview** - See component as it appears in EDS with numbered slides
+### 🎨 Step 2: Learn Spectrum Integration (Advanced)
+
+Once comfortable with EDS, learn Spectrum Web Components integration:
+
+1. **Study the Spectrum Card Example**
+
+   ```bash
+   cd build/spectrum-card
+   npm install          # Install Spectrum dependencies
+   npm run dev         # Starts development server at http://localhost:5173
+   ```
+
+2. **Understand the Integration Challenge**
+   - Spectrum components need bundling
+   - EDS expects simple, standalone files
+   - Build process bridges this gap
+
+3. **Create Your Spectrum-Enhanced Block**
+
+   ```bash
+   mkdir build/my-spectrum-block
+   cd build/my-spectrum-block
+   npm init -y
+   ```
+
+4. **Install Spectrum Dependencies**
+
+   ```bash
+   npm install @spectrum-web-components/theme @spectrum-web-components/button
+   npm install --save-dev vite
+   ```
+
+5. **Build for EDS Deployment**
+
+   ```bash
+   npm run build:component  # Bundles and copies to /blocks/
+   ```
+
+### 🎯 Tutorial Learning Path
+
+1. **Start Here**: [`docs/blogs/blog.md`](docs/blogs/blog.md) - Complete step-by-step tutorial
+2. **EDS Fundamentals**: [`docs/for-ai/eds.md`](docs/for-ai/eds.md) - Understanding EDS concepts
+3. **Spectrum Integration**: [`docs/for-ai/spectrum-architecture-standards.md`](docs/for-ai/spectrum-architecture-standards.md) - Advanced integration patterns
+
+## Development Features
+
+### Comprehensive Testing Environment
+
+- ✅ **Dual Pattern Support** - Both EDS-Native and Spectrum-Enhanced workflows
+- ✅ **Live Preview** - See components as they appear in EDS
 - ✅ **Hot Reload** - Changes update instantly without refresh
-- ✅ **Debug Logs** - Component logs fetch and rendering steps, including modal interactions
-- ✅ **Spectrum Integration** - Full Adobe design system with theming and icons
-- ✅ **Modal Testing** - Interactive modal system with real content loading
-- ✅ **Proxy Support** - CORS handling for development with `https://allabout.network`
-- ✅ **Block Debugging** - Comprehensive debugging workflow for EDS blocks
+- ✅ **Debug Server** - Isolated block testing with proxy fallback
+- ✅ **Build Automation** - Automated bundling and deployment preparation
+- ✅ **Cross-browser Testing** - Compatibility validation across browsers
 
-### Key Concepts
+### Development Tools
 
-- **`/build/spectrum-card/`** - Primary development environment with Vite tooling and dependencies
-- **`/blocks/spectrum-card/`** - Build output, ready for EDS deployment (ephemeral, git-ignored)
-- **Root level** - Minimal project coordination, no dependencies needed
-- **Component follows EDS block pattern** - Uses `decorate` function to transform DOM
-- **Spectrum Web Components** - Professional Adobe design system integration
+- ✅ **Architecture Standards** - Comprehensive development guidelines
+- ✅ **Testing Standards** - Pattern-specific testing methodologies
+- ✅ **Error Handling** - Standardized error management patterns
+- ✅ **Accessibility** - Built-in WCAG compliance standards
+- ✅ **Performance** - Optimization guidelines and best practices
+- ✅ **Documentation** - Extensive guides for developers and AI assistants
 
 ## Component Usage in EDS
 
-Create a block in your EDS document:
+### Basic Usage (EDS-Native)
 
-### Basic Usage (uses default /slides/query-index.json)
+```bash
+| your-component |
+| :---- |
+```
+
+### Custom Configuration
+
+```bash
+| your-component |
+| :---- |
+| /custom/data-endpoint.json |
+```
+
+### Spectrum-Enhanced Usage
 
 ```bash
 | spectrum-card |
 | :---- |
+| /slides/query-index.json |
 ```
-
-### Custom Query Path
-
-```bash
-| spectrum-card |
-| :---- |
-| /custom/query-index.json |
-```
-
-EDS automatically calls the component's `decorate` function, which fetches data from the specified query-index.json endpoint and renders interactive Spectrum cards.
-
-## Enhanced Functionality
-
-### Numbered Slide Badges
-
-Each card displays a numbered badge in the top-left corner, providing visual hierarchy and slide ordering. The badges use Spectrum blue (#0265DC) with white text for optimal contrast and brand consistency.
-
-### Immersive Modal Overlay System
-
-Clicking "Read More" opens a full-screen immersive modal that:
-
-- Displays full content from the corresponding `.plain.html` endpoint with stunning visual design
-- Features background imagery from the card for visual impact
-- Uses glassmorphism design with translucent elements and backdrop blur effects
-- Includes hero-style typography with large-scale text and gradient overlays
-- Provides slide number badge and close button with glassmorphism styling
-- Supports multiple close methods (glassmorphism close button, click outside, ESC key)
-- Adapts responsively to mobile devices with optimized typography and spacing
-- Includes cross-browser compatibility with webkit prefixes for Safari support
-
-### Content Loading
-
-The component intelligently fetches content from EDS:
-
-- **Card Data**: From `query-index.json` endpoints for card previews
-- **Full Content**: From `.plain.html` endpoints for modal display
-- **Error Handling**: Graceful fallbacks when content is unavailable
-- **Loading States**: User feedback during content fetching
-
-## Features
-
-### Enhanced User Experience
-
-- ✅ **Numbered Slide Badges** - Visual hierarchy indicators with Spectrum blue styling
-- ✅ **Immersive Modal System** - Full-screen content display with background imagery
-- ✅ **Glassmorphism Design** - Modern translucent elements with backdrop blur effects
-- ✅ **Hero Typography** - Large-scale text with gradient overlays for visual impact
-- ✅ **Dynamic Content Loading** - Fetches complete `.plain.html` content rendered as styled text
-- ✅ **Multiple Close Methods** - Glassmorphism close button, click outside, and ESC key support
-- ✅ **Cross-browser Compatibility** - Webkit prefixes for Safari support
-
-### Technical Excellence
-
-- ✅ **Modern JavaScript** - ES Modules, no TypeScript compilation needed
-- ✅ **Spectrum Design System** - Professional Adobe UI components with icons
-- ✅ **Built-in Accessibility** - Keyboard navigation, screen readers, ARIA support
-- ✅ **Responsive Design** - Mobile-friendly with CSS custom properties
-- ✅ **Development Tools** - Hot reload, error logging, proxy configuration
-- ✅ **Performance Optimized** - Tree-shaking, minimal runtime overhead
-- ✅ **Error Handling** - Graceful fallbacks for network failures and missing content
 
 ## Documentation
 
-- [`docs/blog.md`](docs/blog.md) - Complete tutorial and implementation guide
-- [`docs/debug.md`](docs/debug.md) - Block debugging guide for AI assistants
+### Architecture & Standards
+
+- [`docs/for-ai/block-architecture-standards.md`](docs/for-ai/block-architecture-standards.md) - Combined architecture guide
+- [`docs/for-ai/eds-architecture-standards.md`](docs/for-ai/eds-architecture-standards.md) - EDS-Native pattern standards
+- [`docs/for-ai/spectrum-architecture-standards.md`](docs/for-ai/spectrum-architecture-standards.md) - Spectrum-Enhanced pattern standards
+
+### Testing & Development
+
+- [`docs/for-ai/eds-native-testing-standards.md`](docs/for-ai/eds-native-testing-standards.md) - EDS-Native testing guide
+- [`docs/for-ai/spectrum-enhanced-testing-standards.md`](docs/for-ai/spectrum-enhanced-testing-standards.md) - Spectrum testing guide
+- [`docs/for-ai/debug.md`](docs/for-ai/debug.md) - Block debugging guide for AI assistants
+
+### Implementation Guides
+
+- [`docs/blogs/blog.md`](docs/blogs/blog.md) - Complete tutorial and implementation guide
 - [`BUILD_PROCESS.md`](BUILD_PROCESS.md) - Detailed build process documentation
-- [`build/spectrum-card/README.md`](build/spectrum-card/README.md) - Component-specific docs
+- [`docs/for-ai/eds.md`](docs/for-ai/eds.md) - EDS fundamentals and concepts
 
-## Architecture
+### Reference Documentation
 
-This project demonstrates the integration of:
+- [`docs/for-ai/eds-appendix.md`](docs/for-ai/eds-appendix.md) - EDS implementation details
+- [`docs/json-prd.md`](docs/json-prd.md) - JSON data structure guide
+- [`docs/Server-README.md`](docs/Server-README.md) - Server configuration guide
 
-1. **Adobe Spectrum Web Components** - Professional design system
-2. **Adobe Edge Delivery Services** - Document-first web development
-3. **Modern Web Standards** - ES Modules, Web Components, CSS Custom Properties
-4. **Development Best Practices** - Hot reload, testing, documentation
+## Development Server
 
-The result is a professional component development workflow that maintains EDS's simplicity while providing sophisticated UI capabilities.
+### Debug Server for Block Testing
 
-## Block Debugging for AI Assistants
-
-This project includes a comprehensive debugging workflow specifically designed to improve AI assistant effectiveness when working with EDS blocks. The debugging system enables testing blocks in isolation while maintaining full EDS compatibility.
-
-### Debug Server
-
-Start the debug server for block testing:
+Start the debug server for comprehensive block testing:
 
 ```bash
 npm run debug
@@ -210,142 +283,113 @@ The debug server provides:
 - 📝 **AI-Optimized Workflow** - Step-by-step debugging guide for AI assistants
 - 🎯 **EDS Structure Compliance** - Ensures exact replication of EDS block patterns
 
-### Creating Test Files
+### AEM Emulation Layer
 
-For any block, create a `test.html` file in the block directory:
-
-```bash
-blocks/your-block-name/test.html
-```
-
-Access your test at: `http://localhost:3000/blocks/your-block-name/test.html`
-
-### Key Features
-
-- ✅ **EDS Block Structure Replication** - Exact DOM structure matching EDS processing
-- ✅ **ES Module Testing** - Full support for modern JavaScript imports/exports
-- ✅ **CSS Integration** - Proper stylesheet loading and testing
-- ✅ **Multiple Instance Testing** - Test blocks with various content configurations
-- ✅ **Dynamic Content Testing** - Interactive testing with content manipulation
-- ✅ **Error Debugging** - Comprehensive error identification and resolution
-
-### Debug Guide
-
-See [`docs/debug.md`](docs/debug.md) for the complete block debugging guide, including:
-
-- Step-by-step testing workflow
-- EDS block structure requirements
-- Common debugging scenarios
-- Troubleshooting checklist
-- Best practices for AI assistants
-
-## Testing & Deployment
-
-### AEM Emulation Layer Test Environment
-
-The project includes a sophisticated AEM emulation layer that provides a complete testing environment for EDS components. This system serves local files while seamlessly proxying missing resources from the production environment.
-
-#### Architecture Overview
-
-The AEM emulation layer consists of:
-
-1. **Local File Server** - Serves [`server.html`](server.html) and all local project files
-2. **Intelligent Proxy System** - Automatically proxies missing files from <https://allabout.network>
-3. **Development Integration** - Seamless integration with the existing development workflow
-4. **Production Simulation** - Accurately simulates the EDS production environment
-
-#### Running the Test Environment
-
-Start the AEM emulation server:
+The project includes a sophisticated AEM emulation layer:
 
 ```bash
-# Using npm script (recommended)
 npm run serve
-
-# Or directly with Node.js
-node server.js
 ```
 
-The server will start on <http://localhost:3000> and provide:
+Features:
 
 - 📄 **Main test page**: <http://localhost:3000/server.html>
 - 🔗 **Automatic proxy**: Missing files fetched from <https://allabout.network>
 - 📁 **Local file serving**: All project files served directly
 - 🚀 **Hot development**: Works alongside existing development tools
 
-#### Server Architecture
+## Standards & Best Practices
 
-```javascript
-// Core server functionality
-import { createServer } from 'http';
-import { readFile, access } from 'fs/promises';
+### JavaScript Standards
 
-// Intelligent file resolution:
-// 1. Check for local file first
-// 2. Serve local file if available
-// 3. Proxy to https://allabout.network if missing
-// 4. Return 404 if both fail
-```
+- Modern ES modules without TypeScript
+- Configuration constants pattern
+- Standard decorate function structure
+- Comprehensive error handling
+- Performance optimization patterns
 
-#### Expected Output
+### CSS Standards
 
-When running successfully, you'll see:
+- CSS custom properties for theming
+- Mobile-first responsive design
+- Spectrum design tokens (for Spectrum components)
+- Performance-optimized animations
+
+### Accessibility Standards
+
+- Semantic HTML structure
+- ARIA attributes and roles
+- Keyboard navigation support
+- Screen reader compatibility
+- WCAG compliance guidelines
+
+### Testing Standards
+
+- Pattern-specific test file templates
+- Cross-browser compatibility testing
+- Accessibility audit requirements
+- Performance benchmarking
+- Documentation validation
+
+## Tutorial Example: Spectrum Card Component
+
+This tutorial includes a complete working example that demonstrates **Adobe Spectrum Web Components integration with Adobe EDS**:
+
+### What This Example Teaches You
+
+- ✅ **Spectrum Theme Integration** - How to wrap EDS blocks with `sp-theme`
+- ✅ **Component Bundling** - Using Vite to bundle Spectrum dependencies for EDS
+- ✅ **Design System Usage** - Implementing Spectrum design tokens and components
+- ✅ **EDS Data Integration** - Connecting Spectrum UI to EDS query-index.json endpoints
+- ✅ **Build Process** - Complete workflow from development to EDS deployment
+- ✅ **Advanced UI Patterns** - Modal overlays, glassmorphism effects, responsive design
+
+### Live Tutorial Example
 
 ```bash
-🚀 Server running at http://localhost:3000
-📁 Serving files from: /path/to/project
-🔗 Proxying missing files to: https://allabout.network
-📄 Main page: http://localhost:3000/server.html
+| spectrum-card |
+| :---- |
+| /slides/query-index.json |
 ```
 
-The server logs show real-time file serving and proxy operations:
+**Key Integration Points Demonstrated:**
 
-```bash
-Request: GET /server.html
-Serving local file: /path/to/project/server.html
-Request: GET /scripts/aem.js
-Serving local file: /path/to/project/scripts/aem.js
-Request: GET /slides/query-index.json
-Local file not found, attempting proxy for: /slides/query-index.json
-Proxying request to: https://allabout.network/slides/query-index.json
+1. **Spectrum Components**: Uses `sp-card`, `sp-button`, `sp-theme` from Adobe's design system
+2. **EDS Data Flow**: Fetches from standard EDS query-index.json endpoints
+3. **Build Integration**: Shows how to bundle Spectrum dependencies for EDS deployment
+4. **Theme System**: Demonstrates Spectrum's theming capabilities within EDS
+
+Expected EDS data format:
+
+```json
+{
+  "data": [
+    {
+      "path": "/slides/slide-1",
+      "title": "Slide Title", 
+      "description": "Slide description",
+      "image": "/slides/image.png",
+      "buttonText": "Learn More"
+    }
+  ]
+}
 ```
 
-#### Server Features
+**Tutorial Value**: This example shows you exactly how to bridge Adobe Spectrum's component-based architecture with EDS's document-first approach.
 
-- ✅ **Seamless Integration** - Works with existing [`server.html`](server.html) test page
-- ✅ **Intelligent Routing** - Local files take precedence over proxy
-- ✅ **Production Accuracy** - Exact simulation of EDS environment
-- ✅ **Development Friendly** - No interference with existing workflows
-- ✅ **Error Handling** - Graceful fallbacks for missing resources
-- ✅ **MIME Type Support** - Proper content types for all file formats
-- ✅ **CORS Handling** - Automatic CORS resolution for external resources
+## Deployment
 
-#### Troubleshooting
+### EDS-Native Components
 
-**Server won't start:**
+1. Components are ready for deployment as-is from `/blocks/{component-name}/`
+2. Copy to your EDS repository's blocks directory
+3. No build process required
 
-- Check if port 3000 is available
-- Use `PORT=3001 node server.js` for alternative port
+### Spectrum-Enhanced Components
 
-**Files not loading:**
-
-- Verify file paths are relative to project root
-- Check browser console for specific error messages
-- Ensure <https://allabout.network> is accessible
-
-**Proxy not working:**
-
-- Confirm internet connectivity
-- Check if target URLs exist on <https://allabout.network>
-- Review server logs for proxy error messages
-
-### EDS Deployment
-
-To deploy to your EDS project:
-
-1. Copy the contents of `/blocks/spectrum-card/` to your EDS repository's blocks directory
-2. The bundled files will work properly in the EDS environment with live data
-3. No additional configuration needed - the components are ready to use
+1. Run build process: `npm run build:component`
+2. Copy built files from `/blocks/{component-name}/` to your EDS repository
+3. Bundled files include all dependencies and are ready for deployment
 
 ## Browser Support
 
@@ -354,6 +398,29 @@ Supports all modern browsers with:
 - ES Modules
 - Web Components
 - CSS Custom Properties
+- Spectrum Web Components (for Spectrum-Enhanced pattern)
+
+## Tutorial Philosophy: Bridging Adobe Ecosystems
+
+This tutorial demonstrates how to successfully integrate **Adobe Spectrum Design System** with **Adobe Edge Delivery Services** while maintaining both platforms' core strengths:
+
+### Integration Challenges Solved
+
+- **Dependency Management** - Spectrum requires npm packages; EDS expects standalone files
+- **Build Complexity** - Spectrum needs bundling; EDS values simplicity
+- **Design Consistency** - Maintaining Adobe design standards within EDS constraints
+- **Performance** - Ensuring Spectrum components don't compromise EDS speed
+- **Development Experience** - Professional tooling that works with both ecosystems
+
+### Tutorial Approach
+
+- **Learn Fundamentals First** - Master EDS-Native patterns before adding Spectrum complexity
+- **Practical Integration** - Real working examples, not just theory
+- **Production Ready** - Complete build and deployment workflows
+- **Best Practices** - Architecture standards for maintainable integration
+- **Comprehensive Documentation** - Everything needed for successful implementation
+
+**Key Insight**: You don't have to choose between EDS simplicity and Spectrum sophistication - this tutorial shows you how to have both.
 
 ## License
 
