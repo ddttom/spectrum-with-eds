@@ -75,8 +75,8 @@ sp-card::slotted(*) {
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -87,13 +87,13 @@ sp-card::slotted(*) {
 @keyframes modalOverlayFadeIn {
   from {
     opacity: 0;
-    backdrop-filter: blur(0px);
     -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(0px);
   }
   to {
     opacity: 1;
-    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
   }
 }
 
@@ -103,8 +103,8 @@ sp-card::slotted(*) {
   max-width: 1000px;
   max-height: 85vh;
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
+  backdrop-filter: blur(25px);
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   overflow: hidden;
@@ -137,8 +137,8 @@ sp-card::slotted(*) {
     rgba(0, 0, 0, 0.3) 0%,
     rgba(0, 0, 0, 0.1) 100%
   );
-  backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
   border-radius: 0.5rem;
   margin: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);

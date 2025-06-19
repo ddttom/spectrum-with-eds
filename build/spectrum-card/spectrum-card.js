@@ -318,7 +318,7 @@ function showContentModal(cardData, index) {
       `;
     }
 
-    } catch (error) {
+  } catch (error) {
     console.error('[spectrum-card] Modal creation failed:', error);
     // Fallback: show a simple alert
     alert(`Failed to open modal for "${cardData.title}". Error: ${error.message}`);
