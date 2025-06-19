@@ -99,208 +99,229 @@ async function fetchPlainHtml(path) {
 
 // Create and show modal overlay with content
 function showContentModal(cardData, index) {
-  // Create modal overlay
-  const overlay = document.createElement('div');
-  overlay.className = 'spectrum-card-modal-overlay';
-  overlay.style.position = 'fixed';
-  overlay.style.top = '0';
-  overlay.style.left = '0';
-  overlay.style.width = '100%';
-  overlay.style.height = '100%';
-  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-  overlay.style.zIndex = '1000';
-  overlay.style.display = 'flex';
-  overlay.style.alignItems = 'center';
-  overlay.style.justifyContent = 'center';
-  overlay.style.padding = '20px';
+  try {
+    // Create modal overlay with enhanced glassmorphism
+    const overlay = document.createElement('div');
+    overlay.className = 'spectrum-card-modal-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'modal-title');
+    // Create modal container with background image
+    const modal = document.createElement('div');
+    modal.className = 'spectrum-card-modal';
+    
+    // Set background image with fallback
+    const backgroundImage = cardData.image || 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80';
+    modal.style.backgroundImage = `url(${backgroundImage})`;
+    modal.style.backgroundSize = 'cover';
+    modal.style.backgroundPosition = 'center';
+    modal.style.backgroundRepeat = 'no-repeat';
 
-  // Create modal content container with background image
-  const modal = document.createElement('div');
-  modal.className = 'spectrum-card-modal';
-  modal.style.backgroundImage = cardData.image ? `url(${cardData.image})` : 'url(https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80)';
-  modal.style.backgroundSize = 'cover';
-  modal.style.backgroundPosition = 'center';
-  modal.style.backgroundRepeat = 'no-repeat';
-  modal.style.borderRadius = '12px';
-  modal.style.maxWidth = '1000px';
-  modal.style.maxHeight = '80vh';
-  modal.style.width = '100%';
-  modal.style.height = '600px';
-  modal.style.position = 'relative';
-  modal.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.5)';
-  modal.style.overflow = 'hidden';
+    // Create modal content container
+    const content = document.createElement('div');
+    content.className = 'spectrum-card-modal-content';
+    
+    // Add dark overlay for better text readability
+    content.style.background = 'linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%)';
+    content.style.backdropFilter = 'blur(8px)';
+    content.style.webkitBackdropFilter = 'blur(8px)';
 
-  // Create dark overlay for text readability
-  const darkOverlay = document.createElement('div');
-  darkOverlay.style.position = 'absolute';
-  darkOverlay.style.top = '0';
-  darkOverlay.style.left = '0';
-  darkOverlay.style.width = '100%';
-  darkOverlay.style.height = '100%';
-  darkOverlay.style.background = 'linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(15, 23, 42, 0.75) 100%)';
-  darkOverlay.style.display = 'flex';
-  darkOverlay.style.flexDirection = 'column';
-  darkOverlay.style.justifyContent = 'center';
-  darkOverlay.style.alignItems = 'flex-start';
-  darkOverlay.style.padding = '60px';
-  darkOverlay.style.color = 'white';
+    // Create slide number badge with enhanced glassmorphism
+    const slideNumberBadge = document.createElement('div');
+    slideNumberBadge.className = 'spectrum-card-slide-badge';
+    slideNumberBadge.textContent = (index + 1).toString();
+    slideNumberBadge.style.position = 'absolute';
+    slideNumberBadge.style.top = '1.5rem';
+    slideNumberBadge.style.left = '1.5rem';
+    slideNumberBadge.style.background = 'rgba(255, 255, 255, 0.25)';
+    slideNumberBadge.style.backdropFilter = 'blur(15px)';
+    slideNumberBadge.style.webkitBackdropFilter = 'blur(15px)';
+    slideNumberBadge.style.color = 'white';
+    slideNumberBadge.style.borderRadius = '50%';
+    slideNumberBadge.style.width = '3rem';
+    slideNumberBadge.style.height = '3rem';
+    slideNumberBadge.style.display = 'flex';
+    slideNumberBadge.style.alignItems = 'center';
+    slideNumberBadge.style.justifyContent = 'center';
+    slideNumberBadge.style.fontSize = '1.125rem';
+    slideNumberBadge.style.fontWeight = 'bold';
+    slideNumberBadge.style.border = '1px solid rgba(255, 255, 255, 0.3)';
+    slideNumberBadge.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
+    slideNumberBadge.style.zIndex = '1001';
 
-  // Create slide number badge
-  const slideNumberBadge = document.createElement('div');
-  slideNumberBadge.textContent = (index + 1).toString();
-  slideNumberBadge.style.position = 'absolute';
-  slideNumberBadge.style.top = '30px';
-  slideNumberBadge.style.left = '30px';
-  slideNumberBadge.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-  slideNumberBadge.style.webkitBackdropFilter = 'blur(10px)';
-  slideNumberBadge.style.backdropFilter = 'blur(10px)';
-  slideNumberBadge.style.color = 'white';
-  slideNumberBadge.style.borderRadius = '50%';
-  slideNumberBadge.style.width = '40px';
-  slideNumberBadge.style.height = '40px';
-  slideNumberBadge.style.display = 'flex';
-  slideNumberBadge.style.alignItems = 'center';
-  slideNumberBadge.style.justifyContent = 'center';
-  slideNumberBadge.style.fontSize = '16px';
-  slideNumberBadge.style.fontWeight = 'bold';
-  slideNumberBadge.style.border = '2px solid rgba(255, 255, 255, 0.3)';
+    // Create enhanced close button with glassmorphism
+    const closeButton = document.createElement('button');
+    closeButton.className = 'spectrum-card-close-button';
+    closeButton.innerHTML = '×';
+    closeButton.setAttribute('aria-label', 'Close modal');
+    closeButton.style.position = 'absolute';
+    closeButton.style.top = '1.5rem';
+    closeButton.style.right = '1.5rem';
+    closeButton.style.background = 'rgba(255, 255, 255, 0.25)';
+    closeButton.style.backdropFilter = 'blur(15px)';
+    closeButton.style.webkitBackdropFilter = 'blur(15px)';
+    closeButton.style.border = '1px solid rgba(255, 255, 255, 0.3)';
+    closeButton.style.borderRadius = '50%';
+    closeButton.style.width = '3rem';
+    closeButton.style.height = '3rem';
+    closeButton.style.color = 'white';
+    closeButton.style.fontSize = '1.5rem';
+    closeButton.style.fontWeight = 'bold';
+    closeButton.style.cursor = 'pointer';
+    closeButton.style.display = 'flex';
+    closeButton.style.alignItems = 'center';
+    closeButton.style.justifyContent = 'center';
+    closeButton.style.transition = 'all 0.2s ease';
+    closeButton.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
+    closeButton.style.zIndex = '1001';
 
-  // Create close button
-  const closeButton = document.createElement('button');
-  closeButton.innerHTML = '×';
-  closeButton.style.position = 'absolute';
-  closeButton.style.top = '20px';
-  closeButton.style.right = '20px';
-  closeButton.style.background = 'rgba(255, 255, 255, 0.2)';
-  closeButton.style.webkitBackdropFilter = 'blur(10px)';
-  closeButton.style.backdropFilter = 'blur(10px)';
-  closeButton.style.border = '2px solid rgba(255, 255, 255, 0.3)';
-  closeButton.style.borderRadius = '50%';
-  closeButton.style.width = '40px';
-  closeButton.style.height = '40px';
-  closeButton.style.color = 'white';
-  closeButton.style.fontSize = '24px';
-  closeButton.style.cursor = 'pointer';
-  closeButton.style.display = 'flex';
-  closeButton.style.alignItems = 'center';
-  closeButton.style.justifyContent = 'center';
-  closeButton.style.transition = 'all 0.3s ease';
+    // Enhanced hover effects for close button
+    closeButton.addEventListener('mouseenter', () => {
+      closeButton.style.background = 'rgba(255, 255, 255, 0.35)';
+      closeButton.style.transform = 'scale(1.05)';
+    });
+    closeButton.addEventListener('mouseleave', () => {
+      closeButton.style.background = 'rgba(255, 255, 255, 0.25)';
+      closeButton.style.transform = 'scale(1)';
+    });
 
-  closeButton.addEventListener('mouseenter', () => {
-    closeButton.style.background = 'rgba(255, 255, 255, 0.3)';
-  });
-  closeButton.addEventListener('mouseleave', () => {
-    closeButton.style.background = 'rgba(255, 255, 255, 0.2)';
-  });
+    // Create title with enhanced styling
+    const title = document.createElement('h1');
+    title.id = 'modal-title';
+    title.textContent = cardData.title || SPECTRUM_CARD_CONFIG.DEFAULT_TITLE;
+    title.style.margin = '0 0 1.5rem 0';
+    title.style.fontSize = '3rem';
+    title.style.fontWeight = '700';
+    title.style.color = 'white';
+    title.style.textShadow = '0 4px 8px rgba(0, 0, 0, 0.6)';
+    title.style.lineHeight = '1.1';
+    title.style.background = 'linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%)';
+    title.style.webkitBackgroundClip = 'text';
+    title.style.webkitTextFillColor = 'transparent';
+    title.style.backgroundClip = 'text';
 
-  // Create title
-  const title = document.createElement('h1');
-  title.textContent = cardData.title || SPECTRUM_CARD_CONFIG.DEFAULT_TITLE;
-  title.style.margin = '0 0 20px 0';
-  title.style.fontSize = '3.5rem';
-  title.style.fontWeight = '700';
-  title.style.color = 'white';
-  title.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)';
-  title.style.lineHeight = '1.1';
+    // Create subtitle with enhanced styling
+    const subtitle = document.createElement('p');
+    subtitle.textContent = cardData.description || SPECTRUM_CARD_CONFIG.DEFAULT_DESCRIPTION;
+    subtitle.style.margin = '0 0 2rem 0';
+    subtitle.style.fontSize = '1.25rem';
+    subtitle.style.fontWeight = '500';
+    subtitle.style.color = 'rgba(255, 255, 255, 0.95)';
+    subtitle.style.textShadow = '0 2px 4px rgba(0, 0, 0, 0.6)';
+    subtitle.style.lineHeight = '1.5';
+    subtitle.style.maxWidth = '600px';
 
-  // Create subtitle
-  const subtitle = document.createElement('p');
-  subtitle.textContent = cardData.description || SPECTRUM_CARD_CONFIG.DEFAULT_DESCRIPTION;
-  subtitle.style.margin = '0 0 30px 0';
-  subtitle.style.fontSize = '1.25rem';
-  subtitle.style.fontWeight = '500';
-  subtitle.style.color = 'rgba(255, 255, 255, 0.95)';
-  subtitle.style.textShadow = '1px 1px 2px rgba(0, 0, 0, 0.5)';
-  subtitle.style.lineHeight = '1.4';
-  subtitle.style.maxWidth = '600px';
+    // Create content area for fetched HTML
+    const contentArea = document.createElement('div');
+    contentArea.className = 'spectrum-card-modal-text-content';
+    contentArea.style.fontSize = '1.1rem';
+    contentArea.style.lineHeight = '1.6';
+    contentArea.style.color = 'rgba(255, 255, 255, 0.9)';
+    contentArea.style.textShadow = '0 1px 2px rgba(0, 0, 0, 0.6)';
+    contentArea.style.maxWidth = '700px';
+    contentArea.style.maxHeight = '300px';
+    contentArea.style.overflowY = 'auto';
 
-  // Create content area for fetched HTML
-  const content = document.createElement('div');
-  content.className = 'spectrum-card-modal-content';
-  content.style.fontSize = '1.1rem';
-  content.style.lineHeight = '1.6';
-  content.style.color = 'rgba(255, 255, 255, 0.9)';
-  content.style.textShadow = '1px 1px 2px rgba(0, 0, 0, 0.5)';
-  content.style.maxWidth = '700px';
-  content.style.maxHeight = '200px';
-  content.style.overflowY = 'auto';
+    // Add loading state
+    contentArea.innerHTML = '<p style="color: rgba(255, 255, 255, 0.7); font-style: italic;">Loading content...</p>';
 
-  // Add loading state
-  content.innerHTML = '<p style="color: rgba(255, 255, 255, 0.7);">Loading content...</p>';
+    // Add all content to the main content container
+    content.appendChild(title);
+    content.appendChild(subtitle);
+    content.appendChild(contentArea);
 
-  // Assemble the modal
-  darkOverlay.appendChild(title);
-  darkOverlay.appendChild(subtitle);
-  darkOverlay.appendChild(content);
-  
-  modal.appendChild(darkOverlay);
-  modal.appendChild(slideNumberBadge);
-  modal.appendChild(closeButton);
-  overlay.appendChild(modal);
+    // Assemble the modal structure
+    modal.appendChild(content);
+    modal.appendChild(slideNumberBadge);
+    modal.appendChild(closeButton);
+    overlay.appendChild(modal);
 
-  // Add to document
-  document.body.appendChild(overlay);
-  document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    // Add to document
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    
+    // Ensure modal visibility with essential inline styles
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100vw';
+    overlay.style.height = '100vh';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    overlay.style.backdropFilter = 'blur(20px)';
+    overlay.style.webkitBackdropFilter = 'blur(20px)';
+    overlay.style.zIndex = '9999';
+    overlay.style.display = 'flex';
+    overlay.style.alignItems = 'center';
+    overlay.style.justifyContent = 'center';
 
-  // Close modal function
-  const closeModal = () => {
-    document.body.removeChild(overlay);
-    document.body.style.overflow = ''; // Restore scrolling
-  };
+    // Close modal function
+    const closeModal = () => {
+      document.body.removeChild(overlay);
+      document.body.style.overflow = ''; // Restore scrolling
+    };
 
-  // Event listeners
-  closeButton.addEventListener('click', closeModal);
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) {
-      closeModal();
-    }
-  });
-
-  // ESC key to close
-  const handleEscape = (e) => {
-    if (e.key === 'Escape') {
-      closeModal();
-      document.removeEventListener('keydown', handleEscape);
-    }
-  };
-  document.addEventListener('keydown', handleEscape);
-
-  // Fetch and display content
-  if (cardData.path) {
-    fetchPlainHtml(cardData.path).then(html => {
-      if (html) {
-        // Extract text content from HTML and style it for the modal
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = html;
-        
-        // Look for specific content patterns or just use the text content
-        const textContent = tempDiv.textContent || tempDiv.innerText || '';
-        
-        // Create a styled paragraph for the content
-        const styledContent = document.createElement('p');
-        styledContent.textContent = textContent;
-        styledContent.style.fontSize = '1.1rem';
-        styledContent.style.lineHeight = '1.6';
-        styledContent.style.color = 'rgba(255, 255, 255, 0.9)';
-        styledContent.style.textShadow = '1px 1px 2px rgba(0, 0, 0, 0.5)';
-        styledContent.style.margin = '0';
-        
-        content.innerHTML = '';
-        content.appendChild(styledContent);
-      } else {
-        content.innerHTML = `
-          <p style="color: rgba(255, 255, 255, 0.7); font-style: italic;">
-            Content not available - Unable to load the full content for this slide.
-          </p>
-        `;
+    // Event listeners
+    closeButton.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        closeModal();
       }
     });
-  } else {
-    content.innerHTML = `
-      <p style="color: rgba(255, 255, 255, 0.7); font-style: italic;">
-        No content path available
-      </p>
-    `;
+
+    // ESC key to close
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        document.removeEventListener('keydown', handleEscape);
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+
+    // Focus management for accessibility
+    closeButton.focus();
+
+    // Fetch and display content
+    if (cardData.path) {
+      fetchPlainHtml(cardData.path).then(html => {
+        if (html) {
+          // Extract text content from HTML and style it for the modal
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = html;
+          
+          // Look for specific content patterns or just use the text content
+          const textContent = tempDiv.textContent || tempDiv.innerText || '';
+          
+          // Create a styled paragraph for the content
+          const styledContent = document.createElement('p');
+          styledContent.textContent = textContent;
+          styledContent.style.fontSize = '1.1rem';
+          styledContent.style.lineHeight = '1.6';
+          styledContent.style.color = 'rgba(255, 255, 255, 0.9)';
+          styledContent.style.textShadow = '0 1px 2px rgba(0, 0, 0, 0.6)';
+          styledContent.style.margin = '0';
+          
+          contentArea.innerHTML = '';
+          contentArea.appendChild(styledContent);
+        } else {
+          contentArea.innerHTML = `
+            <p style="color: rgba(255, 255, 255, 0.7); font-style: italic;">
+              Content not available - Unable to load the full content for this slide.
+            </p>
+          `;
+        }
+      });
+    } else {
+      contentArea.innerHTML = `
+        <p style="color: rgba(255, 255, 255, 0.7); font-style: italic;">
+          No content path available
+        </p>
+      `;
+    }
+
+    } catch (error) {
+    console.error('[spectrum-card] Modal creation failed:', error);
+    // Fallback: show a simple alert
+    alert(`Failed to open modal for "${cardData.title}". Error: ${error.message}`);
   }
 }
 

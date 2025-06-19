@@ -12,6 +12,11 @@ export default defineConfig({
         target: 'https://allabout.network',
         changeOrigin: true,
         secure: true
+      },
+      '/media': {
+        target: 'https://allabout.network',
+        changeOrigin: true,
+        secure: true
       }
     }
   },
